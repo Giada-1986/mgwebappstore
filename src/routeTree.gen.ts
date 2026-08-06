@@ -16,6 +16,9 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AuthenticatedUnlockRouteImport } from './routes/_authenticated/unlock'
 import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
 import { Route as AuthenticatedAppExercisesRouteImport } from './routes/_authenticated/app.exercises'
+import { Route as AuthenticatedAppMonthlyRouteImport } from './routes/_authenticated/app.monthly'
+import { Route as AuthenticatedAppReportRouteImport } from './routes/_authenticated/app.report'
+import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +55,22 @@ const AuthenticatedAppExercisesRoute =
     path: '/app/exercises',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedAppMonthlyRoute = AuthenticatedAppMonthlyRouteImport.update({
+  id: '/app/monthly',
+  path: '/app/monthly',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAppReportRoute = AuthenticatedAppReportRouteImport.update({
+  id: '/app/report',
+  path: '/app/report',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAppSettingsRoute =
+  AuthenticatedAppSettingsRouteImport.update({
+    id: '/app/settings',
+    path: '/app/settings',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -59,6 +78,9 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/unlock': typeof AuthenticatedUnlockRoute
   '/app/exercises': typeof AuthenticatedAppExercisesRoute
+  '/app/monthly': typeof AuthenticatedAppMonthlyRoute
+  '/app/report': typeof AuthenticatedAppReportRoute
+  '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesByTo {
@@ -67,6 +89,9 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/unlock': typeof AuthenticatedUnlockRoute
   '/app/exercises': typeof AuthenticatedAppExercisesRoute
+  '/app/monthly': typeof AuthenticatedAppMonthlyRoute
+  '/app/report': typeof AuthenticatedAppReportRoute
+  '/app/settings': typeof AuthenticatedAppSettingsRoute
   '/app': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRoutesById {
@@ -77,14 +102,34 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/_authenticated/unlock': typeof AuthenticatedUnlockRoute
   '/_authenticated/app/exercises': typeof AuthenticatedAppExercisesRoute
+  '/_authenticated/app/monthly': typeof AuthenticatedAppMonthlyRoute
+  '/_authenticated/app/report': typeof AuthenticatedAppReportRoute
+  '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
   '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/onboarding' | '/unlock' | '/app/exercises' | '/app/'
+    | '/'
+    | '/auth'
+    | '/onboarding'
+    | '/unlock'
+    | '/app/exercises'
+    | '/app/monthly'
+    | '/app/report'
+    | '/app/settings'
+    | '/app/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/onboarding' | '/unlock' | '/app/exercises' | '/app'
+  to:
+    | '/'
+    | '/auth'
+    | '/onboarding'
+    | '/unlock'
+    | '/app/exercises'
+    | '/app/monthly'
+    | '/app/report'
+    | '/app/settings'
+    | '/app'
   id:
     | '__root__'
     | '/'
@@ -93,6 +138,9 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/_authenticated/unlock'
     | '/_authenticated/app/exercises'
+    | '/_authenticated/app/monthly'
+    | '/_authenticated/app/report'
+    | '/_authenticated/app/settings'
     | '/_authenticated/app/'
   fileRoutesById: FileRoutesById
 }
@@ -153,6 +201,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppExercisesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/app/monthly': {
+      id: '/_authenticated/app/monthly'
+      path: '/app/monthly'
+      fullPath: '/app/monthly'
+      preLoaderRoute: typeof AuthenticatedAppMonthlyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/report': {
+      id: '/_authenticated/app/report'
+      path: '/app/report'
+      fullPath: '/app/report'
+      preLoaderRoute: typeof AuthenticatedAppReportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/settings': {
+      id: '/_authenticated/app/settings'
+      path: '/app/settings'
+      fullPath: '/app/settings'
+      preLoaderRoute: typeof AuthenticatedAppSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -160,6 +229,9 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
   AuthenticatedUnlockRoute: typeof AuthenticatedUnlockRoute
   AuthenticatedAppExercisesRoute: typeof AuthenticatedAppExercisesRoute
+  AuthenticatedAppMonthlyRoute: typeof AuthenticatedAppMonthlyRoute
+  AuthenticatedAppReportRoute: typeof AuthenticatedAppReportRoute
+  AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
   AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
 }
 
@@ -167,6 +239,9 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
   AuthenticatedUnlockRoute: AuthenticatedUnlockRoute,
   AuthenticatedAppExercisesRoute: AuthenticatedAppExercisesRoute,
+  AuthenticatedAppMonthlyRoute: AuthenticatedAppMonthlyRoute,
+  AuthenticatedAppReportRoute: AuthenticatedAppReportRoute,
+  AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
   AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
 }
 

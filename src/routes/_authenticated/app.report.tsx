@@ -59,7 +59,7 @@ function ReportPage() {
     for (const c of items) {
       const h = new Date(c.created_at).getHours();
       const idx = h >= 6 && h < 11 ? 0 : h >= 11 && h < 15 ? 1 : h >= 15 && h < 19 ? 2 : h >= 19 && h < 23 ? 3 : 4;
-      buckets[idx].value++;
+      buckets[idx]!.value++;
     }
     return buckets;
   }, [items]);
@@ -67,7 +67,7 @@ function ReportPage() {
   const dayData = useMemo(() => {
     const days = dict.days as string[];
     const counts = days.map((name) => ({ name: name.slice(0, 3), value: 0, full: name }));
-    for (const c of items) counts[new Date(c.created_at).getDay()].value++;
+    for (const c of items) counts[new Date(c.created_at).getDay()]!.value++;
     return counts;
   }, [items, dict]);
 

@@ -22,7 +22,7 @@ function MonthlyPage() {
 
   const daysSinceFirst = useMemo(() => {
     if (!real.length) return 0;
-    const first = new Date(real[real.length - 1].created_at).getTime();
+    const first = new Date(real[real.length - 1]!.created_at).getTime();
     return Math.floor((Date.now() - first) / 86400000);
   }, [real]);
 
