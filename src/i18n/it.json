@@ -1,0 +1,153 @@
+{
+  "brand": "Fame o Fame?",
+  "tagline": "Non tutta la fame viene dallo stomaco.",
+  "nav": { "checkin": "Check-in", "exercises": "Esercizi", "report": "Report", "monthly": "Mensile", "settings": "Impostazioni" },
+  "common": {
+    "continue": "Continua",
+    "back": "Indietro",
+    "skip": "Salta",
+    "save": "Salva",
+    "saved": "Salvato",
+    "close": "Chiudi",
+    "loading": "Un attimo…",
+    "start": "Inizia",
+    "minutes": "minuti",
+    "seconds": "secondi"
+  },
+  "landing": {
+    "heroTitle": "Impara a riconoscere la tua fame",
+    "heroText": "Fame o Fame? ti accompagna a distinguere la fame fisica da quella emotiva, con dolcezza e senza giudizio. Un piccolo gesto di consapevolezza, ogni volta che ne hai bisogno.",
+    "cta": "Inizia ora",
+    "login": "Accedi",
+    "f1Title": "Check-in in un minuto",
+    "f1Text": "Quattro domande gentili, prima di mangiare fuori pasto.",
+    "f2Title": "Esercizi brevi",
+    "f2Text": "Dieci micro-esercizi da 60-120 secondi per attraversare l'onda.",
+    "f3Title": "I tuoi pattern",
+    "f3Text": "Report personali che ti mostrano quando e perché arriva la fame emotiva.",
+    "priceTitle": "Un unico pagamento, accesso a vita",
+    "priceText": "Nessun abbonamento, nessun rinnovo. Paghi una volta e l'app è tua per sempre.",
+    "noScales": "Niente calorie, niente bilance. Solo ascolto."
+  },
+  "auth": {
+    "title": "Benvenuta",
+    "subtitle": "Accedi o crea il tuo spazio personale.",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Accedi",
+    "signUp": "Crea account",
+    "toSignUp": "Non hai un account? Registrati",
+    "toSignIn": "Hai già un account? Accedi",
+    "checkEmail": "Ti abbiamo inviato una email di conferma. Controlla la posta per attivare l'accesso.",
+    "error": "Qualcosa non ha funzionato. Riprova."
+  },
+  "paywall": {
+    "title": "Il tuo spazio è quasi pronto",
+    "text": "Fame o Fame? è un acquisto unico: sblocchi l'accesso a vita, senza abbonamenti.",
+    "cta": "Sblocca l'accesso a vita",
+    "note": "Pagamento sicuro. Nessun rinnovo automatico.",
+    "signOut": "Esci"
+  },
+  "onboarding": {
+    "step": "Passo",
+    "s1Title": "Fame fisica o fame emotiva?",
+    "s1Text": "La fame fisica arriva piano: lo stomaco brontola, l'energia cala, va bene qualsiasi cibo. La fame emotiva arriva all'improvviso, chiede qualcosa di preciso e spesso resta anche dopo aver mangiato. Nessuna delle due è sbagliata: capire quale delle due stai vivendo è già tutto.",
+    "s2Title": "Quando ti capita di più?",
+    "s2Text": "Scegli i momenti in cui tendi a mangiare fuori pasto. Puoi cambiarli quando vuoi.",
+    "s2Other": "Altro (scrivi tu)",
+    "s2OtherPlaceholder": "es. la domenica pomeriggio",
+    "s3Title": "Come funziona il check-in",
+    "s3Text": "Ogni volta che stai per mangiare fuori pasto, apri l'app e premi il pulsante grande. Ti farò quattro domande brevi, una alla volta. Poi deciderai tu: aspettare dieci minuti, provare un esercizio, oppure mangiare comunque. Non c'è una risposta giusta.",
+    "s3Cta": "Fai il primo check-in",
+    "triggers": {
+      "evening": "La sera",
+      "work": "Stress da lavoro",
+      "boredom": "Noia",
+      "argument": "Dopo una discussione",
+      "night": "Di notte",
+      "alone": "Quando sono sola"
+    }
+  },
+  "checkin": {
+    "greeting": "Come stai adesso?",
+    "big": "Sto per mangiare qualcosa fuori pasto",
+    "count": "check-in finora",
+    "q1": "Hai fame fisica (stomaco che brontola, energia bassa) o è un'altra cosa?",
+    "q1a": { "physical": "Fame fisica", "unsure": "Non sono sicura", "emotional": "Non è fame fisica" },
+    "q2": "Cosa provi in questo momento?",
+    "q3": "Cosa è successo poco prima?",
+    "q3Placeholder": "es. discussione con un collega",
+    "q3Optional": "Facoltativo",
+    "q4": "Cosa vuoi fare adesso?",
+    "q4wait": "Aspetto 10 minuti e poi decido",
+    "q4exercise": "Provo un esercizio breve",
+    "q4eat": "Ho deciso di mangiare comunque, va bene così",
+    "eatMessage": "Va bene. L'importante è che tu ne sia consapevole.",
+    "waitTitle": "Dieci minuti solo per te",
+    "waitBreath": "Inspira lentamente… trattieni… espira. Non devi fare nient'altro.",
+    "waitDone": "I dieci minuti sono passati. Come ti senti adesso?",
+    "saved": "Check-in salvato.",
+    "emotions": {
+      "stress": "Stress",
+      "boredom": "Noia",
+      "sadness": "Tristezza",
+      "anger": "Rabbia",
+      "anxiety": "Ansia",
+      "loneliness": "Solitudine",
+      "tiredness": "Stanchezza",
+      "other": "Altro"
+    }
+  },
+  "exercises": {
+    "title": "Libreria esercizi",
+    "subtitle": "Micro-esercizi da 60 a 120 secondi. Scegli quello che ti somiglia oggi.",
+    "startTimer": "Avvia timer",
+    "stopTimer": "Ferma",
+    "done": "Fatto. Bravissima."
+  },
+  "report": {
+    "title": "Il tuo report personale",
+    "lockedTitle": "Si sblocca dopo 7 check-in",
+    "locked": "Ti mancano ancora {n} check-in. Ogni check-in aggiunge un pezzetto al tuo quadro.",
+    "emotions": "Le emozioni più frequenti",
+    "times": "Quando succede più spesso",
+    "hours": "Fasce orarie",
+    "days": "Giorni della settimana",
+    "triggers": "Le 3 situazioni più ricorrenti",
+    "noTriggers": "Non hai ancora scritto note sufficienti per individuare situazioni ricorrenti.",
+    "summary": "In sintesi",
+    "demoNote": "Stai vedendo dati di esempio.",
+    "demoToggle": "Mostra dati di esempio"
+  },
+  "monthly": {
+    "title": "Report mensile",
+    "lockedTitle": "Si sblocca dopo 30 giorni",
+    "locked": "Mancano {n} giorni dal tuo primo check-in.",
+    "first15": "Primi 15 giorni",
+    "last15": "Ultimi 15 giorni",
+    "total": "Check-in totali",
+    "waitRate": "Volte in cui hai scelto di aspettare",
+    "better": "Stai scegliendo di aspettare più spesso di prima. È un cambiamento reale.",
+    "same": "I tuoi numeri sono stabili. Continuare a osservarti è già molto.",
+    "lower": "Hai aspettato meno di prima. Succede: i periodi non sono tutti uguali."
+  },
+  "settings": {
+    "title": "Impostazioni account",
+    "email": "Email",
+    "access": "Accesso",
+    "lifetime": "Accesso a vita attivo",
+    "notPaid": "Accesso non ancora sbloccato",
+    "language": "Lingua",
+    "triggersTitle": "I tuoi momenti critici",
+    "signOut": "Esci",
+    "resetOnboarding": "Rivedi l'introduzione"
+  },
+  "summary": {
+    "top": "L'emozione che ricorre di più nei tuoi check-in è {emotion}.",
+    "hour": "Il momento più delicato della tua giornata è intorno alle {hour}.",
+    "day": "Il giorno in cui ti capita più spesso è {day}.",
+    "wait": "Nel {pct}% dei casi hai scelto di aspettare o fare un esercizio invece di mangiare subito.",
+    "kind": "Ricorda: notare tutto questo è già prendersi cura di sé."
+  },
+  "days": ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"]
+}

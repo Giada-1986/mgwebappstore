@@ -1,0 +1,153 @@
+{
+  "brand": "Hungry, or Hungry?",
+  "tagline": "Not all hunger comes from your stomach.",
+  "nav": { "checkin": "Check-in", "exercises": "Exercises", "report": "Report", "monthly": "Monthly", "settings": "Settings" },
+  "common": {
+    "continue": "Continue",
+    "back": "Back",
+    "skip": "Skip",
+    "save": "Save",
+    "saved": "Saved",
+    "close": "Close",
+    "loading": "One moment…",
+    "start": "Start",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "landing": {
+    "heroTitle": "Learn to recognise your hunger",
+    "heroText": "Hungry, or Hungry? helps you tell physical hunger from emotional hunger, gently and without judgement. A small act of awareness, whenever you need it.",
+    "cta": "Get started",
+    "login": "Sign in",
+    "f1Title": "A one-minute check-in",
+    "f1Text": "Four kind questions, before you eat between meals.",
+    "f2Title": "Short exercises",
+    "f2Text": "Ten micro-exercises of 60-120 seconds to ride the wave.",
+    "f3Title": "Your patterns",
+    "f3Text": "Personal reports showing when and why emotional hunger shows up.",
+    "priceTitle": "One payment, lifetime access",
+    "priceText": "No subscription, no renewals. Pay once and the app is yours forever.",
+    "noScales": "No calories, no scales. Just listening."
+  },
+  "auth": {
+    "title": "Welcome",
+    "subtitle": "Sign in or create your personal space.",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "toSignUp": "No account yet? Sign up",
+    "toSignIn": "Already have an account? Sign in",
+    "checkEmail": "We sent you a confirmation email. Check your inbox to activate your access.",
+    "error": "Something went wrong. Please try again."
+  },
+  "paywall": {
+    "title": "Your space is almost ready",
+    "text": "Hungry, or Hungry? is a one-time purchase: unlock lifetime access, no subscriptions.",
+    "cta": "Unlock lifetime access",
+    "note": "Secure payment. No automatic renewal.",
+    "signOut": "Sign out"
+  },
+  "onboarding": {
+    "step": "Step",
+    "s1Title": "Physical or emotional hunger?",
+    "s1Text": "Physical hunger builds slowly: your stomach rumbles, energy dips, any food will do. Emotional hunger arrives suddenly, asks for something specific and often stays even after eating. Neither is wrong: simply knowing which one you're feeling is already everything.",
+    "s2Title": "When does it happen most?",
+    "s2Text": "Pick the moments when you tend to eat between meals. You can change them anytime.",
+    "s2Other": "Something else (write it)",
+    "s2OtherPlaceholder": "e.g. Sunday afternoons",
+    "s3Title": "How the check-in works",
+    "s3Text": "Whenever you're about to eat between meals, open the app and press the big button. I'll ask four short questions, one at a time. Then you choose: wait ten minutes, try an exercise, or eat anyway. There is no right answer.",
+    "s3Cta": "Do your first check-in",
+    "triggers": {
+      "evening": "Evenings",
+      "work": "Work stress",
+      "boredom": "Boredom",
+      "argument": "After an argument",
+      "night": "Late at night",
+      "alone": "When I'm alone"
+    }
+  },
+  "checkin": {
+    "greeting": "How are you right now?",
+    "big": "I'm about to eat between meals",
+    "count": "check-ins so far",
+    "q1": "Is this physical hunger (rumbling stomach, low energy) or something else?",
+    "q1a": { "physical": "Physical hunger", "unsure": "I'm not sure", "emotional": "Not physical hunger" },
+    "q2": "What are you feeling right now?",
+    "q3": "What happened just before?",
+    "q3Placeholder": "e.g. an argument with a colleague",
+    "q3Optional": "Optional",
+    "q4": "What would you like to do now?",
+    "q4wait": "I'll wait 10 minutes, then decide",
+    "q4exercise": "I'll try a short exercise",
+    "q4eat": "I've decided to eat anyway, and that's fine",
+    "eatMessage": "That's okay. What matters is that you're aware of it.",
+    "waitTitle": "Ten minutes just for you",
+    "waitBreath": "Breathe in slowly… hold… breathe out. There's nothing else to do.",
+    "waitDone": "The ten minutes are up. How do you feel now?",
+    "saved": "Check-in saved.",
+    "emotions": {
+      "stress": "Stress",
+      "boredom": "Boredom",
+      "sadness": "Sadness",
+      "anger": "Anger",
+      "anxiety": "Anxiety",
+      "loneliness": "Loneliness",
+      "tiredness": "Tiredness",
+      "other": "Other"
+    }
+  },
+  "exercises": {
+    "title": "Exercise library",
+    "subtitle": "Micro-exercises of 60 to 120 seconds. Pick the one that fits you today.",
+    "startTimer": "Start timer",
+    "stopTimer": "Stop",
+    "done": "Done. Well done."
+  },
+  "report": {
+    "title": "Your personal report",
+    "lockedTitle": "Unlocks after 7 check-ins",
+    "locked": "{n} check-ins to go. Each one adds a piece to your picture.",
+    "emotions": "Most frequent emotions",
+    "times": "When it happens most",
+    "hours": "Time of day",
+    "days": "Days of the week",
+    "triggers": "Your 3 most recurring situations",
+    "noTriggers": "You haven't written enough notes yet to spot recurring situations.",
+    "summary": "In short",
+    "demoNote": "You're viewing sample data.",
+    "demoToggle": "Show sample data"
+  },
+  "monthly": {
+    "title": "Monthly report",
+    "lockedTitle": "Unlocks after 30 days",
+    "locked": "{n} days to go since your first check-in.",
+    "first15": "First 15 days",
+    "last15": "Last 15 days",
+    "total": "Total check-ins",
+    "waitRate": "Times you chose to wait",
+    "better": "You're choosing to wait more often than before. That's a real change.",
+    "same": "Your numbers are steady. Keeping an eye on yourself is already a lot.",
+    "lower": "You waited less than before. It happens: not all months are the same."
+  },
+  "settings": {
+    "title": "Account settings",
+    "email": "Email",
+    "access": "Access",
+    "lifetime": "Lifetime access active",
+    "notPaid": "Access not unlocked yet",
+    "language": "Language",
+    "triggersTitle": "Your tricky moments",
+    "signOut": "Sign out",
+    "resetOnboarding": "Replay the intro"
+  },
+  "summary": {
+    "top": "The emotion that comes up most in your check-ins is {emotion}.",
+    "hour": "The most delicate moment of your day is around {hour}.",
+    "day": "The day it happens most often is {day}.",
+    "wait": "In {pct}% of cases you chose to wait or do an exercise instead of eating right away.",
+    "kind": "Remember: noticing all of this is already self-care."
+  },
+  "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+}
