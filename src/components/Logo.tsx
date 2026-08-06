@@ -14,7 +14,8 @@ export function Logo({ className, priority = false }: { className?: string; prio
       width={1024}
       height={1024}
       loading={priority ? "eager" : "lazy"}
-      className={cn("rounded-full object-cover", className)}
+      className={cn("rounded-2xl border border-gold/25 object-contain", className)}
     />
+
   );
 }
