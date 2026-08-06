@@ -14,7 +14,102 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      checkins: {
+        Row: {
+          action_chosen: string | null
+          created_at: string
+          emotion: string | null
+          hunger_type: string
+          id: string
+          note: string | null
+          user_id: string
+        }
+        Insert: {
+          action_chosen?: string | null
+          created_at?: string
+          emotion?: string | null
+          hunger_type: string
+          id?: string
+          note?: string | null
+          user_id: string
+        }
+        Update: {
+          action_chosen?: string | null
+          created_at?: string
+          emotion?: string | null
+          hunger_type?: string
+          id?: string
+          note?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      exercises: {
+        Row: {
+          duration_seconds: number
+          id: string
+          instructions: string
+          instructions_en: string
+          slug: string
+          sort_order: number
+          title: string
+          title_en: string
+        }
+        Insert: {
+          duration_seconds?: number
+          id?: string
+          instructions: string
+          instructions_en: string
+          slug: string
+          sort_order?: number
+          title: string
+          title_en: string
+        }
+        Update: {
+          duration_seconds?: number
+          id?: string
+          instructions?: string
+          instructions_en?: string
+          slug?: string
+          sort_order?: number
+          title?: string
+          title_en?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          has_paid: boolean
+          id: string
+          language: string
+          onboarding_done: boolean
+          trigger_other: string | null
+          triggers: string[]
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          has_paid?: boolean
+          id: string
+          language?: string
+          onboarding_done?: boolean
+          trigger_other?: string | null
+          triggers?: string[]
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          has_paid?: boolean
+          id?: string
+          language?: string
+          onboarding_done?: boolean
+          trigger_other?: string | null
+          triggers?: string[]
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
