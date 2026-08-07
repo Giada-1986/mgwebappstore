@@ -5,7 +5,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SakuraCorners } from "@/components/Sakura";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
-import { useSession } from "@/lib/data";
+import { useSession } from "@/lib/platform";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -31,7 +31,7 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (session) navigate({ to: "/unlock", replace: true });
+    if (session) navigate({ to: "/my-apps", replace: true });
   }, [session, navigate]);
 
   async function submit(e: React.FormEvent) {

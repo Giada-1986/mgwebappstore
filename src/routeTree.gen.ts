@@ -12,6 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
+import { Route as AuthenticatedMyAppsRouteImport } from './routes/_authenticated/my-apps'
+import { Route as AppsIndexRouteImport } from './routes/apps.index'
+import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
+import { Route as AuthenticatedCheckoutSlugRouteImport } from './routes/_authenticated/checkout.$slug'
 import { Route as AuthenticatedAppFameOFameIndexRouteImport } from './routes/_authenticated/app.fame-o-fame.index'
 import { Route as AuthenticatedAppFameOFameExercisesRouteImport } from './routes/_authenticated/app.fame-o-fame.exercises'
 import { Route as AuthenticatedAppFameOFameMonthlyRouteImport } from './routes/_authenticated/app.fame-o-fame.monthly'
@@ -34,6 +39,32 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMyAppsRoute = AuthenticatedMyAppsRouteImport.update({
+  id: '/my-apps',
+  path: '/my-apps',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AppsIndexRoute = AppsIndexRouteImport.update({
+  id: '/apps/',
+  path: '/apps/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsSlugRoute = AppsSlugRouteImport.update({
+  id: '/apps/$slug',
+  path: '/apps/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCheckoutSlugRoute =
+  AuthenticatedCheckoutSlugRouteImport.update({
+    id: '/checkout/$slug',
+    path: '/checkout/$slug',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAppFameOFameIndexRoute =
   AuthenticatedAppFameOFameIndexRouteImport.update({
     id: '/app/fame-o-fame/',
@@ -80,6 +111,11 @@ const ApiPublicPaymentsWebhookRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/my-apps': typeof AuthenticatedMyAppsRoute
+  '/apps/$slug': typeof AppsSlugRoute
+  '/apps/': typeof AppsIndexRoute
+  '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
   '/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
   '/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
@@ -91,6 +127,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/my-apps': typeof AuthenticatedMyAppsRoute
+  '/apps/$slug': typeof AppsSlugRoute
+  '/apps': typeof AppsIndexRoute
+  '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
   '/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
   '/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
@@ -104,6 +145,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRoute
+  '/_authenticated/my-apps': typeof AuthenticatedMyAppsRoute
+  '/apps/$slug': typeof AppsSlugRoute
+  '/apps/': typeof AppsIndexRoute
+  '/_authenticated/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/_authenticated/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
   '/_authenticated/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
   '/_authenticated/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
@@ -117,6 +163,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/account'
+    | '/my-apps'
+    | '/apps/$slug'
+    | '/apps/'
+    | '/checkout/$slug'
     | '/app/fame-o-fame/exercises'
     | '/app/fame-o-fame/monthly'
     | '/app/fame-o-fame/onboarding'
@@ -128,6 +179,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/account'
+    | '/my-apps'
+    | '/apps/$slug'
+    | '/apps'
+    | '/checkout/$slug'
     | '/app/fame-o-fame/exercises'
     | '/app/fame-o-fame/monthly'
     | '/app/fame-o-fame/onboarding'
@@ -140,6 +196,11 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/_authenticated/account'
+    | '/_authenticated/my-apps'
+    | '/apps/$slug'
+    | '/apps/'
+    | '/_authenticated/checkout/$slug'
     | '/_authenticated/app/fame-o-fame/exercises'
     | '/_authenticated/app/fame-o-fame/monthly'
     | '/_authenticated/app/fame-o-fame/onboarding'
@@ -153,6 +214,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  AppsSlugRoute: typeof AppsSlugRoute
+  AppsIndexRoute: typeof AppsIndexRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
@@ -178,6 +241,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/account': {
+      id: '/_authenticated/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my-apps': {
+      id: '/_authenticated/my-apps'
+      path: '/my-apps'
+      fullPath: '/my-apps'
+      preLoaderRoute: typeof AuthenticatedMyAppsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/apps/': {
+      id: '/apps/'
+      path: '/apps'
+      fullPath: '/apps/'
+      preLoaderRoute: typeof AppsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/$slug': {
+      id: '/apps/$slug'
+      path: '/apps/$slug'
+      fullPath: '/apps/$slug'
+      preLoaderRoute: typeof AppsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/checkout/$slug': {
+      id: '/_authenticated/checkout/$slug'
+      path: '/checkout/$slug'
+      fullPath: '/checkout/$slug'
+      preLoaderRoute: typeof AuthenticatedCheckoutSlugRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/app/fame-o-fame/': {
       id: '/_authenticated/app/fame-o-fame/'
@@ -232,6 +330,9 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
+  AuthenticatedMyAppsRoute: typeof AuthenticatedMyAppsRoute
+  AuthenticatedCheckoutSlugRoute: typeof AuthenticatedCheckoutSlugRoute
   AuthenticatedAppFameOFameExercisesRoute: typeof AuthenticatedAppFameOFameExercisesRoute
   AuthenticatedAppFameOFameMonthlyRoute: typeof AuthenticatedAppFameOFameMonthlyRoute
   AuthenticatedAppFameOFameOnboardingRoute: typeof AuthenticatedAppFameOFameOnboardingRoute
@@ -241,6 +342,9 @@ interface AuthenticatedRouteRouteChildren {
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
+  AuthenticatedMyAppsRoute: AuthenticatedMyAppsRoute,
+  AuthenticatedCheckoutSlugRoute: AuthenticatedCheckoutSlugRoute,
   AuthenticatedAppFameOFameExercisesRoute:
     AuthenticatedAppFameOFameExercisesRoute,
   AuthenticatedAppFameOFameMonthlyRoute: AuthenticatedAppFameOFameMonthlyRoute,
@@ -259,6 +363,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  AppsSlugRoute: AppsSlugRoute,
+  AppsIndexRoute: AppsIndexRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
