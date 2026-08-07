@@ -169,7 +169,7 @@
     "Sabato"
   ],
   "store": {
-    "tagline": "Piccole app, grandi cambiamenti",
+    "tagline": "Piccole app. Soluzioni immediate.",
     "nav": {
       "store": "Store",
       "catalog": "Catalogo",
@@ -220,6 +220,7 @@
     "paymentsNotConfigured": "Il checkout di produzione non è configurato. Completa il go-live di Stripe per accettare pagamenti reali.",
     "testMode": "Tutti i pagamenti in anteprima sono in modalità test.",
     "testModeDetails": "Dettagli",
-    "brand": "Mini Apps"
+    "brand": "MINI WEB APPS",
+    "promise": "Acquisti una volta. La tua app resta tua. Nessun abbonamento."
   }
 }

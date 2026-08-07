@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Logo } from "@/components/Logo";
+import { StoreLogo } from "@/components/store/StoreLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { SakuraCorners } from "@/components/Sakura";
 import { useI18n } from "@/lib/i18n";
@@ -21,10 +21,10 @@ export const Route = createFileRoute("/auth")({
   }),
   head: () => ({
     meta: [
-      { title: "Accedi — Fame o Fame?" },
-      { name: "description", content: "Accedi o crea il tuo spazio personale su Fame o Fame?." },
-      { property: "og:title", content: "Accedi — Fame o Fame?" },
-      { property: "og:description", content: "Accedi o crea il tuo spazio personale su Fame o Fame?." },
+      { title: "Accedi — Mini Web Apps" },
+      { name: "description", content: "Accedi o crea il tuo account Mini Web Apps." },
+      { property: "og:title", content: "Accedi — Mini Web Apps" },
+      { property: "og:description", content: "Accedi o crea il tuo account Mini Web Apps." },
     ],
   }),
   component: AuthPage,
@@ -78,7 +78,8 @@ function AuthPage() {
         <LanguageSwitcher />
       </div>
       <div className="card-pearl relative z-10 w-full max-w-md p-8 text-center">
-        <Logo priority className="mx-auto h-20 w-20 shadow-[var(--shadow-gold)]" />
+        <StoreLogo priority className="mx-auto h-24 w-24 rounded-2xl shadow-[var(--shadow-gold)]" />
+
         <h1 className="mt-5 font-display text-3xl">{t("auth.title")}</h1>
         <p className="mt-2 text-sm text-muted-foreground">{t("auth.subtitle")}</p>
 

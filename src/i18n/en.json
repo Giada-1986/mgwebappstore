@@ -169,7 +169,7 @@
     "Saturday"
   ],
   "store": {
-    "tagline": "Small apps, real change",
+    "tagline": "Simple apps. Instant solutions.",
     "nav": {
       "store": "Store",
       "catalog": "Catalog",
@@ -220,6 +220,7 @@
     "paymentsNotConfigured": "Production checkout is not configured. Complete Stripe go-live to accept real payments.",
     "testMode": "All payments in preview are in test mode.",
     "testModeDetails": "Details",
-    "brand": "Mini Apps"
+    "brand": "MINI WEB APPS",
+    "promise": "Buy once. Your app stays yours. No subscription."
   }
 }
