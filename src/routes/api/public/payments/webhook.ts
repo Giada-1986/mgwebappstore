@@ -370,16 +370,31 @@ function isFullyRefunded(charge: any): boolean {
 async function handleWebhook(req: Request, env: StripeEnv) {
   const event = await verifyWebhook(req, env);
 
+  const isGift = (s: any) => s?.metadata?.kind === "gift";
+
   switch (event.type) {
     case "checkout.session.completed": {
-      await fulfil(event.data.object, env);
+      const s = event.data.object;
+      if (isGift(s)) await fulfilGift(s, env);
+      else await fulfil(s, env);
       break;
     }
-    case "checkout.session.async_payment_succeeded":
-      await fulfil(event.data.object, env);
+    case "checkout.session.async_payment_succeeded": {
+      const s = event.data.object;
+      if (isGift(s)) await fulfilGift(s, env);
+      else await fulfil(s, env);
       break;
+    }
     case "checkout.session.async_payment_failed":
-      await markStatus(event.data.object, "failed", env);
+      if (isGift(event.data.object)) {
+        await getSupabase()
+          .from("gifts")
+          .update({ status: "cancelled" })
+          .eq("stripe_checkout_session_id", (event.data.object as any).id)
+          .eq("environment", env);
+      } else {
+        await markStatus(event.data.object, "failed", env);
+      }
       break;
     case "charge.refunded":
     case "charge.refund.updated": {
@@ -396,8 +411,16 @@ async function handleWebhook(req: Request, env: StripeEnv) {
           break;
         }
       }
-      if (isFullyRefunded(charge)) await handleRefund(charge, env, "refunded");
+      if (isFullyRefunded(charge)) {
+        await handleRefund(charge, env, "refunded");
+        const pi =
+          typeof charge?.payment_intent === "string"
+            ? charge.payment_intent
+            : charge?.payment_intent?.id;
+        if (pi) await handleGiftRefund(pi, env);
+      }
       break;
+
     }
     case "charge.dispute.closed": {
       const dispute: any = event.data.object;
