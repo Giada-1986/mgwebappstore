@@ -3,7 +3,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { StoreShell } from "@/components/store/StoreShell";
 import { useI18n } from "@/lib/i18n";
-import { redeemGift } from "@/lib/gifts.functions";
+import { redeemGift, getGiftByToken } from "@/lib/gifts.functions";
+import { useQuery } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/_authenticated/redeem/$token")({
   head: () => ({
@@ -26,6 +27,11 @@ function RedeemPage() {
   const { t } = useI18n();
   const { token } = Route.useParams();
   const redeem = useServerFn(redeemGift);
+  const fetchGift = useServerFn(getGiftByToken);
+  const { data: gift } = useQuery({
+    queryKey: ["gift", token],
+    queryFn: () => fetchGift({ data: { token } }),
+  });
   const [state, setState] = useState<
     { kind: "idle" } | { kind: "busy" } | { kind: "done"; slug: string | null } | { kind: "error"; reason: string }
   >({ kind: "idle" });
@@ -46,6 +52,17 @@ function RedeemPage() {
       <div className="mx-auto max-w-lg py-10">
         <h1 className="text-3xl font-semibold tracking-tight">{t("store.gift.title")}</h1>
         <p className="mt-3 text-muted-foreground">{t("store.gift.intro")}</p>
+
+        {gift?.giftMessage ? (
+          <figure className="card-store mt-6 p-5">
+            <figcaption className="text-xs uppercase tracking-[0.18em] text-muted-foreground">
+              {t("store.gift.messageFrom")}
+            </figcaption>
+            <blockquote className="mt-2 whitespace-pre-wrap break-words text-base leading-relaxed text-foreground">
+              {gift.giftMessage}
+            </blockquote>
+          </figure>
+        ) : null}
 
         {state.kind === "done" ? (
           <div className="mt-8 space-y-4">
