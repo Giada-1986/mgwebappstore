@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { StoreLogo } from "@/components/store/StoreLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { SakuraCorners } from "@/components/Sakura";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/lib/platform";
@@ -72,26 +71,38 @@ function AuthPage() {
   }
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center px-5 py-12">
-      <SakuraCorners />
+    <div className="store-scope flex min-h-screen flex-col items-center justify-center px-5 py-14">
       <div className="absolute right-5 top-5 z-10">
         <LanguageSwitcher />
       </div>
-      <div className="card-pearl relative z-10 w-full max-w-md p-8 text-center">
-        <StoreLogo priority className="mx-auto h-24 w-24 rounded-2xl shadow-[var(--shadow-gold)]" />
 
-        <h1 className="mt-5 font-display text-3xl">{t("auth.title")}</h1>
-        <p className="mt-2 text-sm text-muted-foreground">{t("auth.subtitle")}</p>
+      <div className="card-store w-full max-w-md p-9 text-center">
+        <StoreLogo priority className="mx-auto h-20 w-20 rounded-2xl ring-1 ring-primary/25" />
+        <p
+          translate="no"
+          className="notranslate mt-5 text-[0.65rem] uppercase tracking-[0.42em] text-primary"
+        >
+          {t("store.brand")}
+        </p>
+        <h1 className="mt-3 text-2xl font-semibold tracking-tight">
+          {mode === "signin" ? t("auth.title") : t("auth.titleSignUp")}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          {mode === "signin" ? t("auth.subtitle") : t("auth.subtitleSignUp")}
+        </p>
 
-        <form onSubmit={submit} className="mt-6 space-y-3 text-left">
+        <div className="store-hairline mx-auto mt-7 w-24" />
+
+        <form onSubmit={submit} className="mt-7 space-y-4 text-left">
           <label className="block text-sm">
             <span className="text-muted-foreground">{t("auth.email")}</span>
             <input
               type="email"
               required
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-gold/35 bg-background/60 px-4 py-2.5 outline-none focus:border-gold"
+              className="input-store mt-1.5"
             />
           </label>
           <label className="block text-sm">
@@ -100,20 +111,17 @@ function AuthPage() {
               type="password"
               required
               minLength={6}
+              autoComplete={mode === "signin" ? "current-password" : "new-password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-gold/35 bg-background/60 px-4 py-2.5 outline-none focus:border-gold"
+              className="input-store mt-1.5"
             />
           </label>
 
           {error && <p className="text-sm text-destructive">{error}</p>}
           {message && <p className="text-sm text-foreground">{message}</p>}
 
-          <button
-            type="submit"
-            disabled={busy}
-            className="w-full rounded-full bg-[image:var(--gradient-gold)] px-6 py-3 font-medium text-primary-foreground shadow-[var(--shadow-gold)] disabled:opacity-60"
-          >
+          <button type="submit" disabled={busy} className="btn-store w-full disabled:opacity-60">
             {mode === "signin" ? t("auth.signIn") : t("auth.signUp")}
           </button>
         </form>
@@ -121,11 +129,15 @@ function AuthPage() {
         <button
           type="button"
           onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-4 text-sm text-muted-foreground underline-offset-4 hover:underline"
+          className="mt-5 text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
         >
           {mode === "signin" ? t("auth.toSignUp") : t("auth.toSignIn")}
         </button>
       </div>
+
+      <p className="mt-6 max-w-md text-center text-xs text-muted-foreground">
+        {t("store.footer")}
+      </p>
     </div>
   );
 }
