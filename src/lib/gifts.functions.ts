@@ -12,7 +12,22 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
  *  - a token can be redeemed once (atomic, single-use, DB-side).
  */
 
-type GiftCheckoutResult = { clientSecret: string; giftId: string } | { error: string };
+type GiftCheckoutResult =
+  | { clientSecret: string; giftId: string; redemptionToken: string }
+  | { error: string };
+
+/** Cryptographically unpredictable, URL-safe token (256 bits of entropy). */
+function generateRedemptionToken(): string {
+  const bytes = new Uint8Array(32);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/** SHA-256 hex digest — only the digest is ever persisted. */
+async function hashToken(token: string): Promise<string> {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(token));
+  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
+}
 
 const EMAIL_RE = /^[^@\s]+@[^@\s.]+\.[^@\s]{2,}$/;
 
@@ -54,7 +69,8 @@ export const createGiftCheckoutSession = createServerFn({ method: "POST" })
     if (product.status !== "active") return { error: "Prodotto non ancora acquistabile." };
     if (!product.stripe_price_id) return { error: "Prezzo non configurato per questo prodotto." };
 
-    const token = crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().replace(/-/g, "");
+    const token = generateRedemptionToken();
+    const tokenHash = await hashToken(token);
 
     // Created as `pending` with no payment reference: it becomes usable only
     // when the signed webhook confirms the payment for THIS product.
@@ -65,7 +81,7 @@ export const createGiftCheckoutSession = createServerFn({ method: "POST" })
         recipient_email: data.recipientEmail.toLowerCase(),
         purchaser_email: data.purchaserEmail?.toLowerCase() ?? null,
         gift_message: data.giftMessage ?? null,
-        redemption_token: token,
+        redemption_token_hash: tokenHash,
         currency: product.currency,
         environment,
         status: "pending",
@@ -103,7 +119,7 @@ export const createGiftCheckoutSession = createServerFn({ method: "POST" })
         .update({ stripe_checkout_session_id: session.id })
         .eq("id", gift.id);
 
-      return { clientSecret: session.client_secret ?? "", giftId: gift.id };
+      return { clientSecret: session.client_secret ?? "", giftId: gift.id, redemptionToken: token };
     } catch (error) {
       await admin.from("gifts").update({ status: "cancelled" }).eq("id", gift.id);
       return { error: getStripeErrorMessage(error) };
@@ -121,7 +137,7 @@ export type RedeemResult =
 export const redeemGift = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: { token: string }) => {
-    if (!/^[a-zA-Z0-9]{16,128}$/.test(data.token)) throw new Error("Invalid token");
+    if (!/^[a-f0-9]{64}$/.test(data.token)) throw new Error("Invalid token");
     return data;
   })
   .handler(async ({ data, context }): Promise<RedeemResult> => {
@@ -129,19 +145,15 @@ export const redeemGift = createServerFn({ method: "POST" })
     const { resolveServerStripeEnv } = await import("@/lib/payments-env.server");
     const admin = supabaseAdmin as any;
 
-    // Sandbox/live separation: a gift bought in another environment is invisible.
+    // Sandbox/live separation is enforced inside the RPC, from a server-derived
+    // environment: a gift bought in another environment can never be redeemed.
     const environment = resolveServerStripeEnv();
-    const { data: gift } = await admin
-      .from("gifts")
-      .select("id, environment")
-      .eq("redemption_token", data.token)
-      .maybeSingle();
-
-    if (!gift || gift.environment !== environment) return { ok: false, reason: "invalid_token" };
+    const tokenHash = await hashToken(data.token);
 
     const { data: result, error } = await admin.rpc("redeem_gift", {
-      _token: data.token,
+      _token_hash: tokenHash,
       _user_id: context.userId,
+      _environment: environment,
     });
 
     if (error) return { ok: false, reason: "error" };
@@ -152,7 +164,7 @@ export const redeemGift = createServerFn({ method: "POST" })
 /** Read-only status of a token, for the redeem screen (no side effects). */
 export const getGiftByToken = createServerFn({ method: "POST" })
   .inputValidator((data: { token: string }) => {
-    if (!/^[a-zA-Z0-9]{16,128}$/.test(data.token)) throw new Error("Invalid token");
+    if (!/^[a-f0-9]{64}$/.test(data.token)) throw new Error("Invalid token");
     return data;
   })
   .handler(async ({ data }) => {
@@ -164,7 +176,7 @@ export const getGiftByToken = createServerFn({ method: "POST" })
     const { data: gift } = await admin
       .from("gifts")
       .select("status, purchased_at, environment, products(slug, name_it, name_en)")
-      .eq("redemption_token", data.token)
+      .eq("redemption_token_hash", await hashToken(data.token))
       .maybeSingle();
 
     if (!gift || gift.environment !== environment) return null;
