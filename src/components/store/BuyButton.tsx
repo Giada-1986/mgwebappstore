@@ -40,7 +40,10 @@ export function BuyButton({
       className={`btn-store hover:-translate-y-0.5 ${className}`}
       onClick={() => {
         if (!session) {
-          navigate({ to: "/auth" });
+          navigate({
+            to: "/auth",
+            search: { redirect: `/apps/${product.slug}` },
+          });
           return;
         }
         navigate({ to: "/checkout/$slug", params: { slug: product.slug } });
