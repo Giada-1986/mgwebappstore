@@ -70,7 +70,7 @@ function AdminPage() {
     );
   }
 
-  const tabs: Tab[] = ["overview", "users", "sales", "marketing", "analytics"];
+  const tabs: Tab[] = ["overview", "products", "users", "sales", "marketing", "analytics"];
   const o = overview.data;
 
   return (
