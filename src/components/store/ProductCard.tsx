@@ -1,16 +1,17 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
+import { type Product, isFreeProduct, priceLabel, productName, productShort } from "@/lib/platform";
 import {
-  type Product,
-  formatPrice,
-  productName,
-  productShort,
-} from "@/lib/platform";
-import { ProductTypeBadge, PurchasedBadge } from "@/components/store/Badges";
+  CustomBadge,
+  FreeBadge,
+  ProductTypeBadge,
+  PurchasedBadge,
+} from "@/components/store/Badges";
 
-/** Generic catalogue card — no product-specific logic lives here. */
+/** Generic catalogue card — works for any kind of digital product. */
 export function ProductCard({ product, owned }: { product: Product; owned?: boolean }) {
   const { t, lang } = useI18n();
+  const free = isFreeProduct(product);
 
   return (
     <article className="card-store group flex flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1">
@@ -32,6 +33,8 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
       <div className="flex flex-1 flex-col gap-3 p-6">
         <div className="flex flex-wrap items-center gap-2">
           <ProductTypeBadge type={product.product_type} />
+          {free && <FreeBadge />}
+          {product.badge && <CustomBadge label={product.badge} />}
           {owned && <PurchasedBadge />}
           {product.status === "coming_soon" && (
             <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
@@ -48,9 +51,11 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
         <div className="mt-2 flex items-center justify-between gap-3 border-t border-border/70 pt-4">
           <div>
             <p className="text-base font-semibold">
-              {formatPrice(Number(product.price), product.currency, lang)}
+              {priceLabel(product, lang, t("store.free"))}
             </p>
-            <p className="text-xs text-muted-foreground">{t("store.oneTime")}</p>
+            <p className="text-xs text-muted-foreground">
+              {free ? t("store.freeAccess") : t("store.oneTime")}
+            </p>
           </div>
           <Link
             to="/apps/$slug"
