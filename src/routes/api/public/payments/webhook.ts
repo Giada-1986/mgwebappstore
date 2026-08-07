@@ -3,9 +3,6 @@ import { createClient } from "@supabase/supabase-js";
 import { type StripeEnv, createStripeClient, verifyWebhook } from "@/lib/stripe.server";
 import { resolveServerStripeEnv } from "@/lib/payments-env.server";
 
-/** Stripe payment_status values that mean the money is (or will never be) due. */
-const PAID_STATUSES = new Set(["paid", "no_payment_required"]);
-
 let _supabase: any = null;
 function getSupabase(): any {
   if (!_supabase) {
@@ -25,7 +22,9 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
   // belongs to this environment's account.
   let session: any;
   try {
-    session = await createStripeClient(env).checkout.sessions.retrieve(sessionFromEvent.id);
+    session = await createStripeClient(env).checkout.sessions.retrieve(sessionFromEvent.id, {
+      expand: ["line_items.data.price"],
+    });
   } catch (e) {
     console.error("Could not retrieve checkout session from Stripe", sessionFromEvent?.id, e);
     return;
@@ -35,19 +34,85 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
     console.error("Ignoring non one-time checkout session", session.id, session.mode);
     return;
   }
-  if (!PAID_STATUSES.has(session.payment_status)) {
-    console.error("Refusing to fulfil unpaid session", session.id, session.payment_status);
-    return;
-  }
 
+  // The user_id comes exclusively from the server-side checkout metadata
+  // (derived from the authenticated Supabase token). The Stripe customer
+  // email is never used as an identity proof.
   const userId = session.metadata?.user_id;
   const productId = session.metadata?.product_id;
+  const sessionEnv = session.metadata?.environment;
   if (!userId || !productId) {
     console.error("Checkout session without user_id/product_id metadata", session.id);
     return;
   }
+  if (sessionEnv && sessionEnv !== env) {
+    console.error("Session environment mismatch", session.id, sessionEnv, env);
+    return;
+  }
 
   const supabase = getSupabase();
+
+  // The product must exist and still be the one the session was created for.
+  const { data: product, error: productLookupError } = await supabase
+    .from("products")
+    .select("id, price, currency, stripe_price_id, status")
+    .eq("id", productId)
+    .maybeSingle();
+
+  if (productLookupError || !product) {
+    console.error("Unknown product in session metadata", session.id, productId);
+    return;
+  }
+
+  const isFree = Number(product["price"]) <= 0;
+
+  // Paid products require an actually received payment. `no_payment_required`
+  // is only acceptable for genuinely free products (explicit, separate logic).
+  if (isFree) {
+    if (!["paid", "no_payment_required"].includes(session.payment_status)) {
+      console.error("Refusing to fulfil free product session", session.id, session.payment_status);
+      return;
+    }
+  } else if (session.payment_status !== "paid") {
+    console.error("Refusing to fulfil unpaid session", session.id, session.payment_status);
+    return;
+  }
+
+  // What was actually paid must match the price registered for the product.
+  const lineItems = session.line_items?.data ?? [];
+  if (lineItems.length !== 1) {
+    console.error("Unexpected line item count", session.id, lineItems.length);
+    return;
+  }
+  const paidPrice = lineItems[0]?.price;
+  const expectedPriceId = product["stripe_price_id"];
+  const paidPriceIdentifiers = [paidPrice?.lookup_key, paidPrice?.metadata?.lovable_external_id, paidPrice?.id]
+    .filter(Boolean);
+  if (!expectedPriceId || !paidPriceIdentifiers.includes(expectedPriceId)) {
+    console.error("Price mismatch for session", session.id, paidPriceIdentifiers, expectedPriceId);
+    return;
+  }
+  if (paidPrice?.livemode !== undefined && paidPrice.livemode !== (env === "live")) {
+    console.error("Price livemode mismatch", session.id, paidPrice.livemode, env);
+    return;
+  }
+  if (
+    !isFree &&
+    typeof session.amount_total === "number" &&
+    Math.round(Number(product["price"]) * 100) !== session.amount_total
+  ) {
+    console.error("Amount mismatch", session.id, session.amount_total, product["price"]);
+    return;
+  }
+  if (
+    !isFree &&
+    session.currency &&
+    String(product["currency"]).toLowerCase() !== String(session.currency).toLowerCase()
+  ) {
+    console.error("Currency mismatch", session.id, session.currency, product["currency"]);
+    return;
+  }
+
   const amount = typeof session.amount_total === "number" ? session.amount_total / 100 : null;
 
   const { data: purchase, error: purchaseError } = await supabase
@@ -58,7 +123,9 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
         product_id: productId,
         stripe_checkout_session_id: session.id,
         stripe_payment_intent_id:
-          typeof session.payment_intent === "string" ? session.payment_intent : null,
+          typeof session.payment_intent === "string"
+            ? session.payment_intent
+            : (session.payment_intent?.id ?? null),
         amount_paid: amount,
         currency: (session.currency ?? "eur").toUpperCase(),
         status: "paid",
@@ -101,6 +168,51 @@ async function markStatus(session: any, status: string, env: StripeEnv) {
     .eq("stripe_checkout_session_id", session.id)
     .eq("environment", env);
 }
+
+/**
+ * Full refund / chargeback handling. Idempotent: the purchase row is kept for
+ * audit and only its status changes, and the entitlement is deactivated.
+ */
+async function handleRefund(charge: any, env: StripeEnv, status: "refunded" | "charged_back") {
+  const paymentIntentId =
+    typeof charge?.payment_intent === "string" ? charge.payment_intent : charge?.payment_intent?.id;
+  if (!paymentIntentId) return;
+
+  const supabase = getSupabase();
+  const { data: purchase } = await supabase
+    .from("purchases")
+    .select("id, user_id, product_id")
+    .eq("stripe_payment_intent_id", paymentIntentId)
+    .eq("environment", env)
+    .maybeSingle();
+
+  if (!purchase) {
+    console.error("Refund for unknown purchase", paymentIntentId);
+    return;
+  }
+
+  await supabase
+    .from("purchases")
+    .update({ status })
+    .eq("id", purchase["id"])
+    .eq("environment", env);
+
+  await supabase
+    .from("entitlements")
+    .update({ is_active: false, revoked_at: new Date().toISOString() })
+    .eq("user_id", purchase["user_id"])
+    .eq("product_id", purchase["product_id"])
+    .eq("environment", env);
+}
+
+/** Only a FULL refund revokes access; partial refunds keep the entitlement. */
+function isFullyRefunded(charge: any): boolean {
+  if (charge?.refunded === true) return true;
+  const amount = Number(charge?.amount ?? 0);
+  const refunded = Number(charge?.amount_refunded ?? 0);
+  return amount > 0 && refunded >= amount;
+}
+
 
 async function handleWebhook(req: Request, env: StripeEnv) {
   const event = await verifyWebhook(req, env);
