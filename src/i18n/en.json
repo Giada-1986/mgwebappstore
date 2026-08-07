@@ -382,7 +382,15 @@
         "assetsNote": "Files live in private storage: downloads use a temporary link issued only after ownership is verified.",
         "bundleTitle": "Products included in the bundle",
         "bundleNote": "Only the selected products are unlocked when the bundle is purchased.",
-        "stripeNote": "Stripe fields only apply to paid products."
+        "stripeNote": "Stripe fields only apply to paid products.",
+        "assetsHint": "Private storage path or external https address.",
+        "fAssetType": "Asset type",
+        "fAssetTitle": "Asset title",
+        "fAssetPath": "File path (private storage)",
+        "fAssetUrl": "External URL",
+        "addAsset": "Add asset",
+        "remove": "Remove",
+        "bundleHint": "Selected products are unlocked server-side when the bundle is purchased."
       }
     },
     "free": "FREE",
@@ -409,6 +417,7 @@
       "free": "Free"
     },
     "themes": "Categories",
-    "marketingOptIn": "I want to receive news, new resources and offers from MINI WEB APPS."
+    "marketingOptIn": "I want to receive news, new resources and offers from MINI WEB APPS.",
+    "bundleIncludes": "This bundle includes"
   }
 }
