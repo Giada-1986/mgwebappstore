@@ -1,10 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import {
-  type StripeEnv,
-  createStripeClient,
-  getStripeErrorMessage,
-} from "@/lib/stripe.server";
+import { createStripeClient, getStripeErrorMessage } from "@/lib/stripe.server";
+import { resolveServerStripeEnv } from "@/lib/payments-env.server";
 
 type CheckoutSessionResult = { clientSecret: string } | { error: string };
 
@@ -16,13 +13,15 @@ type CheckoutSessionResult = { clientSecret: string } | { error: string };
 export const createProductCheckoutSession = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator(
-    (data: { productSlug: string; returnUrl: string; environment: StripeEnv }) => {
+    (data: { productSlug: string; returnUrl: string }) => {
       if (!/^[a-z0-9-]+$/.test(data.productSlug)) throw new Error("Invalid product slug");
       return data;
     },
   )
   .handler(async ({ data, context }): Promise<CheckoutSessionResult> => {
     const { supabase, userId } = context;
+    // The environment is derived on the server only — never from client input.
+    const environment = resolveServerStripeEnv();
 
     const { data: product, error: productError } = await supabase
       .from("products")
@@ -40,6 +39,7 @@ export const createProductCheckoutSession = createServerFn({ method: "POST" })
       .eq("user_id", userId)
       .eq("product_id", product.id)
       .eq("is_active", true)
+      .eq("environment", environment)
       .maybeSingle();
     if (existing) return { error: "Hai già accesso a questo prodotto." };
 
@@ -48,7 +48,7 @@ export const createProductCheckoutSession = createServerFn({ method: "POST" })
     } = await supabase.auth.getUser();
 
     try {
-      const stripe = createStripeClient(data.environment);
+      const stripe = createStripeClient(environment);
 
       const prices = await stripe.prices.list({ lookup_keys: [product.stripe_price_id] });
       const stripePrice = prices.data[0];
@@ -70,6 +70,7 @@ export const createProductCheckoutSession = createServerFn({ method: "POST" })
           user_id: userId,
           product_id: product.id,
           product_slug: product.slug,
+          environment,
         },
         managed_payments: { enabled: true },
       } as any);

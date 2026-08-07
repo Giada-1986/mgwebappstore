@@ -32,6 +32,9 @@ export const checkProductAccess = createServerFn({ method: "POST" })
 
     if (productError || !product) return { userId, productId: null, hasAccess: false };
 
+    const { resolveServerStripeEnv } = await import("@/lib/payments-env.server");
+    const environment = resolveServerStripeEnv();
+
     const { data: entitlement, error } = await supabase
       .from("entitlements")
       .select("id")
@@ -39,6 +42,7 @@ export const checkProductAccess = createServerFn({ method: "POST" })
       .eq("product_id", product.id)
       .eq("is_active", true)
       .is("revoked_at", null)
+      .eq("environment", environment)
       .maybeSingle();
 
     if (error) return { userId, productId: product.id, hasAccess: false };
