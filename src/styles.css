@@ -263,3 +263,37 @@
   );
 }
 
+
+/* Form fields sitting on the light pearl panel inside the dark store. */
+@utility field-pearl {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  border: 1px solid color-mix(in oklab, var(--store-ink) 28%, transparent);
+  background-color: oklch(1 0 0);
+  color: var(--store-ink);
+  caret-color: var(--store-ink);
+  padding: 0.65rem 0.9rem;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  &::placeholder {
+    color: color-mix(in oklab, var(--store-ink) 48%, transparent);
+    opacity: 1;
+  }
+  &:hover {
+    border-color: color-mix(in oklab, var(--store-ink) 42%, transparent);
+  }
+  &:focus {
+    border-color: color-mix(in oklab, var(--champagne) 85%, var(--store-ink));
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--champagne) 35%, transparent);
+  }
+  /* Chrome autofill must not repaint the field with its default yellow/blue. */
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--store-ink);
+    caret-color: var(--store-ink);
+    -webkit-box-shadow: 0 0 0 1000px oklch(1 0 0) inset;
+    box-shadow: 0 0 0 1000px oklch(1 0 0) inset;
+    transition: background-color 9999s ease-out 0s;
+  }
+}
