@@ -36,8 +36,8 @@
     "noScales": "Niente calorie, niente bilance. Solo ascolto."
   },
   "auth": {
-    "title": "Benvenuta",
-    "subtitle": "Accedi o crea il tuo spazio personale.",
+    "title": "Accedi al tuo account",
+    "subtitle": "Un solo account per tutte le tue mini app.",
     "email": "Email",
     "password": "Password",
     "signIn": "Accedi",
@@ -45,7 +45,9 @@
     "toSignUp": "Non hai un account? Registrati",
     "toSignIn": "Hai già un account? Accedi",
     "checkEmail": "Ti abbiamo inviato una email di conferma. Controlla la posta per attivare l'accesso.",
-    "error": "Qualcosa non ha funzionato. Riprova."
+    "error": "Qualcosa non ha funzionato. Riprova.",
+    "titleSignUp": "Crea il tuo account",
+    "subtitleSignUp": "Bastano un’email e una password."
   },
   "paywall": {
     "title": "Il tuo spazio è quasi pronto",
@@ -178,8 +180,8 @@
     "signIn": "Accedi",
     "signOut": "Esci",
     "account": "Account",
-    "heroTitle": "Uno store di mini app che si prendono cura di te",
-    "heroText": "Un solo account, tanti strumenti. Acquisti una volta e resta tuo per sempre.",
+    "heroTitle": "Piccole app. Soluzioni immediate.",
+    "heroText": "Uno store curato di mini app essenziali: le acquisti una volta e restano tue, senza abbonamenti.",
     "heroCta": "Esplora il catalogo",
     "featured": "In evidenza",
     "allApps": "Tutte le app",
@@ -221,6 +223,8 @@
     "testMode": "Tutti i pagamenti in anteprima sono in modalità test.",
     "testModeDetails": "Dettagli",
     "brand": "MINI WEB APPS",
-    "promise": "Acquisti una volta. La tua app resta tua. Nessun abbonamento."
+    "promise": "Acquisti una volta. La tua app resta tua. Nessun abbonamento.",
+    "catalogIntro": "Strumenti digitali essenziali, uno per ogni esigenza.",
+    "securePayment": "Pagamento sicuro con Stripe"
   }
 }

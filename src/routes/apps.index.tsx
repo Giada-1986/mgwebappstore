@@ -41,13 +41,16 @@ function CatalogPage() {
 
   return (
     <StoreShell>
-      <h1 className="text-2xl font-semibold tracking-tight">{t("store.allApps")}</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">{t("store.allApps")}</h1>
+      <p className="mt-2 text-muted-foreground">{t("store.catalogIntro")}</p>
 
-      <div className="mt-5 flex flex-wrap gap-2">
+      <div className="mt-7 flex flex-wrap gap-2">
         <button
           onClick={() => setCategory(null)}
-          className={`rounded-full border px-4 py-1.5 text-sm ${
-            category === null ? "border-primary bg-primary text-primary-foreground" : "border-border"
+          className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+            category === null
+              ? "border-primary bg-primary font-medium text-primary-foreground"
+              : "border-border text-muted-foreground hover:text-foreground"
           }`}
         >
           {t("store.allCategories")}
@@ -56,8 +59,10 @@ function CatalogPage() {
           <button
             key={c.id}
             onClick={() => setCategory(c.id)}
-            className={`rounded-full border px-4 py-1.5 text-sm ${
-              category === c.id ? "border-primary bg-primary text-primary-foreground" : "border-border"
+            className={`rounded-full border px-4 py-1.5 text-sm transition-colors ${
+              category === c.id
+                ? "border-primary bg-primary font-medium text-primary-foreground"
+                : "border-border text-muted-foreground hover:text-foreground"
             }`}
           >
             {categoryName(c, lang)}

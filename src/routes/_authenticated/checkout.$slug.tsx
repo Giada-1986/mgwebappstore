@@ -36,10 +36,10 @@ function CheckoutPage() {
       >
         ← {t("store.checkoutBack")}
       </Link>
-      <h1 className="mt-3 text-2xl font-semibold tracking-tight">
+      <h1 className="mt-3 text-3xl font-semibold tracking-tight">
         {product ? productName(product, lang) : t("store.checkoutTitle")}
       </h1>
-      <div className="card-store mt-6 overflow-hidden p-2">
+      <div className="panel-pearl mt-6 overflow-hidden p-3">
         {returnUrl && <StripeEmbeddedCheckout productSlug={slug} returnUrl={returnUrl} />}
       </div>
     </StoreShell>

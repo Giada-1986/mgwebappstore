@@ -26,7 +26,6 @@ export const Route = createFileRoute("/")({
   component: StoreHome,
 });
 
-
 function StoreHome() {
   const { t } = useI18n();
   const { session } = useSession();
@@ -37,21 +36,40 @@ function StoreHome() {
 
   return (
     <StoreShell>
-      <section className="card-store px-8 py-12 text-center">
-        <StoreLogo priority className="mx-auto h-40 w-40 rounded-2xl sm:h-48 sm:w-48" />
-        <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
+      <section className="card-store overflow-hidden px-6 py-14 text-center sm:px-12">
+        <StoreLogo
+          priority
+          className="mx-auto h-36 w-36 rounded-3xl ring-1 ring-primary/25 sm:h-44 sm:w-44"
+        />
+        <p
+          translate="no"
+          className="notranslate mt-8 text-xs uppercase tracking-[0.42em] text-primary"
+        >
+          {t("store.brand")}
+        </p>
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-5xl">
           {t("store.heroTitle")}
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-muted-foreground">{t("store.heroText")}</p>
-        <p className="mx-auto mt-4 max-w-xl font-medium">{t("store.promise")}</p>
-        <Link to="/apps" className="btn-store mt-8">
+        <p className="mx-auto mt-5 max-w-xl leading-relaxed text-muted-foreground">
+          {t("store.heroText")}
+        </p>
+        <div className="store-hairline mx-auto mt-9 w-40" />
+        <Link to="/apps" className="btn-store mt-9">
           {t("store.heroCta")}
         </Link>
       </section>
 
+      <section className="panel-pearl mt-6 px-8 py-8 text-center">
+        <p className="text-base font-medium sm:text-lg">{t("store.promise")}</p>
+      </section>
 
-      <section className="mt-12">
-        <h2 className="mb-5 text-xl font-semibold tracking-tight">{t("store.featured")}</h2>
+      <section className="mt-14">
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <h2 className="text-xl font-semibold tracking-tight">{t("store.featured")}</h2>
+          <Link to="/apps" className="text-sm text-muted-foreground hover:text-foreground">
+            {t("store.allApps")}
+          </Link>
+        </div>
         {isLoading ? (
           <p className="text-muted-foreground">{t("common.loading")}</p>
         ) : (

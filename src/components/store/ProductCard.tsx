@@ -13,7 +13,7 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
   const { t, lang } = useI18n();
 
   return (
-    <article className="card-store flex flex-col overflow-hidden">
+    <article className="card-store group flex flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1">
       <div className="relative aspect-[16/9] w-full bg-secondary">
         {product.image_url ? (
           <img
@@ -23,12 +23,13 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
             className="h-full w-full object-cover"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-2xl font-semibold text-muted-foreground">
-            {productName(product, lang).slice(0, 2)}
+          <div className="flex h-full w-full items-center justify-center text-3xl font-semibold tracking-[0.1em] text-primary/70">
+            {productName(product, lang).slice(0, 2).toUpperCase()}
           </div>
         )}
+        <div className="store-hairline absolute inset-x-0 bottom-0" />
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-5">
+      <div className="flex flex-1 flex-col gap-3 p-6">
         <div className="flex flex-wrap items-center gap-2">
           <ProductTypeBadge type={product.product_type} />
           {owned && <PurchasedBadge />}
@@ -41,8 +42,10 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
         <h3 translate="no" className="notranslate text-lg font-semibold tracking-tight">
           {productName(product, lang)}
         </h3>
-        <p className="flex-1 text-sm text-muted-foreground">{productShort(product, lang)}</p>
-        <div className="flex items-center justify-between gap-3 pt-1">
+        <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+          {productShort(product, lang)}
+        </p>
+        <div className="mt-2 flex items-center justify-between gap-3 border-t border-border/70 pt-4">
           <div>
             <p className="text-base font-semibold">
               {formatPrice(Number(product.price), product.currency, lang)}
@@ -52,7 +55,7 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
           <Link
             to="/apps/$slug"
             params={{ slug: product.slug }}
-            className="rounded-full border border-border px-4 py-2 text-sm transition-colors hover:bg-accent"
+            className="btn-store-ghost text-sm"
           >
             {t("store.discover")}
           </Link>

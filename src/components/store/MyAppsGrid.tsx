@@ -9,7 +9,7 @@ export function MyAppsGrid({ apps }: { apps: Product[] }) {
 
   if (apps.length === 0) {
     return (
-      <div className="card-store p-10 text-center">
+      <div className="card-store p-12 text-center">
         <p className="text-muted-foreground">{t("store.emptyLibrary")}</p>
         <Link to="/apps" className="btn-store mt-6">
           {t("store.discoverMiniApps")}
@@ -21,14 +21,16 @@ export function MyAppsGrid({ apps }: { apps: Product[] }) {
   return (
     <div className="grid gap-5 sm:grid-cols-2">
       {apps.map((app) => (
-        <article key={app.id} className="card-store flex flex-col gap-3 p-6">
+        <article key={app.id} className="card-store flex flex-col gap-3 p-7">
           <LifetimeAccessBadge />
           <h3 translate="no" className="notranslate text-lg font-semibold tracking-tight">
             {productName(app, lang)}
           </h3>
-          <p className="flex-1 text-sm text-muted-foreground">{productShort(app, lang)}</p>
+          <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+            {productShort(app, lang)}
+          </p>
           {app.app_path ? (
-            <a href={app.app_path} className="btn-store mt-2 self-start">
+            <a href={app.app_path} className="btn-store mt-3 self-start">
               {t("store.open")}
             </a>
           ) : (

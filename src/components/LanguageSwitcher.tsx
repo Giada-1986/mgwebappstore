@@ -9,7 +9,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     <div
       translate="no"
       className={cn(
-        "notranslate inline-flex items-center rounded-full border border-gold/40 bg-pearl/80 p-0.5 backdrop-blur",
+        "notranslate inline-flex items-center rounded-full border border-border bg-card/70 p-0.5 backdrop-blur",
         className,
       )}
     >
@@ -23,9 +23,9 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           aria-pressed={lang === opt}
           aria-label={opt === "it" ? "Italiano" : "English"}
           className={cn(
-            "notranslate rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase transition-colors",
+            "notranslate rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
             lang === opt
-              ? "bg-gold text-primary-foreground"
+              ? "bg-primary text-primary-foreground"
               : "text-muted-foreground hover:text-foreground",
           )}
         >

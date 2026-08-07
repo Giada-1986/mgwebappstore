@@ -18,14 +18,17 @@ export function StoreShell({ children }: { children: ReactNode }) {
   const { t } = useI18n();
 
   return (
-    <div className="store-scope">
+    <div className="store-scope flex min-h-screen flex-col">
       <PaymentTestModeBanner />
-      <header className="border-b border-border/70 bg-card/70 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-4">
-          <Link to="/" className="flex items-center gap-3">
-            <StoreLogo className="h-10 w-10 rounded-lg" priority />
+          <Link to="/" className="flex items-center gap-3 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">
+            <StoreLogo className="h-10 w-10 rounded-xl ring-1 ring-primary/25" priority />
             <span className="flex flex-col leading-tight">
-              <span translate="no" className="notranslate text-sm font-semibold tracking-[0.18em] uppercase">
+              <span
+                translate="no"
+                className="notranslate text-sm font-semibold uppercase tracking-[0.22em]"
+              >
                 {t("store.brand")}
               </span>
               <span translate="no" className="notranslate text-xs text-muted-foreground">
@@ -39,22 +42,27 @@ export function StoreShell({ children }: { children: ReactNode }) {
             <AccountMenu />
           </div>
         </div>
-        <nav className="mx-auto flex max-w-5xl gap-1 px-4 pb-2 text-sm">
+        <nav className="mx-auto flex max-w-5xl gap-1 px-4 pb-3 text-sm">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               activeOptions={{ exact: l.exact }}
-              className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-accent data-[status=active]:text-accent-foreground"
+              className="rounded-full px-3.5 py-1.5 text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-accent data-[status=active]:text-accent-foreground"
             >
               {t(l.key)}
             </Link>
           ))}
         </nav>
       </header>
-      <main className="mx-auto w-full max-w-5xl px-5 py-10">{children}</main>
-      <footer className="mx-auto max-w-5xl px-5 pb-10 text-xs text-muted-foreground">
-        {t("store.footer")}
+      <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-12">{children}</main>
+      <footer className="mt-auto border-t border-border/60">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-8 text-xs text-muted-foreground">
+          <span translate="no" className="notranslate uppercase tracking-[0.22em] text-foreground/80">
+            {t("store.brand")}
+          </span>
+          <span>{t("store.footer")}</span>
+        </div>
       </footer>
     </div>
   );
