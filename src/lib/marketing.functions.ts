@@ -28,14 +28,22 @@ export const setMarketingConsent = createServerFn({ method: "POST" })
 
     if (profileError || !profile) return { ok: false, synced: false, error: "profile_not_found" };
 
+    // Marketing columns are protected at database level: only the service role
+    // may write them, so the client can never forge consent.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
     const patch = {
       marketing_consent: data.consent,
       marketing_consent_at: data.consent ? new Date().toISOString() : null,
       marketing_language: data.language,
     } as never;
 
-    const { error: updateError } = await supabase.from("profiles").update(patch).eq("id", userId);
+    const { error: updateError } = await supabaseAdmin
+      .from("profiles")
+      .update(patch)
+      .eq("id", userId);
     if (updateError) return { ok: false, synced: false, error: "update_failed" };
+
 
     const email = profile.email;
     if (!email) return { ok: true, synced: false };
@@ -69,10 +77,11 @@ export const setMarketingConsent = createServerFn({ method: "POST" })
         await brevo.blacklistBrevoContact(email);
       }
 
-      await supabase
+      await supabaseAdmin
         .from("profiles")
         .update({ brevo_synced_at: new Date().toISOString() } as never)
         .eq("id", userId);
+
 
       return { ok: true, synced: true };
     } catch (error) {
