@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { StoreShell } from "@/components/store/StoreShell";
+import { ProductsPanel } from "@/components/store/admin/ProductsPanel";
 import { useI18n } from "@/lib/i18n";
 import { formatPrice, useCategories } from "@/lib/platform";
 import {
