@@ -225,6 +225,20 @@
     "brand": "MINI WEB APPS",
     "promise": "Acquisti una volta. La tua app resta tua. Nessun abbonamento.",
     "catalogIntro": "Strumenti digitali essenziali, uno per ogni esigenza.",
-    "securePayment": "Pagamento sicuro con Stripe"
+    "securePayment": "Pagamento sicuro con Stripe",
+    "gift": {
+      "title": "Riscatta il tuo regalo",
+      "intro": "Questo codice sblocca una singola app, collegata al tuo account.",
+      "redeem": "Riscatta ora",
+      "success": "Regalo riscattato! L'app è ora nella tua libreria.",
+      "open": "Apri l'app",
+      "invalid_token": "Codice regalo non valido.",
+      "already_redeemed": "Questo regalo è già stato riscattato.",
+      "not_paid": "Il pagamento di questo regalo non risulta ancora completato.",
+      "expired": "Questo codice regalo è scaduto.",
+      "refunded": "Questo regalo è stato rimborsato.",
+      "cancelled": "Questo regalo è stato annullato.",
+      "error": "Non è stato possibile riscattare il regalo."
+    }
   }
 }

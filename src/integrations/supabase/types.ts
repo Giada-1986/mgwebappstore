@@ -167,6 +167,80 @@ export type Database = {
         }
         Relationships: []
       }
+      gifts: {
+        Row: {
+          amount_paid: number | null
+          created_at: string
+          currency: string
+          environment: string
+          expires_at: string | null
+          gift_message: string | null
+          id: string
+          product_id: string
+          purchased_at: string | null
+          purchaser_email: string | null
+          purchaser_user_id: string | null
+          recipient_email: string
+          redeemed_at: string | null
+          redeemed_by_user_id: string | null
+          redemption_token: string
+          status: string
+          stripe_checkout_session_id: string | null
+          stripe_payment_intent_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          amount_paid?: number | null
+          created_at?: string
+          currency?: string
+          environment?: string
+          expires_at?: string | null
+          gift_message?: string | null
+          id?: string
+          product_id: string
+          purchased_at?: string | null
+          purchaser_email?: string | null
+          purchaser_user_id?: string | null
+          recipient_email: string
+          redeemed_at?: string | null
+          redeemed_by_user_id?: string | null
+          redemption_token: string
+          status?: string
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          amount_paid?: number | null
+          created_at?: string
+          currency?: string
+          environment?: string
+          expires_at?: string | null
+          gift_message?: string | null
+          id?: string
+          product_id?: string
+          purchased_at?: string | null
+          purchaser_email?: string | null
+          purchaser_user_id?: string | null
+          recipient_email?: string
+          redeemed_at?: string | null
+          redeemed_by_user_id?: string | null
+          redemption_token?: string
+          status?: string
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gifts_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           accent_color: string | null
@@ -391,6 +465,7 @@ export type Database = {
             Args: { _env?: string; _slug: string; _user_id: string }
             Returns: boolean
           }
+      redeem_gift: { Args: { _token: string; _user_id: string }; Returns: Json }
     }
     Enums: {
       [_ in never]: never

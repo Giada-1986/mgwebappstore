@@ -225,6 +225,20 @@
     "brand": "MINI WEB APPS",
     "promise": "Buy once. Your app stays yours. No subscription.",
     "catalogIntro": "Essential digital tools, one for every need.",
-    "securePayment": "Secure payment with Stripe"
+    "securePayment": "Secure payment with Stripe",
+    "gift": {
+      "title": "Redeem your gift",
+      "intro": "This code unlocks a single app, linked to your account.",
+      "redeem": "Redeem now",
+      "success": "Gift redeemed! The app is now in your library.",
+      "open": "Open the app",
+      "invalid_token": "Invalid gift code.",
+      "already_redeemed": "This gift has already been redeemed.",
+      "not_paid": "This gift payment is not confirmed yet.",
+      "expired": "This gift code has expired.",
+      "refunded": "This gift was refunded.",
+      "cancelled": "This gift was cancelled.",
+      "error": "We could not redeem this gift."
+    }
   }
 }
