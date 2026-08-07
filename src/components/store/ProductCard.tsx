@@ -38,7 +38,9 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
             </span>
           )}
         </div>
-        <h3 className="text-lg font-semibold tracking-tight">{productName(product, lang)}</h3>
+        <h3 translate="no" className="notranslate text-lg font-semibold tracking-tight">
+          {productName(product, lang)}
+        </h3>
         <p className="flex-1 text-sm text-muted-foreground">{productShort(product, lang)}</p>
         <div className="flex items-center justify-between gap-3 pt-1">
           <div>

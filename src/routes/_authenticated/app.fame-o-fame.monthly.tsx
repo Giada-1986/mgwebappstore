@@ -16,7 +16,7 @@ function stats(items: Checkin[]) {
 }
 
 function MonthlyPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const { session } = useSession();
   const { data: real = [] } = useCheckins(session?.user.id);
 
@@ -27,7 +27,7 @@ function MonthlyPage() {
   }, [real]);
 
   const unlocked = daysSinceFirst >= 30;
-  const items = unlocked ? real : mockCheckins();
+  const items = unlocked ? real : mockCheckins(lang);
 
   const { first, last } = useMemo(() => {
     const sorted = [...items].sort((a, b) => a.created_at.localeCompare(b.created_at));

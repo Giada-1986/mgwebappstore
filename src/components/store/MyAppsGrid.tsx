@@ -23,7 +23,9 @@ export function MyAppsGrid({ apps }: { apps: Product[] }) {
       {apps.map((app) => (
         <article key={app.id} className="card-store flex flex-col gap-3 p-6">
           <LifetimeAccessBadge />
-          <h3 className="text-lg font-semibold tracking-tight">{productName(app, lang)}</h3>
+          <h3 translate="no" className="notranslate text-lg font-semibold tracking-tight">
+            {productName(app, lang)}
+          </h3>
           <p className="flex-1 text-sm text-muted-foreground">{productShort(app, lang)}</p>
           {app.app_path ? (
             <a href={app.app_path} className="btn-store mt-2 self-start">

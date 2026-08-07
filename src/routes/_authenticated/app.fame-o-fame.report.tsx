@@ -33,12 +33,12 @@ function topTriggers(items: Checkin[]) {
 }
 
 function ReportPage() {
-  const { t, dict } = useI18n();
+  const { t, dict, lang } = useI18n();
   const { session } = useSession();
   const { data: real = [] } = useCheckins(session?.user.id);
   const [demo, setDemo] = useState(false);
   const unlocked = real.length >= 7;
-  const items = unlocked && !demo ? real : mockCheckins();
+  const items = unlocked && !demo ? real : mockCheckins(lang);
 
   const emotionData = useMemo(() => {
     const counts = new Map<string, number>();

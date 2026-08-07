@@ -216,6 +216,10 @@
     "seeProduct": "Vedi il prodotto",
     "whatYouGet": "Cosa include",
     "notFound": "Prodotto non trovato.",
-    "footer": "Un solo account per tutte le mini app. Pagamenti sicuri con Stripe."
+    "footer": "Un solo account per tutte le mini app. Pagamenti sicuri con Stripe.",
+    "paymentsNotConfigured": "Il checkout di produzione non è configurato. Completa il go-live di Stripe per accettare pagamenti reali.",
+    "testMode": "Tutti i pagamenti in anteprima sono in modalità test.",
+    "testModeDetails": "Dettagli",
+    "brand": "Mini Apps"
   }
 }

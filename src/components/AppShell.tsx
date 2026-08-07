@@ -34,7 +34,9 @@ export function AppShell({ children, nav = true }: { children: ReactNode; nav?: 
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3">
           <Link to="/app/fame-o-fame" className="flex items-center gap-3">
             <Logo className="h-11 w-11 shadow-[var(--shadow-gold)]" />
-            <span className="font-display text-lg tracking-wide">{t("brand")}</span>
+            <span translate="no" className="notranslate font-display text-lg tracking-wide">
+              {t("brand")}
+            </span>
           </Link>
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
