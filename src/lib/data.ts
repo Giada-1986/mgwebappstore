@@ -1,18 +1,9 @@
-import { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import type { Session } from "@supabase/supabase-js";
+import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-export type Profile = {
-  id: string;
-  email: string | null;
-  has_paid: boolean;
-  language: string;
-  onboarding_done: boolean;
-  triggers: string[];
-  trigger_other: string | null;
-  created_at: string;
-};
+/** Data specific to the "Fame o Fame?" mini app. */
+
+export const FAME_O_FAME_SLUG = "fame-o-fame";
 
 export type Checkin = {
   id: string;
@@ -34,48 +25,6 @@ export type Exercise = {
   duration_seconds: number;
   sort_order: number;
 };
-
-export function useSession() {
-  const [session, setSession] = useState<Session | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session);
-      setLoading(false);
-    });
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, s) => setSession(s));
-    return () => sub.subscription.unsubscribe();
-  }, []);
-
-  return { session, loading };
-}
-
-export function useProfile(userId?: string) {
-  return useQuery({
-    queryKey: ["profile", userId],
-    enabled: !!userId,
-    queryFn: async (): Promise<Profile | null> => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", userId!)
-        .maybeSingle();
-      if (error) throw error;
-      return data as Profile | null;
-    },
-  });
-}
-
-export function useUpdateProfile(userId?: string) {
-  const qc = useQueryClient();
-  return async (patch: Partial<Profile>) => {
-    if (!userId) return;
-    const { error } = await supabase.from("profiles").update(patch).eq("id", userId);
-    if (error) throw error;
-    await qc.invalidateQueries({ queryKey: ["profile", userId] });
-  };
-}
 
 export function useCheckins(userId?: string) {
   return useQuery({
@@ -106,3 +55,5 @@ export function useExercises() {
     },
   });
 }
+
+export { useSession } from "@/lib/platform";
