@@ -34,6 +34,8 @@ const EMPTY: ProductInput = {
   currency: "EUR",
   stripe_price_id: null,
   product_type: "mini_app",
+  access_mode: "paid",
+  badge: null,
   status: "draft",
   app_path: null,
   app_url: null,
