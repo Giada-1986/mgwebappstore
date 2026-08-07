@@ -16,6 +16,7 @@ import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedMyAppsRouteImport } from './routes/_authenticated/my-apps'
 import { Route as AppsIndexRouteImport } from './routes/apps.index'
 import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
+import { Route as GiftSlugRouteImport } from './routes/gift.$slug'
 import { Route as AuthenticatedCheckoutSlugRouteImport } from './routes/_authenticated/checkout.$slug'
 import { Route as AuthenticatedRedeemTokenRouteImport } from './routes/_authenticated/redeem.$token'
 import { Route as AuthenticatedAppFameOFameIndexRouteImport } from './routes/_authenticated/app.fame-o-fame.index'
@@ -58,6 +59,11 @@ const AppsIndexRoute = AppsIndexRouteImport.update({
 const AppsSlugRoute = AppsSlugRouteImport.update({
   id: '/apps/$slug',
   path: '/apps/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GiftSlugRoute = GiftSlugRouteImport.update({
+  id: '/gift/$slug',
+  path: '/gift/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedCheckoutSlugRoute =
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AuthenticatedAccountRoute
   '/my-apps': typeof AuthenticatedMyAppsRoute
   '/apps/$slug': typeof AppsSlugRoute
+  '/gift/$slug': typeof GiftSlugRoute
   '/apps/': typeof AppsIndexRoute
   '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/redeem/$token': typeof AuthenticatedRedeemTokenRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/account': typeof AuthenticatedAccountRoute
   '/my-apps': typeof AuthenticatedMyAppsRoute
   '/apps/$slug': typeof AppsSlugRoute
+  '/gift/$slug': typeof GiftSlugRoute
   '/apps': typeof AppsIndexRoute
   '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/redeem/$token': typeof AuthenticatedRedeemTokenRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/my-apps': typeof AuthenticatedMyAppsRoute
   '/apps/$slug': typeof AppsSlugRoute
+  '/gift/$slug': typeof GiftSlugRoute
   '/apps/': typeof AppsIndexRoute
   '/_authenticated/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/_authenticated/redeem/$token': typeof AuthenticatedRedeemTokenRoute
@@ -176,6 +185,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/my-apps'
     | '/apps/$slug'
+    | '/gift/$slug'
     | '/apps/'
     | '/checkout/$slug'
     | '/redeem/$token'
@@ -193,6 +203,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/my-apps'
     | '/apps/$slug'
+    | '/gift/$slug'
     | '/apps'
     | '/checkout/$slug'
     | '/redeem/$token'
@@ -211,6 +222,7 @@ export interface FileRouteTypes {
     | '/_authenticated/account'
     | '/_authenticated/my-apps'
     | '/apps/$slug'
+    | '/gift/$slug'
     | '/apps/'
     | '/_authenticated/checkout/$slug'
     | '/_authenticated/redeem/$token'
@@ -228,6 +240,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   AppsSlugRoute: typeof AppsSlugRoute
+  GiftSlugRoute: typeof GiftSlugRoute
   AppsIndexRoute: typeof AppsIndexRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
@@ -281,6 +294,13 @@ declare module '@tanstack/react-router' {
       path: '/apps/$slug'
       fullPath: '/apps/$slug'
       preLoaderRoute: typeof AppsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gift/$slug': {
+      id: '/gift/$slug'
+      path: '/gift/$slug'
+      fullPath: '/gift/$slug'
+      preLoaderRoute: typeof GiftSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/checkout/$slug': {
@@ -386,19 +406,10 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   AppsSlugRoute: AppsSlugRoute,
+  GiftSlugRoute: GiftSlugRoute,
   AppsIndexRoute: AppsIndexRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

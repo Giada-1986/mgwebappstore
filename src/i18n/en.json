@@ -238,7 +238,14 @@
       "expired": "This gift code has expired.",
       "refunded": "This gift was refunded.",
       "cancelled": "This gift was cancelled.",
-      "error": "We could not redeem this gift."
+      "error": "We could not redeem this gift.",
+      "buyTitle": "Gift this app",
+      "buyIntro": "The recipient gets a code that unlocks this app only, linked to their account.",
+      "recipientEmail": "Recipient email",
+      "purchaserEmail": "Your email (optional)",
+      "message": "Message (optional)",
+      "continue": "Continue to payment",
+      "cta": "Gift this app"
     }
   }
 }
