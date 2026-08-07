@@ -30,7 +30,7 @@ function Onboarding() {
   async function finish() {
     setBusy(true);
     await update({ triggers: selected, trigger_other: other || null, onboarding_done: true });
-    navigate({ to: "/app", replace: true });
+    navigate({ to: "/app/fame-o-fame", replace: true });
   }
 
   return (

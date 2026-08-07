@@ -8,11 +8,11 @@ import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 
 const navItems = [
-  { to: "/app", key: "nav.checkin" },
-  { to: "/app/exercises", key: "nav.exercises" },
-  { to: "/app/report", key: "nav.report" },
-  { to: "/app/monthly", key: "nav.monthly" },
-  { to: "/app/settings", key: "nav.settings" },
+  { to: "/app/fame-o-fame", key: "nav.checkin" },
+  { to: "/app/fame-o-fame/exercises", key: "nav.exercises" },
+  { to: "/app/fame-o-fame/report", key: "nav.report" },
+  { to: "/app/fame-o-fame/monthly", key: "nav.monthly" },
+  { to: "/app/fame-o-fame/settings", key: "nav.settings" },
 ] as const;
 
 export function AppShell({ children, nav = true }: { children: ReactNode; nav?: boolean }) {
@@ -32,7 +32,7 @@ export function AppShell({ children, nav = true }: { children: ReactNode; nav?: 
       <SakuraCorners />
       <header className="relative z-10 border-b border-gold/25 bg-pearl/60 backdrop-blur">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3">
-          <Link to="/app" className="flex items-center gap-3">
+          <Link to="/app/fame-o-fame" className="flex items-center gap-3">
             <Logo className="h-11 w-11 shadow-[var(--shadow-gold)]" />
             <span className="font-display text-lg tracking-wide">{t("brand")}</span>
           </Link>
@@ -52,7 +52,7 @@ export function AppShell({ children, nav = true }: { children: ReactNode; nav?: 
               <Link
                 key={item.to}
                 to={item.to}
-                activeOptions={{ exact: item.to === "/app" }}
+                activeOptions={{ exact: item.to === "/app/fame-o-fame" }}
                 className="whitespace-nowrap rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-gold/15 data-[status=active]:text-foreground"
               >
                 {t(item.key)}
