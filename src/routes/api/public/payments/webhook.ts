@@ -352,11 +352,24 @@ async function handleRefund(charge: any, env: StripeEnv, status: "refunded") {
     .eq("id", purchase["id"])
     .eq("environment", env);
 
+  const revokedAt = new Date().toISOString();
+
+  // Revoke the entitlement produced by THIS purchase only (same user, same
+  // product, same environment). Entitlements for other products, or granted
+  // by another purchase/gift, are never touched.
   await supabase
     .from("entitlements")
-    .update({ is_active: false, revoked_at: new Date().toISOString() })
+    .update({ is_active: false, revoked_at: revokedAt })
     .eq("user_id", purchase["user_id"])
     .eq("product_id", purchase["product_id"])
+    .eq("environment", env);
+
+  // If the refunded purchase was a bundle, the products it unlocked are
+  // linked to the same purchase_id and must be revoked as well.
+  await supabase
+    .from("entitlements")
+    .update({ is_active: false, revoked_at: revokedAt })
+    .eq("purchase_id", purchase["id"])
     .eq("environment", env);
 }
 
