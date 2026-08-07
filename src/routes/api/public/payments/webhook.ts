@@ -263,13 +263,21 @@ async function fulfilGift(sessionFromEvent: any, env: StripeEnv) {
     console.error("Gift price livemode mismatch", session.id, paidPrice.livemode, env);
     return;
   }
+  // Same rule as a normal purchase: tax is excluded from the comparison.
+  const giftPaidUnitAmount =
+    typeof paidPrice?.unit_amount === "number"
+      ? paidPrice.unit_amount * Number(lineItems[0]?.quantity ?? 1)
+      : typeof session.amount_subtotal === "number"
+        ? session.amount_subtotal
+        : null;
   if (
-    typeof session.amount_total === "number" &&
-    Math.round(Number(product["price"]) * 100) !== session.amount_total
+    typeof giftPaidUnitAmount === "number" &&
+    Math.round(Number(product["price"]) * 100) !== giftPaidUnitAmount
   ) {
-    console.error("Gift amount mismatch", session.id, session.amount_total, product["price"]);
+    console.error("Gift amount mismatch", session.id, giftPaidUnitAmount, product["price"]);
     return;
   }
+
   if (
     session.currency &&
     String(product["currency"]).toLowerCase() !== String(session.currency).toLowerCase()
