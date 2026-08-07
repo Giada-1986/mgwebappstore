@@ -37,9 +37,12 @@ function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // Never pre-selected: marketing consent must be an explicit action.
+  const [marketing, setMarketing] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const { lang } = useI18n();
 
   useEffect(() => {
     if (session) navigate({ to: redirectTo, replace: true });
@@ -52,16 +55,21 @@ function AuthPage() {
     setMessage(null);
     try {
       if (mode === "signup") {
+        track("signup_started");
         const { data, error: err } = await supabase.auth.signUp({
           email,
           password,
           options: { emailRedirectTo: window.location.origin },
         });
         if (err) throw err;
+        // Stored until a session exists (double opt-in creates it only later).
+        window.localStorage.setItem(PENDING_CONSENT_KEY, marketing ? "true" : "false");
+        track("signup_completed");
         if (!data.session) setMessage(t("auth.checkEmail"));
       } else {
         const { error: err } = await supabase.auth.signInWithPassword({ email, password });
         if (err) throw err;
+        track("login_completed");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : t("auth.error"));
