@@ -34,9 +34,9 @@ function AccountPage() {
 
   return (
     <StoreShell>
-      <h1 className="text-2xl font-semibold tracking-tight">{t("store.accountTitle")}</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">{t("store.accountTitle")}</h1>
 
-      <section className="card-store mt-6 space-y-4 p-6">
+      <section className="card-store mt-7 space-y-5 p-7">
         <div>
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
             {t("store.email")}
@@ -51,7 +51,7 @@ function AccountPage() {
         </div>
       </section>
 
-      <section className="card-store mt-5 p-6">
+      <section className="card-store mt-5 p-7">
         <h2 className="text-lg font-semibold">{t("store.purchases")}</h2>
         {(purchases ?? []).length === 0 ? (
           <p className="mt-3 text-sm text-muted-foreground">{t("store.noPurchases")}</p>

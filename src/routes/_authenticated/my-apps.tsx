@@ -25,7 +25,7 @@ function MyAppsPage() {
 
   return (
     <StoreShell>
-      <h1 className="text-2xl font-semibold tracking-tight">{t("store.myAppsTitle")}</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">{t("store.myAppsTitle")}</h1>
       <p className="mt-2 text-muted-foreground">{t("store.myAppsText")}</p>
       <div className="mt-8">
         {isLoading ? (

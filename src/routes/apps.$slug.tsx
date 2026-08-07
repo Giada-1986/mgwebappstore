@@ -61,12 +61,12 @@ function ProductPage() {
             className="h-56 w-full object-cover"
           />
         )}
-        <div className="p-8">
+        <div className="p-8 sm:p-10">
           <div className="flex flex-wrap items-center gap-2">
             <ProductTypeBadge type={product.product_type} />
             <LifetimeAccessBadge />
           </div>
-          <h1 translate="no" className="notranslate mt-4 text-3xl font-semibold tracking-tight">
+          <h1 translate="no" className="notranslate mt-5 text-3xl sm:text-4xl font-semibold tracking-tight">
             {productName(product, lang)}
           </h1>
           <p className="mt-2 text-muted-foreground">{productShort(product, lang)}</p>
@@ -76,12 +76,16 @@ function ProductPage() {
             {productDescription(product, lang)}
           </p>
 
+          <div className="store-hairline mt-9" />
+
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <p className="text-2xl font-semibold">
               {formatPrice(Number(product.price), product.currency, lang)}
             </p>
             <BuyButton product={product} owned={owned} />
-            <span className="text-xs text-muted-foreground">{t("store.oneTime")}</span>
+            <span className="text-xs text-muted-foreground">
+              {t("store.oneTime")} · {t("store.securePayment")}
+            </span>
           </div>
         </div>
       </article>
