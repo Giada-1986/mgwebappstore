@@ -46,7 +46,7 @@ export const checkProductAccess = createServerFn({ method: "POST" })
 
     const { data: entitlement, error } = await supabase
       .from("entitlements")
-      .select("id")
+      .select("id, source, purchase_id, purchases(status, environment)")
       .eq("user_id", userId)
       .eq("product_id", product.id)
       .eq("is_active", true)
@@ -56,5 +56,25 @@ export const checkProductAccess = createServerFn({ method: "POST" })
 
     if (error) return { userId, productId: product.id, hasAccess: false };
 
-    return { userId, productId: product.id, hasAccess: !!entitlement };
+    if (!entitlement) return { userId, productId: product.id, hasAccess: false };
+
+    const row = entitlement as unknown as {
+      source: string;
+      purchase_id: string | null;
+      purchases: { status: string; environment: string } | { status: string; environment: string }[] | null;
+    };
+
+    // Paid and bundle access must still be backed by the exact paid purchase.
+    // This is a second server-side barrier: even if entitlement revocation were
+    // delayed, a refunded/cancelled purchase can no longer authorise the app.
+    if (row.source === "purchase" || row.source === "bundle") {
+      const relatedPurchase = Array.isArray(row.purchases) ? row.purchases[0] : row.purchases;
+      const purchaseIsValid =
+        !!row.purchase_id &&
+        relatedPurchase?.status === "paid" &&
+        relatedPurchase.environment === environment;
+      if (!purchaseIsValid) return { userId, productId: product.id, hasAccess: false };
+    }
+
+    return { userId, productId: product.id, hasAccess: true };
   });
