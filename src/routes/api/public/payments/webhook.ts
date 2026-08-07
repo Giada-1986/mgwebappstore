@@ -426,13 +426,33 @@ async function handleWebhook(req: Request, env: StripeEnv) {
       const dispute: any = event.data.object;
       if (dispute?.status !== "lost") break;
       const chargeId = typeof dispute.charge === "string" ? dispute.charge : dispute.charge?.id;
-      if (chargeId) await handleRefund({ payment_intent: dispute.payment_intent }, env, "refunded");
+      if (chargeId) {
+        await handleRefund({ payment_intent: dispute.payment_intent }, env, "refunded");
+        if (dispute.payment_intent) {
+          const pi =
+            typeof dispute.payment_intent === "string"
+              ? dispute.payment_intent
+              : dispute.payment_intent.id;
+          if (pi) await handleGiftRefund(pi, env);
+        }
+      }
       break;
     }
 
     case "checkout.session.expired":
-      await markStatus(event.data.object, "cancelled", env);
+      if (isGift(event.data.object)) {
+        await getSupabase()
+          .from("gifts")
+          .update({ status: "cancelled" })
+          .eq("stripe_checkout_session_id", (event.data.object as any).id)
+          .eq("environment", env)
+          .eq("status", "pending")
+          .is("purchased_at", null);
+      } else {
+        await markStatus(event.data.object, "cancelled", env);
+      }
       break;
+
     default:
       console.log("Unhandled event:", event.type);
   }
