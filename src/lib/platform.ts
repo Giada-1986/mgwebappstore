@@ -141,7 +141,7 @@ export function useUpdateProfile(userId?: string) {
   const qc = useQueryClient();
   return async (patch: Partial<Profile>) => {
     if (!userId) return;
-    const { error } = await supabase.from("profiles").update(patch).eq("id", userId);
+    const { error } = await supabase.from("profiles").update(patch as never).eq("id", userId);
     if (error) throw error;
     await qc.invalidateQueries({ queryKey: ["profile", userId] });
   };
