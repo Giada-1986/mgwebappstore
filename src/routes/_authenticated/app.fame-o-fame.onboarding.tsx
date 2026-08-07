@@ -1,15 +1,24 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
+import { AppAccessGuard } from "@/components/store/AppAccessGuard";
 import { SakuraDivider } from "@/components/Sakura";
 import { useI18n } from "@/lib/i18n";
-import { useFameState } from "@/lib/data";
+import { FAME_O_FAME_SLUG, useFameState } from "@/lib/data";
 
 export const Route = createFileRoute("/_authenticated/app/fame-o-fame/onboarding")({
-  component: Onboarding,
+  component: OnboardingPage,
 });
 
 const TRIGGERS = ["evening", "work", "boredom", "argument", "night", "alone"] as const;
+
+function OnboardingPage() {
+  return (
+    <AppAccessGuard slug={FAME_O_FAME_SLUG}>
+      <Onboarding />
+    </AppAccessGuard>
+  );
+}
 
 function Onboarding() {
   const { t } = useI18n();
