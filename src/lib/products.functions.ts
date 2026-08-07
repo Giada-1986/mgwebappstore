@@ -28,6 +28,9 @@ export type AdminProduct = {
   stripe_price_id: string | null;
   product_type: string;
   status: string;
+  /** How the product is obtained: paid | free_account | free_public. */
+  access_mode: string;
+  badge: string | null;
   app_path: string | null;
   app_url: string | null;
   sort_order: number;
@@ -37,7 +40,17 @@ export type ProductInput = Omit<AdminProduct, "id"> & { id?: string | null };
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const STATUSES = ["draft", "active", "hidden", "coming_soon"];
-const TYPES = ["mini_app", "premium_app", "professional_app"];
+const TYPES = [
+  "mini_app",
+  "premium_app",
+  "professional_app",
+  "checklist",
+  "template",
+  "ebook",
+  "guide",
+  "bundle",
+];
+const ACCESS_MODES = ["paid", "free_account", "free_public"];
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
   const { data, error } = await context.supabase.rpc("has_role", {
@@ -84,8 +97,9 @@ function validate(data: ProductInput): ProductInput {
   if (!SLUG_RE.test(slug)) throw new Error("Invalid slug");
   if (!STATUSES.includes(data.status)) throw new Error("Invalid status");
   if (!TYPES.includes(data.product_type)) throw new Error("Invalid product type");
+  if (!ACCESS_MODES.includes(data.access_mode)) throw new Error("Invalid access mode");
 
-  const price = Number(data.price);
+  const price = data.access_mode === "paid" ? Number(data.price) : 0;
   if (!Number.isFinite(price) || price < 0 || price > 100000) throw new Error("Invalid price");
   const currency = text(data.currency, 3, "currency", true).toUpperCase();
   if (!/^[A-Z]{3}$/.test(currency)) throw new Error("Invalid currency");
@@ -108,9 +122,13 @@ function validate(data: ProductInput): ProductInput {
     accent_color: accent || null,
     price,
     currency,
-    stripe_price_id: text(data.stripe_price_id, 120, "stripe price id") || null,
+    // Free products never carry Stripe data, whatever the form sends.
+    stripe_price_id:
+      data.access_mode === "paid" ? text(data.stripe_price_id, 120, "stripe price id") || null : null,
     product_type: data.product_type,
     status: data.status,
+    access_mode: data.access_mode,
+    badge: text(data.badge, 40, "badge") || null,
     app_path: normaliseAppPath(data.app_path),
     app_url: normaliseHttpsUrl(data.app_url, "app url"),
     sort_order: Number.isFinite(Number(data.sort_order)) ? Number(data.sort_order) : 0,
