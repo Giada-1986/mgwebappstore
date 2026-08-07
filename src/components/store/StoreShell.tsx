@@ -1,11 +1,14 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { AccountMenu } from "@/components/store/AccountMenu";
 import { StoreLogo } from "@/components/store/StoreLogo";
 
 import { PaymentTestModeBanner } from "@/components/store/PaymentTestModeBanner";
 import { useI18n } from "@/lib/i18n";
+import { useSession } from "@/lib/platform";
+import { getIsAdmin } from "@/lib/admin.functions";
 
 const links = [
   { to: "/", key: "store.nav.store", exact: true },
@@ -62,6 +65,14 @@ export function StoreShell({ children }: { children: ReactNode }) {
               {t(l.key)}
             </Link>
           ))}
+          {admin?.isAdmin && (
+            <Link
+              to="/admin"
+              className="rounded-full px-3.5 py-1.5 text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-accent data-[status=active]:text-accent-foreground"
+            >
+              {t("store.admin.nav")}
+            </Link>
+          )}
         </nav>
       </header>
       <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-12">{children}</main>
