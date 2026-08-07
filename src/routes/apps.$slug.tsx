@@ -1,10 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
 import { BuyButton } from "@/components/store/BuyButton";
-import { LifetimeAccessBadge, ProductTypeBadge } from "@/components/store/Badges";
+import {
+  CustomBadge,
+  FreeBadge,
+  LifetimeAccessBadge,
+  ProductTypeBadge,
+} from "@/components/store/Badges";
+import { ProductContents } from "@/components/store/ProductContents";
+import { BundleContents } from "@/components/store/BundleContents";
 import { useI18n } from "@/lib/i18n";
 import {
-  formatPrice,
+  isFreeProduct,
+  priceLabel,
   productDescription,
   productName,
   productShort,
