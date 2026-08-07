@@ -5,7 +5,8 @@ import { Gated } from "@/components/Gated";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
-import { useProfile, useSession, useUpdateProfile } from "@/lib/data";
+import { useFameState } from "@/lib/data";
+import { useProfile, useSession, useUpdateProfile } from "@/lib/platform";
 
 export const Route = createFileRoute("/_authenticated/app/fame-o-fame/settings")({
   component: SettingsPage,
@@ -20,22 +21,24 @@ function SettingsPage() {
   const update = useUpdateProfile(session?.user.id);
   const navigate = useNavigate();
   const qc = useQueryClient();
+  const { triggers, updateState, updateSettings, settings } = useFameState();
   const [selected, setSelected] = useState<string[]>([]);
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    if (profile) setSelected(profile.triggers ?? []);
-  }, [profile]);
+    setSelected(triggers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [triggers.join(",")]);
 
   useEffect(() => {
-    if (profile && profile.language !== lang) update({ language: lang });
+    if (profile && profile.preferred_language !== lang) update({ preferred_language: lang });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang, profile?.language]);
+  }, [lang, profile?.preferred_language]);
 
   async function toggle(key: string) {
     const next = selected.includes(key) ? selected.filter((k) => k !== key) : [...selected, key];
     setSelected(next);
-    await update({ triggers: next });
+    await updateSettings({ triggers: next });
     setSaved(true);
     setTimeout(() => setSaved(false), 1500);
   }
@@ -58,7 +61,7 @@ function SettingsPage() {
         </div>
         <div>
           <p className="text-xs uppercase tracking-widest text-muted-foreground">{t("settings.access")}</p>
-          <p className="mt-1 text-gold">{profile?.has_paid ? t("settings.lifetime") : t("settings.notPaid")}</p>
+          <p className="mt-1 text-gold">{t("settings.lifetime")}</p>
         </div>
         <div>
           <p className="text-xs uppercase tracking-widest text-muted-foreground">{t("settings.language")}</p>
@@ -92,8 +95,8 @@ function SettingsPage() {
         <button
           type="button"
           onClick={async () => {
-            await update({ onboarding_done: false });
-            navigate({ to: "/onboarding" });
+            await updateState({ onboarding_completed: false });
+            navigate({ to: "/app/fame-o-fame/onboarding" });
           }}
           className="rounded-full border border-gold/50 px-5 py-2 text-sm hover:bg-gold/10"
         >
