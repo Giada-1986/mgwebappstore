@@ -128,30 +128,42 @@
 }
 
 /* ---------------------------------------------------------------
- * Store identity.
- * The root palette belongs to the "Fame o Fame?" mini app (rose/gold).
- * `.store-scope` re-declares the semantic tokens so the platform surfaces
- * (store, catalogue, library, account) have their own coherent look while
- * every mini app can keep — or override — its own identity.
+ * Store identity — "MINI WEB APPS".
+ * Neutral, premium, gender-neutral: deep night-blue canvas, pearl
+ * surfaces, champagne-gold accent. The root palette (rose/gold) belongs
+ * to the "Fame o Fame?" mini app only; each mini app can override
+ * --app-accent within its own scope without touching the store.
  * --------------------------------------------------------------- */
 @utility store-scope {
-  --background: oklch(0.975 0.008 250);
-  --foreground: oklch(0.26 0.03 265);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.26 0.03 265);
-  --primary: oklch(0.44 0.12 265);
-  --primary-foreground: oklch(0.99 0.005 250);
-  --secondary: oklch(0.94 0.015 255);
-  --secondary-foreground: oklch(0.3 0.04 265);
-  --muted: oklch(0.95 0.01 255);
-  --muted-foreground: oklch(0.52 0.025 265);
-  --accent: oklch(0.93 0.03 250);
-  --accent-foreground: oklch(0.3 0.04 265);
-  --border: oklch(0.9 0.015 260);
-  --input: oklch(0.9 0.015 260);
-  --ring: oklch(0.44 0.12 265);
-  --store-glow: 0 20px 50px -28px oklch(0.35 0.09 265 / 0.55);
-  --gradient-store: linear-gradient(170deg, oklch(0.985 0.01 250), oklch(0.94 0.025 262));
+  --background: oklch(0.19 0.028 260);
+  --foreground: oklch(0.96 0.006 90);
+  --card: oklch(0.235 0.026 262);
+  --card-foreground: oklch(0.96 0.006 90);
+  --popover: oklch(0.235 0.026 262);
+  --popover-foreground: oklch(0.96 0.006 90);
+  --primary: oklch(0.82 0.085 88);
+  --primary-foreground: oklch(0.2 0.025 262);
+  --secondary: oklch(0.28 0.024 262);
+  --secondary-foreground: oklch(0.94 0.008 90);
+  --muted: oklch(0.28 0.022 262);
+  --muted-foreground: oklch(0.76 0.012 90);
+  --accent: oklch(0.3 0.03 262);
+  --accent-foreground: oklch(0.9 0.05 88);
+  --border: oklch(0.36 0.025 262);
+  --input: oklch(0.32 0.024 262);
+  --ring: oklch(0.82 0.085 88);
+  --champagne: oklch(0.84 0.08 88);
+  --champagne-soft: oklch(0.9 0.05 90);
+  --store-pearl: oklch(0.975 0.006 85);
+  --store-ink: oklch(0.21 0.02 262);
+  --app-accent: var(--champagne);
+  --store-glow: 0 26px 60px -34px oklch(0.05 0.02 262 / 0.85);
+  --gradient-store: radial-gradient(
+      120% 90% at 50% -10%,
+      oklch(0.26 0.035 262) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, oklch(0.185 0.028 262), oklch(0.155 0.024 264));
   background: var(--gradient-store);
   background-attachment: fixed;
   color: var(--foreground);
@@ -159,10 +171,19 @@
 }
 
 @utility card-store {
-  background-color: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-2xl);
+  background-color: color-mix(in oklab, var(--card) 92%, transparent);
+  border: 1px solid color-mix(in oklab, var(--champagne) 16%, var(--border));
+  border-radius: var(--radius-3xl);
   box-shadow: var(--store-glow);
+}
+
+/* Light pearl surface for high-contrast panels inside the dark store. */
+@utility panel-pearl {
+  background-color: var(--store-pearl);
+  color: var(--store-ink);
+  border: 1px solid color-mix(in oklab, var(--champagne) 40%, transparent);
+  border-radius: var(--radius-3xl);
+  box-shadow: 0 24px 60px -34px oklch(0.05 0.02 262 / 0.75);
 }
 
 @utility btn-store {
@@ -171,9 +192,76 @@
   justify-content: center;
   gap: 0.5rem;
   border-radius: 9999px;
-  background-color: var(--primary);
-  color: var(--primary-foreground);
-  padding: 0.7rem 1.6rem;
-  font-weight: 500;
-  transition: transform 0.15s ease, opacity 0.15s ease;
+  background: linear-gradient(
+    100deg,
+    var(--champagne-soft),
+    var(--champagne)
+  );
+  color: var(--store-ink);
+  padding: 0.75rem 1.7rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border: 1px solid color-mix(in oklab, var(--champagne) 70%, transparent);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
 }
+
+@utility btn-store {
+  &:hover {
+    box-shadow: 0 14px 30px -16px oklch(0.84 0.08 88 / 0.6);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--champagne);
+    outline-offset: 2px;
+  }
+}
+
+@utility btn-store-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.7rem 1.5rem;
+  font-weight: 500;
+  border: 1px solid color-mix(in oklab, var(--champagne) 32%, var(--border));
+  color: var(--foreground);
+  background-color: transparent;
+  transition: background-color 0.18s ease, border-color 0.18s ease;
+  &:hover {
+    background-color: color-mix(in oklab, var(--champagne) 12%, transparent);
+    border-color: color-mix(in oklab, var(--champagne) 55%, transparent);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--champagne);
+    outline-offset: 2px;
+  }
+}
+
+@utility input-store {
+  width: 100%;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--input);
+  background-color: color-mix(in oklab, var(--card) 70%, transparent);
+  color: var(--foreground);
+  padding: 0.7rem 1rem;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  &::placeholder {
+    color: color-mix(in oklab, var(--muted-foreground) 80%, transparent);
+  }
+  &:focus {
+    border-color: var(--champagne);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--champagne) 22%, transparent);
+  }
+}
+
+@utility store-hairline {
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklab, var(--champagne) 45%, transparent),
+    transparent
+  );
+}
+
