@@ -20,7 +20,7 @@ export function AccountMenu() {
 
   if (!session) {
     return (
-      <Link to="/auth" search={{ redirect: undefined }} className="btn-store-ghost px-4 py-1.5 text-sm">
+      <Link to="/auth" search={{ redirect: "/my-apps" }} className="btn-store-ghost px-4 py-1.5 text-sm">
         {t("store.signIn")}
       </Link>
     );
