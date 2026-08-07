@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
+import { StoreLogo } from "@/components/store/StoreLogo";
 import { ProductCard } from "@/components/store/ProductCard";
 import { useI18n } from "@/lib/i18n";
 import { useEntitlements, useProducts, useSession } from "@/lib/platform";
@@ -7,16 +8,16 @@ import { useEntitlements, useProducts, useSession } from "@/lib/platform";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Mini Apps Store — Piccole app che si prendono cura di te" },
+      { title: "Mini Web Apps — Piccole app. Soluzioni immediate." },
       {
         name: "description",
         content:
-          "Uno store di mini web app: acquisto unico, accesso a vita, un solo account per tutti i tuoi strumenti quotidiani.",
+          "Mini Web Apps: acquisti una volta, la tua app resta tua, nessun abbonamento. Un solo account per tutti i tuoi strumenti quotidiani.",
       },
-      { property: "og:title", content: "Mini Apps Store" },
+      { property: "og:title", content: "Mini Web Apps" },
       {
         property: "og:description",
-        content: "Piccole app, grandi cambiamenti. Acquisto unico, accesso a vita.",
+        content: "Piccole app. Soluzioni immediate. Acquisto unico, accesso a vita.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/")({
   }),
   component: StoreHome,
 });
+
 
 function StoreHome() {
   const { t } = useI18n();
@@ -36,12 +38,17 @@ function StoreHome() {
   return (
     <StoreShell>
       <section className="card-store px-8 py-12 text-center">
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">{t("store.heroTitle")}</h1>
+        <StoreLogo priority className="mx-auto h-40 w-40 rounded-2xl sm:h-48 sm:w-48" />
+        <h1 className="mt-6 text-3xl font-semibold tracking-tight sm:text-4xl">
+          {t("store.heroTitle")}
+        </h1>
         <p className="mx-auto mt-4 max-w-xl text-muted-foreground">{t("store.heroText")}</p>
+        <p className="mx-auto mt-4 max-w-xl font-medium">{t("store.promise")}</p>
         <Link to="/apps" className="btn-store mt-8">
           {t("store.heroCta")}
         </Link>
       </section>
+
 
       <section className="mt-12">
         <h2 className="mb-5 text-xl font-semibold tracking-tight">{t("store.featured")}</h2>
