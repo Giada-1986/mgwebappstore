@@ -12,13 +12,18 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
-import { Route as AuthenticatedUnlockRouteImport } from './routes/_authenticated/unlock'
-import { Route as AuthenticatedAppIndexRouteImport } from './routes/_authenticated/app.index'
-import { Route as AuthenticatedAppExercisesRouteImport } from './routes/_authenticated/app.exercises'
-import { Route as AuthenticatedAppMonthlyRouteImport } from './routes/_authenticated/app.monthly'
-import { Route as AuthenticatedAppReportRouteImport } from './routes/_authenticated/app.report'
-import { Route as AuthenticatedAppSettingsRouteImport } from './routes/_authenticated/app.settings'
+import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
+import { Route as AuthenticatedMyAppsRouteImport } from './routes/_authenticated/my-apps'
+import { Route as AppsIndexRouteImport } from './routes/apps.index'
+import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
+import { Route as AuthenticatedCheckoutSlugRouteImport } from './routes/_authenticated/checkout.$slug'
+import { Route as AuthenticatedAppFameOFameIndexRouteImport } from './routes/_authenticated/app.fame-o-fame.index'
+import { Route as AuthenticatedAppFameOFameExercisesRouteImport } from './routes/_authenticated/app.fame-o-fame.exercises'
+import { Route as AuthenticatedAppFameOFameMonthlyRouteImport } from './routes/_authenticated/app.fame-o-fame.monthly'
+import { Route as AuthenticatedAppFameOFameOnboardingRouteImport } from './routes/_authenticated/app.fame-o-fame.onboarding'
+import { Route as AuthenticatedAppFameOFameReportRouteImport } from './routes/_authenticated/app.fame-o-fame.report'
+import { Route as AuthenticatedAppFameOFameSettingsRouteImport } from './routes/_authenticated/app.fame-o-fame.settings'
+import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,120 +39,184 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
-  id: '/onboarding',
-  path: '/onboarding',
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedUnlockRoute = AuthenticatedUnlockRouteImport.update({
-  id: '/unlock',
-  path: '/unlock',
+const AuthenticatedMyAppsRoute = AuthenticatedMyAppsRouteImport.update({
+  id: '/my-apps',
+  path: '/my-apps',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedAppIndexRoute = AuthenticatedAppIndexRouteImport.update({
-  id: '/app/',
-  path: '/app/',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const AppsIndexRoute = AppsIndexRouteImport.update({
+  id: '/apps/',
+  path: '/apps/',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAppExercisesRoute =
-  AuthenticatedAppExercisesRouteImport.update({
-    id: '/app/exercises',
-    path: '/app/exercises',
+const AppsSlugRoute = AppsSlugRouteImport.update({
+  id: '/apps/$slug',
+  path: '/apps/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedCheckoutSlugRoute =
+  AuthenticatedCheckoutSlugRouteImport.update({
+    id: '/checkout/$slug',
+    path: '/checkout/$slug',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedAppMonthlyRoute = AuthenticatedAppMonthlyRouteImport.update({
-  id: '/app/monthly',
-  path: '/app/monthly',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAppReportRoute = AuthenticatedAppReportRouteImport.update({
-  id: '/app/report',
-  path: '/app/report',
-  getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
-const AuthenticatedAppSettingsRoute =
-  AuthenticatedAppSettingsRouteImport.update({
-    id: '/app/settings',
-    path: '/app/settings',
+const AuthenticatedAppFameOFameIndexRoute =
+  AuthenticatedAppFameOFameIndexRouteImport.update({
+    id: '/app/fame-o-fame/',
+    path: '/app/fame-o-fame/',
     getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAppFameOFameExercisesRoute =
+  AuthenticatedAppFameOFameExercisesRouteImport.update({
+    id: '/app/fame-o-fame/exercises',
+    path: '/app/fame-o-fame/exercises',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAppFameOFameMonthlyRoute =
+  AuthenticatedAppFameOFameMonthlyRouteImport.update({
+    id: '/app/fame-o-fame/monthly',
+    path: '/app/fame-o-fame/monthly',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAppFameOFameOnboardingRoute =
+  AuthenticatedAppFameOFameOnboardingRouteImport.update({
+    id: '/app/fame-o-fame/onboarding',
+    path: '/app/fame-o-fame/onboarding',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAppFameOFameReportRoute =
+  AuthenticatedAppFameOFameReportRouteImport.update({
+    id: '/app/fame-o-fame/report',
+    path: '/app/fame-o-fame/report',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAppFameOFameSettingsRoute =
+  AuthenticatedAppFameOFameSettingsRouteImport.update({
+    id: '/app/fame-o-fame/settings',
+    path: '/app/fame-o-fame/settings',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiPublicPaymentsWebhookRoute =
+  ApiPublicPaymentsWebhookRouteImport.update({
+    id: '/api/public/payments/webhook',
+    path: '/api/public/payments/webhook',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/onboarding': typeof AuthenticatedOnboardingRoute
-  '/unlock': typeof AuthenticatedUnlockRoute
-  '/app/exercises': typeof AuthenticatedAppExercisesRoute
-  '/app/monthly': typeof AuthenticatedAppMonthlyRoute
-  '/app/report': typeof AuthenticatedAppReportRoute
-  '/app/settings': typeof AuthenticatedAppSettingsRoute
-  '/app/': typeof AuthenticatedAppIndexRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/my-apps': typeof AuthenticatedMyAppsRoute
+  '/apps/$slug': typeof AppsSlugRoute
+  '/apps/': typeof AppsIndexRoute
+  '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
+  '/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
+  '/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
+  '/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
+  '/app/fame-o-fame/report': typeof AuthenticatedAppFameOFameReportRoute
+  '/app/fame-o-fame/settings': typeof AuthenticatedAppFameOFameSettingsRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/app/fame-o-fame/': typeof AuthenticatedAppFameOFameIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
-  '/onboarding': typeof AuthenticatedOnboardingRoute
-  '/unlock': typeof AuthenticatedUnlockRoute
-  '/app/exercises': typeof AuthenticatedAppExercisesRoute
-  '/app/monthly': typeof AuthenticatedAppMonthlyRoute
-  '/app/report': typeof AuthenticatedAppReportRoute
-  '/app/settings': typeof AuthenticatedAppSettingsRoute
-  '/app': typeof AuthenticatedAppIndexRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/my-apps': typeof AuthenticatedMyAppsRoute
+  '/apps/$slug': typeof AppsSlugRoute
+  '/apps': typeof AppsIndexRoute
+  '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
+  '/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
+  '/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
+  '/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
+  '/app/fame-o-fame/report': typeof AuthenticatedAppFameOFameReportRoute
+  '/app/fame-o-fame/settings': typeof AuthenticatedAppFameOFameSettingsRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/app/fame-o-fame': typeof AuthenticatedAppFameOFameIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
-  '/_authenticated/unlock': typeof AuthenticatedUnlockRoute
-  '/_authenticated/app/exercises': typeof AuthenticatedAppExercisesRoute
-  '/_authenticated/app/monthly': typeof AuthenticatedAppMonthlyRoute
-  '/_authenticated/app/report': typeof AuthenticatedAppReportRoute
-  '/_authenticated/app/settings': typeof AuthenticatedAppSettingsRoute
-  '/_authenticated/app/': typeof AuthenticatedAppIndexRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRoute
+  '/_authenticated/my-apps': typeof AuthenticatedMyAppsRoute
+  '/apps/$slug': typeof AppsSlugRoute
+  '/apps/': typeof AppsIndexRoute
+  '/_authenticated/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
+  '/_authenticated/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
+  '/_authenticated/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
+  '/_authenticated/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
+  '/_authenticated/app/fame-o-fame/report': typeof AuthenticatedAppFameOFameReportRoute
+  '/_authenticated/app/fame-o-fame/settings': typeof AuthenticatedAppFameOFameSettingsRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
+  '/_authenticated/app/fame-o-fame/': typeof AuthenticatedAppFameOFameIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auth'
-    | '/onboarding'
-    | '/unlock'
-    | '/app/exercises'
-    | '/app/monthly'
-    | '/app/report'
-    | '/app/settings'
-    | '/app/'
+    | '/account'
+    | '/my-apps'
+    | '/apps/$slug'
+    | '/apps/'
+    | '/checkout/$slug'
+    | '/app/fame-o-fame/exercises'
+    | '/app/fame-o-fame/monthly'
+    | '/app/fame-o-fame/onboarding'
+    | '/app/fame-o-fame/report'
+    | '/app/fame-o-fame/settings'
+    | '/api/public/payments/webhook'
+    | '/app/fame-o-fame/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
-    | '/onboarding'
-    | '/unlock'
-    | '/app/exercises'
-    | '/app/monthly'
-    | '/app/report'
-    | '/app/settings'
-    | '/app'
+    | '/account'
+    | '/my-apps'
+    | '/apps/$slug'
+    | '/apps'
+    | '/checkout/$slug'
+    | '/app/fame-o-fame/exercises'
+    | '/app/fame-o-fame/monthly'
+    | '/app/fame-o-fame/onboarding'
+    | '/app/fame-o-fame/report'
+    | '/app/fame-o-fame/settings'
+    | '/api/public/payments/webhook'
+    | '/app/fame-o-fame'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
-    | '/_authenticated/onboarding'
-    | '/_authenticated/unlock'
-    | '/_authenticated/app/exercises'
-    | '/_authenticated/app/monthly'
-    | '/_authenticated/app/report'
-    | '/_authenticated/app/settings'
-    | '/_authenticated/app/'
+    | '/_authenticated/account'
+    | '/_authenticated/my-apps'
+    | '/apps/$slug'
+    | '/apps/'
+    | '/_authenticated/checkout/$slug'
+    | '/_authenticated/app/fame-o-fame/exercises'
+    | '/_authenticated/app/fame-o-fame/monthly'
+    | '/_authenticated/app/fame-o-fame/onboarding'
+    | '/_authenticated/app/fame-o-fame/report'
+    | '/_authenticated/app/fame-o-fame/settings'
+    | '/api/public/payments/webhook'
+    | '/_authenticated/app/fame-o-fame/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  AppsSlugRoute: typeof AppsSlugRoute
+  AppsIndexRoute: typeof AppsIndexRoute
+  ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -173,76 +242,118 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/onboarding': {
-      id: '/_authenticated/onboarding'
-      path: '/onboarding'
-      fullPath: '/onboarding'
-      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+    '/_authenticated/account': {
+      id: '/_authenticated/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/unlock': {
-      id: '/_authenticated/unlock'
-      path: '/unlock'
-      fullPath: '/unlock'
-      preLoaderRoute: typeof AuthenticatedUnlockRouteImport
+    '/_authenticated/my-apps': {
+      id: '/_authenticated/my-apps'
+      path: '/my-apps'
+      fullPath: '/my-apps'
+      preLoaderRoute: typeof AuthenticatedMyAppsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/': {
-      id: '/_authenticated/app/'
-      path: '/app'
-      fullPath: '/app/'
-      preLoaderRoute: typeof AuthenticatedAppIndexRouteImport
+    '/apps/': {
+      id: '/apps/'
+      path: '/apps'
+      fullPath: '/apps/'
+      preLoaderRoute: typeof AppsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps/$slug': {
+      id: '/apps/$slug'
+      path: '/apps/$slug'
+      fullPath: '/apps/$slug'
+      preLoaderRoute: typeof AppsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/checkout/$slug': {
+      id: '/_authenticated/checkout/$slug'
+      path: '/checkout/$slug'
+      fullPath: '/checkout/$slug'
+      preLoaderRoute: typeof AuthenticatedCheckoutSlugRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/exercises': {
-      id: '/_authenticated/app/exercises'
-      path: '/app/exercises'
-      fullPath: '/app/exercises'
-      preLoaderRoute: typeof AuthenticatedAppExercisesRouteImport
+    '/_authenticated/app/fame-o-fame/': {
+      id: '/_authenticated/app/fame-o-fame/'
+      path: '/app/fame-o-fame'
+      fullPath: '/app/fame-o-fame/'
+      preLoaderRoute: typeof AuthenticatedAppFameOFameIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/monthly': {
-      id: '/_authenticated/app/monthly'
-      path: '/app/monthly'
-      fullPath: '/app/monthly'
-      preLoaderRoute: typeof AuthenticatedAppMonthlyRouteImport
+    '/_authenticated/app/fame-o-fame/exercises': {
+      id: '/_authenticated/app/fame-o-fame/exercises'
+      path: '/app/fame-o-fame/exercises'
+      fullPath: '/app/fame-o-fame/exercises'
+      preLoaderRoute: typeof AuthenticatedAppFameOFameExercisesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/report': {
-      id: '/_authenticated/app/report'
-      path: '/app/report'
-      fullPath: '/app/report'
-      preLoaderRoute: typeof AuthenticatedAppReportRouteImport
+    '/_authenticated/app/fame-o-fame/monthly': {
+      id: '/_authenticated/app/fame-o-fame/monthly'
+      path: '/app/fame-o-fame/monthly'
+      fullPath: '/app/fame-o-fame/monthly'
+      preLoaderRoute: typeof AuthenticatedAppFameOFameMonthlyRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/app/settings': {
-      id: '/_authenticated/app/settings'
-      path: '/app/settings'
-      fullPath: '/app/settings'
-      preLoaderRoute: typeof AuthenticatedAppSettingsRouteImport
+    '/_authenticated/app/fame-o-fame/onboarding': {
+      id: '/_authenticated/app/fame-o-fame/onboarding'
+      path: '/app/fame-o-fame/onboarding'
+      fullPath: '/app/fame-o-fame/onboarding'
+      preLoaderRoute: typeof AuthenticatedAppFameOFameOnboardingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/fame-o-fame/report': {
+      id: '/_authenticated/app/fame-o-fame/report'
+      path: '/app/fame-o-fame/report'
+      fullPath: '/app/fame-o-fame/report'
+      preLoaderRoute: typeof AuthenticatedAppFameOFameReportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/app/fame-o-fame/settings': {
+      id: '/_authenticated/app/fame-o-fame/settings'
+      path: '/app/fame-o-fame/settings'
+      fullPath: '/app/fame-o-fame/settings'
+      preLoaderRoute: typeof AuthenticatedAppFameOFameSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/payments/webhook': {
+      id: '/api/public/payments/webhook'
+      path: '/api/public/payments/webhook'
+      fullPath: '/api/public/payments/webhook'
+      preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
-  AuthenticatedUnlockRoute: typeof AuthenticatedUnlockRoute
-  AuthenticatedAppExercisesRoute: typeof AuthenticatedAppExercisesRoute
-  AuthenticatedAppMonthlyRoute: typeof AuthenticatedAppMonthlyRoute
-  AuthenticatedAppReportRoute: typeof AuthenticatedAppReportRoute
-  AuthenticatedAppSettingsRoute: typeof AuthenticatedAppSettingsRoute
-  AuthenticatedAppIndexRoute: typeof AuthenticatedAppIndexRoute
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
+  AuthenticatedMyAppsRoute: typeof AuthenticatedMyAppsRoute
+  AuthenticatedCheckoutSlugRoute: typeof AuthenticatedCheckoutSlugRoute
+  AuthenticatedAppFameOFameExercisesRoute: typeof AuthenticatedAppFameOFameExercisesRoute
+  AuthenticatedAppFameOFameMonthlyRoute: typeof AuthenticatedAppFameOFameMonthlyRoute
+  AuthenticatedAppFameOFameOnboardingRoute: typeof AuthenticatedAppFameOFameOnboardingRoute
+  AuthenticatedAppFameOFameReportRoute: typeof AuthenticatedAppFameOFameReportRoute
+  AuthenticatedAppFameOFameSettingsRoute: typeof AuthenticatedAppFameOFameSettingsRoute
+  AuthenticatedAppFameOFameIndexRoute: typeof AuthenticatedAppFameOFameIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
-  AuthenticatedUnlockRoute: AuthenticatedUnlockRoute,
-  AuthenticatedAppExercisesRoute: AuthenticatedAppExercisesRoute,
-  AuthenticatedAppMonthlyRoute: AuthenticatedAppMonthlyRoute,
-  AuthenticatedAppReportRoute: AuthenticatedAppReportRoute,
-  AuthenticatedAppSettingsRoute: AuthenticatedAppSettingsRoute,
-  AuthenticatedAppIndexRoute: AuthenticatedAppIndexRoute,
+  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
+  AuthenticatedMyAppsRoute: AuthenticatedMyAppsRoute,
+  AuthenticatedCheckoutSlugRoute: AuthenticatedCheckoutSlugRoute,
+  AuthenticatedAppFameOFameExercisesRoute:
+    AuthenticatedAppFameOFameExercisesRoute,
+  AuthenticatedAppFameOFameMonthlyRoute: AuthenticatedAppFameOFameMonthlyRoute,
+  AuthenticatedAppFameOFameOnboardingRoute:
+    AuthenticatedAppFameOFameOnboardingRoute,
+  AuthenticatedAppFameOFameReportRoute: AuthenticatedAppFameOFameReportRoute,
+  AuthenticatedAppFameOFameSettingsRoute:
+    AuthenticatedAppFameOFameSettingsRoute,
+  AuthenticatedAppFameOFameIndexRoute: AuthenticatedAppFameOFameIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -252,17 +363,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  AppsSlugRoute: AppsSlugRoute,
+  AppsIndexRoute: AppsIndexRoute,
+  ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

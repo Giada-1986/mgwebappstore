@@ -3,9 +3,9 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { SakuraDivider } from "@/components/Sakura";
 import { useI18n } from "@/lib/i18n";
-import { useProfile, useSession, useUpdateProfile } from "@/lib/data";
+import { useFameState } from "@/lib/data";
 
-export const Route = createFileRoute("/_authenticated/onboarding")({
+export const Route = createFileRoute("/_authenticated/app/fame-o-fame/onboarding")({
   component: Onboarding,
 });
 
@@ -13,14 +13,12 @@ const TRIGGERS = ["evening", "work", "boredom", "argument", "night", "alone"] as
 
 function Onboarding() {
   const { t } = useI18n();
-  const { session } = useSession();
-  const { data: profile } = useProfile(session?.user.id);
-  const update = useUpdateProfile(session?.user.id);
+  const { triggers, triggerOther, updateState, settings } = useFameState();
   const navigate = useNavigate();
 
   const [step, setStep] = useState(0);
-  const [selected, setSelected] = useState<string[]>(profile?.triggers ?? []);
-  const [other, setOther] = useState(profile?.trigger_other ?? "");
+  const [selected, setSelected] = useState<string[]>(triggers);
+  const [other, setOther] = useState(triggerOther);
   const [busy, setBusy] = useState(false);
 
   function toggle(key: string) {
@@ -29,8 +27,11 @@ function Onboarding() {
 
   async function finish() {
     setBusy(true);
-    await update({ triggers: selected, trigger_other: other || null, onboarding_done: true });
-    navigate({ to: "/app", replace: true });
+    await updateState({
+      onboarding_completed: true,
+      settings: { ...settings, triggers: selected, trigger_other: other || null },
+    });
+    navigate({ to: "/app/fame-o-fame", replace: true });
   }
 
   return (

@@ -1,0 +1,39 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { StoreShell } from "@/components/store/StoreShell";
+import { MyAppsGrid } from "@/components/store/MyAppsGrid";
+import { useI18n } from "@/lib/i18n";
+import { useMyApps, useSession } from "@/lib/platform";
+
+export const Route = createFileRoute("/_authenticated/my-apps")({
+  head: () => ({
+    meta: [
+      { title: "Le mie app — Mini Apps Store" },
+      { name: "description", content: "La tua libreria personale di mini app sbloccate." },
+      { property: "og:title", content: "Le mie app — Mini Apps Store" },
+      { property: "og:description", content: "Tutte le mini app che hai sbloccato." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
+  component: MyAppsPage,
+});
+
+function MyAppsPage() {
+  const { t } = useI18n();
+  const { session } = useSession();
+  const { apps, isLoading } = useMyApps(session?.user.id);
+
+  return (
+    <StoreShell>
+      <h1 className="text-2xl font-semibold tracking-tight">{t("store.myAppsTitle")}</h1>
+      <p className="mt-2 text-muted-foreground">{t("store.myAppsText")}</p>
+      <div className="mt-8">
+        {isLoading ? (
+          <p className="text-muted-foreground">{t("common.loading")}</p>
+        ) : (
+          <MyAppsGrid apps={apps} />
+        )}
+      </div>
+    </StoreShell>
+  );
+}

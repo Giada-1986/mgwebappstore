@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      categories: {
+        Row: {
+          created_at: string
+          id: string
+          name_en: string
+          name_it: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name_en: string
+          name_it: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name_en?: string
+          name_it?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       checkins: {
         Row: {
           action_chosen: string | null
@@ -43,6 +73,63 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      entitlements: {
+        Row: {
+          access_type: string
+          created_at: string
+          granted_at: string
+          id: string
+          is_active: boolean
+          product_id: string
+          purchase_id: string | null
+          revoked_at: string | null
+          source: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_type?: string
+          created_at?: string
+          granted_at?: string
+          id?: string
+          is_active?: boolean
+          product_id: string
+          purchase_id?: string | null
+          revoked_at?: string | null
+          source?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_type?: string
+          created_at?: string
+          granted_at?: string
+          id?: string
+          is_active?: boolean
+          product_id?: string
+          purchase_id?: string | null
+          revoked_at?: string | null
+          source?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entitlements_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entitlements_purchase_id_fkey"
+            columns: ["purchase_id"]
+            isOneToOne: false
+            referencedRelation: "purchases"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       exercises: {
         Row: {
@@ -77,45 +164,228 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          accent_color: string | null
+          app_path: string | null
+          category_id: string | null
+          created_at: string
+          currency: string
+          description_en: string
+          description_it: string
+          id: string
+          image_url: string | null
+          name_en: string
+          name_it: string
+          price: number
+          product_type: string
+          short_description_en: string
+          short_description_it: string
+          slug: string
+          sort_order: number
+          status: string
+          stripe_price_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string | null
+          app_path?: string | null
+          category_id?: string | null
+          created_at?: string
+          currency?: string
+          description_en?: string
+          description_it?: string
+          id?: string
+          image_url?: string | null
+          name_en: string
+          name_it: string
+          price?: number
+          product_type?: string
+          short_description_en?: string
+          short_description_it?: string
+          slug: string
+          sort_order?: number
+          status?: string
+          stripe_price_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string | null
+          app_path?: string | null
+          category_id?: string | null
+          created_at?: string
+          currency?: string
+          description_en?: string
+          description_it?: string
+          id?: string
+          image_url?: string | null
+          name_en?: string
+          name_it?: string
+          price?: number
+          product_type?: string
+          short_description_en?: string
+          short_description_it?: string
+          slug?: string
+          sort_order?: number
+          status?: string
+          stripe_price_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
+          display_name: string | null
           email: string | null
           has_paid: boolean
           id: string
           language: string
           onboarding_done: boolean
+          preferred_language: string
           trigger_other: string | null
           triggers: string[]
+          updated_at: string
         }
         Insert: {
           created_at?: string
+          display_name?: string | null
           email?: string | null
           has_paid?: boolean
           id: string
           language?: string
           onboarding_done?: boolean
+          preferred_language?: string
           trigger_other?: string | null
           triggers?: string[]
+          updated_at?: string
         }
         Update: {
           created_at?: string
+          display_name?: string | null
           email?: string | null
           has_paid?: boolean
           id?: string
           language?: string
           onboarding_done?: boolean
+          preferred_language?: string
           trigger_other?: string | null
           triggers?: string[]
+          updated_at?: string
         }
         Relationships: []
+      }
+      purchases: {
+        Row: {
+          amount_paid: number | null
+          created_at: string
+          currency: string
+          id: string
+          product_id: string
+          purchased_at: string | null
+          status: string
+          stripe_checkout_session_id: string | null
+          stripe_payment_intent_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount_paid?: number | null
+          created_at?: string
+          currency?: string
+          id?: string
+          product_id: string
+          purchased_at?: string | null
+          status?: string
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount_paid?: number | null
+          created_at?: string
+          currency?: string
+          id?: string
+          product_id?: string
+          purchased_at?: string | null
+          status?: string
+          stripe_checkout_session_id?: string | null
+          stripe_payment_intent_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "purchases_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_product_state: {
+        Row: {
+          created_at: string
+          first_opened_at: string | null
+          id: string
+          last_opened_at: string | null
+          onboarding_completed: boolean
+          product_id: string
+          settings: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          first_opened_at?: string | null
+          id?: string
+          last_opened_at?: string | null
+          onboarding_completed?: boolean
+          product_id: string
+          settings?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          first_opened_at?: string | null
+          id?: string
+          last_opened_at?: string | null
+          onboarding_completed?: boolean
+          product_id?: string
+          settings?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_product_state_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_product_access: {
+        Args: { _slug: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
