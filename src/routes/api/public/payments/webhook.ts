@@ -96,14 +96,22 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
     console.error("Price livemode mismatch", session.id, paidPrice.livemode, env);
     return;
   }
-  if (
-    !isFree &&
-    typeof session.amount_total === "number" &&
-    Math.round(Number(product["price"]) * 100) !== session.amount_total
-  ) {
-    console.error("Amount mismatch", session.id, session.amount_total, product["price"]);
+  // Amount check: compare the PRODUCT price, not the session total.
+  // With tax collection enabled `amount_total` includes tax/fees, so the
+  // authoritative figure is the unit amount of the paid price (falling back to
+  // the pre-tax subtotal when the price is metered/absent).
+  const expectedCents = Math.round(Number(product["price"]) * 100);
+  const paidUnitAmount =
+    typeof paidPrice?.unit_amount === "number"
+      ? paidPrice.unit_amount * Number(lineItems[0]?.quantity ?? 1)
+      : typeof session.amount_subtotal === "number"
+        ? session.amount_subtotal
+        : null;
+  if (!isFree && typeof paidUnitAmount === "number" && expectedCents !== paidUnitAmount) {
+    console.error("Amount mismatch", session.id, paidUnitAmount, product["price"]);
     return;
   }
+
   if (
     !isFree &&
     session.currency &&
