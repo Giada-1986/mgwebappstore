@@ -399,11 +399,14 @@ async function handleWebhook(req: Request, env: StripeEnv) {
       }
       break;
     case "charge.refunded":
-    case "charge.refund.updated": {
-      // `charge.refund.updated` carries a Refund; re-read its charge from Stripe
-      // so the decision is based on the authoritative refunded totals.
+    case "charge.refund.updated":
+    case "refund.created":
+    case "refund.updated": {
+      // `charge.refunded` carries a Charge; the refund events carry a Refund.
+      // In both cases the charge is re-read from Stripe so the decision is
+      // based on the authoritative refunded totals, never on the payload.
       let charge: any = event.data.object;
-      if (event.type === "charge.refund.updated") {
+      if (event.type !== "charge.refunded") {
         const chargeId = typeof charge?.charge === "string" ? charge.charge : charge?.charge?.id;
         if (!chargeId) break;
         try {
@@ -420,9 +423,10 @@ async function handleWebhook(req: Request, env: StripeEnv) {
             ? charge.payment_intent
             : charge?.payment_intent?.id;
         if (pi) await handleGiftRefund(pi, env);
+      } else {
+        console.log("Partial refund, entitlement kept", charge?.id);
       }
       break;
-
     }
     case "charge.dispute.closed": {
       const dispute: any = event.data.object;
