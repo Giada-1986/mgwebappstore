@@ -268,7 +268,8 @@
         "users": "Users",
         "sales": "Sales",
         "marketing": "Marketing",
-        "analytics": "Analytics"
+        "analytics": "Analytics",
+        "products": "Products"
       },
       "kpi": {
         "users": "Registered users",
@@ -316,7 +317,46 @@
       "analyticsTitle": "Product analytics",
       "analyticsText": "Visits, funnels and events are collected in PostHog. Tracked events:",
       "analyticsEvents": "store visit, product view, signup, login, checkout started, purchase completed, app opened.",
-      "analyticsPrivacy": "No payment data, passwords or sensitive data are sent."
+      "analyticsPrivacy": "No payment data, passwords or sensitive data are sent.",
+      "products": {
+        "tab": "Products",
+        "productsTitle": "Store mini apps",
+        "newProduct": "New Mini App",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "saved": "Product saved.",
+        "saveFailed": "Could not save: {error}",
+        "noProducts": "No products in the catalog yet.",
+        "fSlug": "Slug (URL identifier)",
+        "fNameIt": "Name (IT)",
+        "fNameEn": "Name (EN)",
+        "fShortIt": "Short description (IT)",
+        "fShortEn": "Short description (EN)",
+        "fDescIt": "Full description (IT)",
+        "fDescEn": "Full description (EN)",
+        "fCategory": "Category",
+        "fImage": "Cover image (https URL)",
+        "fAccent": "Accent colour",
+        "fPrice": "Price",
+        "fCurrency": "Currency",
+        "fType": "Product type",
+        "fStripe": "Stripe Price ID",
+        "fPath": "Internal route (e.g. /app/app-name)",
+        "fUrl": "External app URL (https)",
+        "fStatus": "Status",
+        "fSort": "Order",
+        "statusDraft": "Draft",
+        "statusActive": "Active",
+        "statusHidden": "Hidden",
+        "statusComingSoon": "Coming soon",
+        "typeMini": "Mini app",
+        "typePremium": "Premium app",
+        "typePro": "Professional app",
+        "securityNote": "A route or URL is only a link: opening a mini app is still authorised server-side (user + product + environment + active access).",
+        "visibilityNote": "Active products appear in the catalog immediately. Draft and Hidden are never public."
+      }
     }
   }
 }

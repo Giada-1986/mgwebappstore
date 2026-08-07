@@ -268,7 +268,8 @@
         "users": "Utenti",
         "sales": "Vendite",
         "marketing": "Marketing",
-        "analytics": "Analytics"
+        "analytics": "Analytics",
+        "products": "Prodotti"
       },
       "kpi": {
         "users": "Utenti registrati",
@@ -316,7 +317,46 @@
       "analyticsTitle": "Product analytics",
       "analyticsText": "Visite, funnel ed eventi sono raccolti su PostHog. Eventi tracciati:",
       "analyticsEvents": "visita store, visualizzazione prodotto, registrazione, login, checkout avviato, acquisto completato, apertura app.",
-      "analyticsPrivacy": "Non vengono inviati dati di pagamento, password o dati sensibili."
+      "analyticsPrivacy": "Non vengono inviati dati di pagamento, password o dati sensibili.",
+      "products": {
+        "tab": "Prodotti",
+        "productsTitle": "Mini app dello store",
+        "newProduct": "Nuova Mini App",
+        "edit": "Modifica",
+        "cancel": "Annulla",
+        "save": "Salva",
+        "saving": "Salvataggio…",
+        "saved": "Prodotto salvato.",
+        "saveFailed": "Salvataggio non riuscito: {error}",
+        "noProducts": "Nessun prodotto in catalogo.",
+        "fSlug": "Slug (identificativo URL)",
+        "fNameIt": "Nome (IT)",
+        "fNameEn": "Nome (EN)",
+        "fShortIt": "Descrizione breve (IT)",
+        "fShortEn": "Descrizione breve (EN)",
+        "fDescIt": "Descrizione completa (IT)",
+        "fDescEn": "Descrizione completa (EN)",
+        "fCategory": "Categoria",
+        "fImage": "Immagine di copertina (URL https)",
+        "fAccent": "Colore accento",
+        "fPrice": "Prezzo",
+        "fCurrency": "Valuta",
+        "fType": "Tipo prodotto",
+        "fStripe": "Stripe Price ID",
+        "fPath": "Route interna (es. /app/nome-app)",
+        "fUrl": "URL app esterna (https)",
+        "fStatus": "Stato",
+        "fSort": "Ordine",
+        "statusDraft": "Bozza",
+        "statusActive": "Attivo",
+        "statusHidden": "Nascosto",
+        "statusComingSoon": "Prossimamente",
+        "typeMini": "Mini app",
+        "typePremium": "Premium app",
+        "typePro": "Professional app",
+        "securityNote": "La route o l'URL sono solo un collegamento: l'apertura di una mini app resta autorizzata dal server (utente + prodotto + ambiente + accesso attivo).",
+        "visibilityNote": "Con stato Attivo il prodotto compare subito nel catalogo. Bozza e Nascosto non sono visibili pubblicamente."
+      }
     }
   }
 }
