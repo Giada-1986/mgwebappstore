@@ -160,6 +160,159 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
   if (entitlementError) console.error("Failed to grant entitlement", entitlementError);
 }
 
+/**
+ * Gift fulfilment. Runs the SAME validations as a normal purchase
+ * (product identity, payment_status, price id, livemode, amount, currency)
+ * but grants NO entitlement: the gift only becomes redeemable.
+ */
+async function fulfilGift(sessionFromEvent: any, env: StripeEnv) {
+  let session: any;
+  try {
+    session = await createStripeClient(env).checkout.sessions.retrieve(sessionFromEvent.id, {
+      expand: ["line_items.data.price"],
+    });
+  } catch (e) {
+    console.error("Could not retrieve gift session", sessionFromEvent?.id, e);
+    return;
+  }
+
+  if (session.mode !== "payment") return;
+
+  const giftId = session.metadata?.gift_id;
+  const productId = session.metadata?.product_id;
+  const sessionEnv = session.metadata?.environment;
+  if (!giftId || !productId) {
+    console.error("Gift session without gift_id/product_id", session.id);
+    return;
+  }
+  if (sessionEnv && sessionEnv !== env) {
+    console.error("Gift session environment mismatch", session.id, sessionEnv, env);
+    return;
+  }
+
+  const supabase = getSupabase();
+
+  const { data: gift } = await supabase
+    .from("gifts")
+    .select("id, product_id, status, environment")
+    .eq("id", giftId)
+    .maybeSingle();
+
+  if (!gift) {
+    console.error("Unknown gift", giftId);
+    return;
+  }
+  if (gift["environment"] !== env) {
+    console.error("Gift environment mismatch", giftId, gift["environment"], env);
+    return;
+  }
+  // The product is taken from the gift row (server-side truth) and must match
+  // the product the session was created for.
+  if (gift["product_id"] !== productId) {
+    console.error("Gift product mismatch", giftId, gift["product_id"], productId);
+    return;
+  }
+  if (gift["status"] !== "pending") {
+    console.error("Gift not pending, ignoring", giftId, gift["status"]);
+    return;
+  }
+
+  const { data: product } = await supabase
+    .from("products")
+    .select("id, price, currency, stripe_price_id")
+    .eq("id", gift["product_id"])
+    .maybeSingle();
+
+  if (!product) {
+    console.error("Unknown product for gift", giftId);
+    return;
+  }
+
+  if (session.payment_status !== "paid") {
+    console.error("Refusing to fulfil unpaid gift session", session.id, session.payment_status);
+    return;
+  }
+
+  const lineItems = session.line_items?.data ?? [];
+  if (lineItems.length !== 1) {
+    console.error("Unexpected gift line item count", session.id, lineItems.length);
+    return;
+  }
+  const paidPrice = lineItems[0]?.price;
+  const expectedPriceId = product["stripe_price_id"];
+  const paidPriceIdentifiers = [
+    paidPrice?.lookup_key,
+    paidPrice?.metadata?.lovable_external_id,
+    paidPrice?.id,
+  ].filter(Boolean);
+  if (!expectedPriceId || !paidPriceIdentifiers.includes(expectedPriceId)) {
+    console.error("Gift price mismatch", session.id, paidPriceIdentifiers, expectedPriceId);
+    return;
+  }
+  if (paidPrice?.livemode !== undefined && paidPrice.livemode !== (env === "live")) {
+    console.error("Gift price livemode mismatch", session.id, paidPrice.livemode, env);
+    return;
+  }
+  if (
+    typeof session.amount_total === "number" &&
+    Math.round(Number(product["price"]) * 100) !== session.amount_total
+  ) {
+    console.error("Gift amount mismatch", session.id, session.amount_total, product["price"]);
+    return;
+  }
+  if (
+    session.currency &&
+    String(product["currency"]).toLowerCase() !== String(session.currency).toLowerCase()
+  ) {
+    console.error("Gift currency mismatch", session.id, session.currency, product["currency"]);
+    return;
+  }
+
+  const { error } = await supabase
+    .from("gifts")
+    .update({
+      stripe_checkout_session_id: session.id,
+      stripe_payment_intent_id:
+        typeof session.payment_intent === "string"
+          ? session.payment_intent
+          : (session.payment_intent?.id ?? null),
+      amount_paid: typeof session.amount_total === "number" ? session.amount_total / 100 : null,
+      currency: (session.currency ?? "eur").toUpperCase(),
+      purchased_at: new Date().toISOString(),
+      status: "pending",
+    })
+    .eq("id", giftId)
+    .eq("environment", env);
+
+  // NOTE: intentionally no entitlement here — the gift stays `pending` until
+  // the recipient redeems the token with an authenticated account.
+  if (error) console.error("Failed to mark gift as paid", error);
+}
+
+/** Refund of a gift: revoke it, and any entitlement it already produced. */
+async function handleGiftRefund(paymentIntentId: string, env: StripeEnv) {
+  const supabase = getSupabase();
+  const { data: gift } = await supabase
+    .from("gifts")
+    .select("id, product_id, status, redeemed_by_user_id")
+    .eq("stripe_payment_intent_id", paymentIntentId)
+    .eq("environment", env)
+    .maybeSingle();
+
+  if (!gift) return;
+
+  if (gift["redeemed_by_user_id"]) {
+    await supabase
+      .from("entitlements")
+      .update({ is_active: false, revoked_at: new Date().toISOString() })
+      .eq("user_id", gift["redeemed_by_user_id"])
+      .eq("product_id", gift["product_id"])
+      .eq("environment", env);
+  }
+
+  await supabase.from("gifts").update({ status: "refunded" }).eq("id", gift["id"]);
+}
+
 async function markStatus(session: any, status: string, env: StripeEnv) {
   if (!session?.id) return;
   await getSupabase()
