@@ -26,11 +26,20 @@ export const checkProductAccess = createServerFn({ method: "POST" })
 
     const { data: product, error: productError } = await supabase
       .from("products")
-      .select("id")
+      .select("id, access_mode, status")
       .eq("slug", data.slug)
       .maybeSingle();
 
     if (productError || !product) return { userId, productId: null, hasAccess: false };
+
+    const p = product as unknown as Record<string, unknown>;
+
+    // Only products the administrator explicitly published as fully public
+    // skip the entitlement check. Everything else stays gated.
+    if (p["access_mode"] === "free_public" && p["status"] === "active") {
+      return { userId, productId: p["id"] as string, hasAccess: true };
+    }
+
 
     const { resolveServerStripeEnv } = await import("@/lib/payments-env.server");
     const environment = resolveServerStripeEnv();

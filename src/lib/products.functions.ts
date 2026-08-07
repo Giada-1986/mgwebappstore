@@ -28,6 +28,9 @@ export type AdminProduct = {
   stripe_price_id: string | null;
   product_type: string;
   status: string;
+  /** How the product is obtained: paid | free_account | free_public. */
+  access_mode: string;
+  badge: string | null;
   app_path: string | null;
   app_url: string | null;
   sort_order: number;
@@ -37,7 +40,17 @@ export type ProductInput = Omit<AdminProduct, "id"> & { id?: string | null };
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const STATUSES = ["draft", "active", "hidden", "coming_soon"];
-const TYPES = ["mini_app", "premium_app", "professional_app"];
+const TYPES = [
+  "mini_app",
+  "premium_app",
+  "professional_app",
+  "checklist",
+  "template",
+  "ebook",
+  "guide",
+  "bundle",
+];
+const ACCESS_MODES = ["paid", "free_account", "free_public"];
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
   const { data, error } = await context.supabase.rpc("has_role", {
@@ -84,8 +97,9 @@ function validate(data: ProductInput): ProductInput {
   if (!SLUG_RE.test(slug)) throw new Error("Invalid slug");
   if (!STATUSES.includes(data.status)) throw new Error("Invalid status");
   if (!TYPES.includes(data.product_type)) throw new Error("Invalid product type");
+  if (!ACCESS_MODES.includes(data.access_mode)) throw new Error("Invalid access mode");
 
-  const price = Number(data.price);
+  const price = data.access_mode === "paid" ? Number(data.price) : 0;
   if (!Number.isFinite(price) || price < 0 || price > 100000) throw new Error("Invalid price");
   const currency = text(data.currency, 3, "currency", true).toUpperCase();
   if (!/^[A-Z]{3}$/.test(currency)) throw new Error("Invalid currency");
@@ -108,9 +122,13 @@ function validate(data: ProductInput): ProductInput {
     accent_color: accent || null,
     price,
     currency,
-    stripe_price_id: text(data.stripe_price_id, 120, "stripe price id") || null,
+    // Free products never carry Stripe data, whatever the form sends.
+    stripe_price_id:
+      data.access_mode === "paid" ? text(data.stripe_price_id, 120, "stripe price id") || null : null,
     product_type: data.product_type,
     status: data.status,
+    access_mode: data.access_mode,
+    badge: text(data.badge, 40, "badge") || null,
     app_path: normaliseAppPath(data.app_path),
     app_url: normaliseHttpsUrl(data.app_url, "app url"),
     sort_order: Number.isFinite(Number(data.sort_order)) ? Number(data.sort_order) : 0,
@@ -156,4 +174,135 @@ export const saveAdminProduct = createServerFn({ method: "POST" })
       .single();
     if (error) return { ok: false, error: error.message };
     return { ok: true, id: created?.id };
+  });
+
+/* ---------------- product assets & bundle composition ---------------- */
+
+export type ProductAsset = {
+  id: string;
+  product_id: string;
+  asset_type: string;
+  storage_path: string | null;
+  external_url: string | null;
+  title: string;
+  sort_order: number;
+  is_active: boolean;
+};
+
+export type AssetInput = Omit<ProductAsset, "id"> & { id?: string | null };
+
+const ASSET_TYPES = ["file", "pdf", "image", "template_url", "app_route", "external_url"];
+
+export const listProductAssets = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { productId: string }) => data)
+  .handler(async ({ data, context }): Promise<ProductAsset[]> => {
+    await assertAdmin(context as any);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows, error } = await (supabaseAdmin as any)
+      .from("product_assets")
+      .select("*")
+      .eq("product_id", data.productId)
+      .order("sort_order");
+    if (error) throw new Error(error.message);
+    return (rows ?? []) as ProductAsset[];
+  });
+
+export const saveProductAsset = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: AssetInput) => {
+    if (!ASSET_TYPES.includes(data.asset_type)) throw new Error("Invalid asset type");
+    const storage = text(data.storage_path, 400, "storage path");
+    if (storage && (storage.startsWith("/") || storage.includes("..")))
+      throw new Error("Invalid storage path");
+    return {
+      id: data.id ?? null,
+      product_id: text(data.product_id, 40, "product", true),
+      asset_type: data.asset_type,
+      storage_path: storage || null,
+      // Only https, never javascript:/data:
+      external_url:
+        data.asset_type === "app_route"
+          ? normaliseAppPath(data.external_url)
+          : normaliseHttpsUrl(data.external_url, "asset url"),
+      title: text(data.title, 160, "title"),
+      sort_order: Number.isFinite(Number(data.sort_order)) ? Number(data.sort_order) : 0,
+      is_active: data.is_active !== false,
+    } as AssetInput;
+  })
+  .handler(async ({ data, context }): Promise<SaveProductResult> => {
+    await assertAdmin(context as any);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const admin = supabaseAdmin as any;
+    const { id, ...fields } = data;
+    if (id) {
+      const { error } = await admin.from("product_assets").update(fields).eq("id", id);
+      if (error) return { ok: false, error: error.message };
+      return { ok: true, id };
+    }
+    const { data: created, error } = await admin
+      .from("product_assets")
+      .insert(fields)
+      .select("id")
+      .single();
+    if (error) return { ok: false, error: error.message };
+    return { ok: true, id: created?.id };
+  });
+
+export const deleteProductAsset = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string }) => data)
+  .handler(async ({ data, context }): Promise<SaveProductResult> => {
+    await assertAdmin(context as any);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await (supabaseAdmin as any)
+      .from("product_assets")
+      .delete()
+      .eq("id", data.id);
+    if (error) return { ok: false, error: error.message };
+    return { ok: true };
+  });
+
+export type BundleItem = { id: string; included_product_id: string };
+
+export const listBundleItems = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { bundleId: string }) => data)
+  .handler(async ({ data, context }): Promise<BundleItem[]> => {
+    await assertAdmin(context as any);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows, error } = await (supabaseAdmin as any)
+      .from("bundle_products")
+      .select("id, included_product_id")
+      .eq("bundle_product_id", data.bundleId)
+      .order("sort_order");
+    if (error) throw new Error(error.message);
+    return (rows ?? []) as BundleItem[];
+  });
+
+export const setBundleItem = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { bundleId: string; includedId: string; include: boolean }) => data)
+  .handler(async ({ data, context }): Promise<SaveProductResult> => {
+    await assertAdmin(context as any);
+    if (data.bundleId === data.includedId) return { ok: false, error: "self_reference" };
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const admin = supabaseAdmin as any;
+    if (!data.include) {
+      const { error } = await admin
+        .from("bundle_products")
+        .delete()
+        .eq("bundle_product_id", data.bundleId)
+        .eq("included_product_id", data.includedId);
+      if (error) return { ok: false, error: error.message };
+      return { ok: true };
+    }
+    const { error } = await admin
+      .from("bundle_products")
+      .upsert(
+        { bundle_product_id: data.bundleId, included_product_id: data.includedId },
+        { onConflict: "bundle_product_id,included_product_id" },
+      );
+    if (error) return { ok: false, error: error.message };
+    return { ok: true };
   });

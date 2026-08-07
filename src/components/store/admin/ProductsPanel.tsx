@@ -5,8 +5,13 @@ import { formatPrice, useCategories } from "@/lib/platform";
 import {
   type AdminProduct,
   type ProductInput,
+  deleteProductAsset,
   listAdminProducts,
+  listBundleItems,
+  listProductAssets,
   saveAdminProduct,
+  saveProductAsset,
+  setBundleItem,
 } from "@/lib/products.functions";
 
 /**
@@ -34,6 +39,8 @@ const EMPTY: ProductInput = {
   currency: "EUR",
   stripe_price_id: null,
   product_type: "mini_app",
+  access_mode: "paid",
+  badge: null,
   status: "draft",
   app_path: null,
   app_url: null,
@@ -261,7 +268,31 @@ export function ProductsPanel() {
                 <option value="mini_app">{t("store.admin.products.typeMini")}</option>
                 <option value="premium_app">{t("store.admin.products.typePremium")}</option>
                 <option value="professional_app">{t("store.admin.products.typePro")}</option>
+                <option value="checklist">{t("store.admin.products.typeChecklist")}</option>
+                <option value="template">{t("store.admin.products.typeTemplate")}</option>
+                <option value="ebook">{t("store.admin.products.typeEbook")}</option>
+                <option value="guide">{t("store.admin.products.typeGuide")}</option>
+                <option value="bundle">{t("store.admin.products.typeBundle")}</option>
               </select>
+            </Field>
+            <Field label={t("store.admin.products.fAccessMode")}>
+              <select
+                value={draft.access_mode}
+                onChange={(e) => set("access_mode", e.target.value)}
+                className="input-store mt-1.5"
+              >
+                <option value="paid">{t("store.admin.products.accessPaid")}</option>
+                <option value="free_account">{t("store.admin.products.accessFreeAccount")}</option>
+                <option value="free_public">{t("store.admin.products.accessFreePublic")}</option>
+              </select>
+            </Field>
+            <Field label={t("store.admin.products.fBadge")}>
+              <input
+                value={draft.badge ?? ""}
+                onChange={(e) => set("badge", e.target.value || null)}
+                maxLength={40}
+                className="input-store mt-1.5"
+              />
             </Field>
             <Field label={t("store.admin.products.fStatus")}>
               <select
@@ -330,7 +361,188 @@ export function ProductsPanel() {
           </div>
         </section>
       )}
+
+      {draft?.id && <AssetsEditor productId={draft.id} />}
+      {draft?.id && draft.product_type === "bundle" && (
+        <BundleEditor bundleId={draft.id} products={products.data ?? []} />
+      )}
     </div>
+  );
+}
+
+/** Files, PDFs, templates and links delivered with a product. */
+function AssetsEditor({ productId }: { productId: string }) {
+  const { t } = useI18n();
+  const qc = useQueryClient();
+  const [type, setType] = useState("pdf");
+  const [title, setTitle] = useState("");
+  const [storagePath, setStoragePath] = useState("");
+  const [url, setUrl] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const assets = useQuery({
+    queryKey: ["admin", "assets", productId],
+    queryFn: () => listProductAssets({ data: { productId } }),
+  });
+
+  async function add() {
+    setBusy(true);
+    setError(null);
+    try {
+      const res = await saveProductAsset({
+        data: {
+          id: null,
+          product_id: productId,
+          asset_type: type,
+          storage_path: storagePath || null,
+          external_url: url || null,
+          title,
+          sort_order: (assets.data ?? []).length,
+          is_active: true,
+        },
+      });
+      if (!res.ok) setError(res.error ?? "");
+      else {
+        setTitle("");
+        setStoragePath("");
+        setUrl("");
+        await qc.invalidateQueries({ queryKey: ["admin", "assets", productId] });
+        await qc.invalidateQueries({ queryKey: ["product-assets", productId] });
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function remove(id: string) {
+    await deleteProductAsset({ data: { id } });
+    await qc.invalidateQueries({ queryKey: ["admin", "assets", productId] });
+    await qc.invalidateQueries({ queryKey: ["product-assets", productId] });
+  }
+
+  return (
+    <section className="card-store space-y-4 p-6">
+      <h3 className="text-base font-semibold">{t("store.admin.products.assetsTitle")}</h3>
+      <p className="text-xs text-muted-foreground">{t("store.admin.products.assetsHint")}</p>
+
+      {(assets.data ?? []).length > 0 && (
+        <ul className="divide-y divide-border text-sm">
+          {(assets.data ?? []).map((a) => (
+            <li key={a.id} className="flex flex-wrap items-center justify-between gap-3 py-2.5">
+              <span>
+                {a.title || "—"}
+                <span className="ml-2 text-xs text-muted-foreground">
+                  {a.asset_type} · {a.storage_path ?? a.external_url ?? "—"}
+                </span>
+              </span>
+              <button
+                type="button"
+                onClick={() => remove(a.id)}
+                className="btn-store-ghost px-3 py-1 text-xs"
+              >
+                {t("store.admin.products.remove")}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label={t("store.admin.products.fAssetType")}>
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className="input-store mt-1.5"
+          >
+            <option value="pdf">PDF</option>
+            <option value="file">File</option>
+            <option value="image">Image</option>
+            <option value="template_url">Template URL</option>
+            <option value="app_route">App route</option>
+            <option value="external_url">External URL</option>
+          </select>
+        </Field>
+        <Field label={t("store.admin.products.fAssetTitle")}>
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="input-store mt-1.5"
+          />
+        </Field>
+        <Field label={t("store.admin.products.fAssetPath")}>
+          <input
+            value={storagePath}
+            onChange={(e) => setStoragePath(e.target.value)}
+            className="input-store mt-1.5"
+            placeholder="slug/file.pdf"
+          />
+        </Field>
+        <Field label={t("store.admin.products.fAssetUrl")}>
+          <input
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            className="input-store mt-1.5"
+            placeholder="https://…"
+          />
+        </Field>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          disabled={busy || (!storagePath.trim() && !url.trim())}
+          onClick={add}
+          className="btn-store px-4 py-2 text-sm disabled:opacity-60"
+        >
+          {t("store.admin.products.addAsset")}
+        </button>
+        {error && <span className="text-sm text-destructive">{error}</span>}
+      </div>
+    </section>
+  );
+}
+
+/** Which products a bundle unlocks. The webhook expands this list server-side. */
+function BundleEditor({ bundleId, products }: { bundleId: string; products: AdminProduct[] }) {
+  const { t, lang } = useI18n();
+  const qc = useQueryClient();
+  const items = useQuery({
+    queryKey: ["admin", "bundle", bundleId],
+    queryFn: () => listBundleItems({ data: { bundleId } }),
+  });
+  const included = new Set((items.data ?? []).map((i) => i.included_product_id));
+
+  async function toggle(includedId: string, include: boolean) {
+    await setBundleItem({ data: { bundleId, includedId, include } });
+    await qc.invalidateQueries({ queryKey: ["admin", "bundle", bundleId] });
+    await qc.invalidateQueries({ queryKey: ["bundle-contents", bundleId] });
+  }
+
+  return (
+    <section className="card-store space-y-3 p-6">
+      <h3 className="text-base font-semibold">{t("store.admin.products.bundleTitle")}</h3>
+      <p className="text-xs text-muted-foreground">{t("store.admin.products.bundleHint")}</p>
+      <ul className="divide-y divide-border text-sm">
+        {products
+          .filter((p) => p.id !== bundleId && p.product_type !== "bundle")
+          .map((p) => (
+            <li key={p.id} className="flex items-center justify-between gap-3 py-2.5">
+              <span translate="no" className="notranslate">
+                {lang === "en" ? p.name_en : p.name_it}
+              </span>
+              <input
+                type="checkbox"
+                checked={included.has(p.id)}
+                onChange={(e) => toggle(p.id, e.target.checked)}
+                className="h-4 w-4"
+              />
+            </li>
+          ))}
+      </ul>
+    </section>
   );
 }
 

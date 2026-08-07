@@ -142,22 +142,24 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
     return;
   }
 
-  const { error: entitlementError } = await supabase.from("entitlements").upsert(
-    {
-      user_id: userId,
-      product_id: productId,
-      access_type: "lifetime",
-      is_active: true,
-      source: "purchase",
-      environment: env,
-      purchase_id: purchase?.["id"] ?? null,
-      granted_at: new Date().toISOString(),
-      revoked_at: null,
-    },
-    { onConflict: "user_id,product_id,environment" },
-  );
+  const { grantEntitlement, grantBundleContents } = await import("@/lib/entitlements.server");
 
-  if (entitlementError) console.error("Failed to grant entitlement", entitlementError);
+  await grantEntitlement(supabase, {
+    userId,
+    productId,
+    environment: env,
+    source: "purchase",
+    purchaseId: purchase?.["id"] ?? null,
+  });
+
+  // A bundle also unlocks the products explicitly listed for it (server-side
+  // list only); a normal product simply has no rows here.
+  await grantBundleContents(supabase, {
+    userId,
+    bundleProductId: productId,
+    environment: env,
+    purchaseId: purchase?.["id"] ?? null,
+  });
 }
 
 /**

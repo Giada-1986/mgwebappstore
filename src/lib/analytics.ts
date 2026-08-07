@@ -16,6 +16,7 @@ export type StoreEvent =
   | "checkout_started"
   | "purchase_completed"
   | "product_opened"
+  | "product_claimed"
   | "marketing_consent_given";
 
 let ready = false;
