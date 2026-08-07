@@ -222,7 +222,7 @@ export type Database = {
           recipient_email: string
           redeemed_at: string | null
           redeemed_by_user_id: string | null
-          redemption_token: string
+          redemption_token_hash: string
           status: string
           stripe_checkout_session_id: string | null
           stripe_payment_intent_id: string | null
@@ -243,7 +243,7 @@ export type Database = {
           recipient_email: string
           redeemed_at?: string | null
           redeemed_by_user_id?: string | null
-          redemption_token: string
+          redemption_token_hash: string
           status?: string
           stripe_checkout_session_id?: string | null
           stripe_payment_intent_id?: string | null
@@ -264,7 +264,7 @@ export type Database = {
           recipient_email?: string
           redeemed_at?: string | null
           redeemed_by_user_id?: string | null
-          redemption_token?: string
+          redemption_token_hash?: string
           status?: string
           stripe_checkout_session_id?: string | null
           stripe_payment_intent_id?: string | null
@@ -669,7 +669,10 @@ export type Database = {
         }
         Returns: boolean
       }
-      redeem_gift: { Args: { _token: string; _user_id: string }; Returns: Json }
+      redeem_gift: {
+        Args: { _environment: string; _token_hash: string; _user_id: string }
+        Returns: Json
+      }
     }
     Enums: {
       app_role: "admin" | "user"
