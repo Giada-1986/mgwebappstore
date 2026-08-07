@@ -175,7 +175,7 @@ export const getGiftByToken = createServerFn({ method: "POST" })
 
     const { data: gift } = await admin
       .from("gifts")
-      .select("status, purchased_at, environment, products(slug, name_it, name_en)")
+      .select("status, purchased_at, environment, gift_message, products(slug, name_it, name_en)")
       .eq("redemption_token_hash", await hashToken(data.token))
       .maybeSingle();
 
@@ -183,5 +183,7 @@ export const getGiftByToken = createServerFn({ method: "POST" })
     return {
       status: gift.purchased_at ? gift.status : "pending_payment",
       product: gift.products ?? null,
+      // Only the free-text message is exposed; buyer email and payment ids stay server-side.
+      giftMessage: typeof gift.gift_message === "string" ? gift.gift_message : null,
     };
   });

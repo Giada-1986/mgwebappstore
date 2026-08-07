@@ -250,9 +250,14 @@
       "buyIntro": "The recipient gets a code that unlocks this app only, linked to their account.",
       "recipientEmail": "Recipient email",
       "purchaserEmail": "Your email (optional)",
-      "message": "Message (optional)",
+      "message": "Add a personal message (optional)",
       "continue": "Continue to payment",
-      "cta": "Gift this app"
+      "cta": "Gift this app",
+      "messageHelp": "We'll show it to the person receiving the gift.",
+      "messagePlaceholder": "Write a message for whoever receives the gift…",
+      "recipientPlaceholder": "name@example.com",
+      "purchaserPlaceholder": "youremail@example.com",
+      "messageFrom": "Message from the person who gifted this"
     },
     "marketing": {
       "title": "Communications",

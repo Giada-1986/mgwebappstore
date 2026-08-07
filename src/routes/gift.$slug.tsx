@@ -59,45 +59,64 @@ function GiftPage() {
 
       {!confirmed ? (
         <form
-          className="panel-pearl mt-6 space-y-4 p-6"
+          className="panel-pearl mt-6 space-y-5 p-6"
           onSubmit={(e) => {
             e.preventDefault();
             setConfirmed({ recipientEmail, purchaserEmail, giftMessage });
           }}
         >
-          <label className="block text-sm">
-            {t("store.gift.recipientEmail")}
+          <div className="space-y-1.5">
+            <label htmlFor="gift-recipient" className="block text-sm font-medium">
+              {t("store.gift.recipientEmail")}
+            </label>
             <input
+              id="gift-recipient"
               type="email"
               required
+              autoComplete="email"
+              placeholder={t("store.gift.recipientPlaceholder")}
               value={recipientEmail}
               onChange={(e) => setRecipientEmail(e.target.value)}
-              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2"
+              className="field-pearl"
             />
-          </label>
-          <label className="block text-sm">
-            {t("store.gift.purchaserEmail")}
+          </div>
+          <div className="space-y-1.5">
+            <label htmlFor="gift-purchaser" className="block text-sm font-medium">
+              {t("store.gift.purchaserEmail")}
+            </label>
             <input
+              id="gift-purchaser"
               type="email"
+              autoComplete="email"
+              placeholder={t("store.gift.purchaserPlaceholder")}
               value={purchaserEmail}
               onChange={(e) => setPurchaserEmail(e.target.value)}
-              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2"
+              className="field-pearl"
             />
-          </label>
-          <label className="block text-sm">
-            {t("store.gift.message")}
+          </div>
+          <div className="space-y-1.5">
+            <label htmlFor="gift-message" className="block text-sm font-medium">
+              {t("store.gift.message")}
+            </label>
+            <p className="text-xs opacity-70">{t("store.gift.messageHelp")}</p>
             <textarea
+              id="gift-message"
               maxLength={500}
+              rows={4}
+              placeholder={t("store.gift.messagePlaceholder")}
               value={giftMessage}
               onChange={(e) => setGiftMessage(e.target.value)}
-              className="mt-1 w-full rounded-md border border-border bg-background px-3 py-2"
-              rows={3}
+              className="field-pearl resize-y whitespace-pre-wrap"
             />
-          </label>
+            <p className="text-right text-xs tabular-nums opacity-60" aria-live="polite">
+              {giftMessage.length} / 500
+            </p>
+          </div>
           <button type="submit" className="btn-store">
             {t("store.gift.continue")}
           </button>
         </form>
+
       ) : (
         <div className="panel-pearl mt-6 overflow-hidden p-3">
           {returnUrl && (

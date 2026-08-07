@@ -250,9 +250,14 @@
       "buyIntro": "Il destinatario riceverà un codice che sblocca solo questa app, collegato al suo account.",
       "recipientEmail": "Email del destinatario",
       "purchaserEmail": "La tua email (facoltativa)",
-      "message": "Messaggio (facoltativo)",
+      "message": "Aggiungi un messaggio personale (facoltativo)",
       "continue": "Continua al pagamento",
-      "cta": "Regala questa app"
+      "cta": "Regala questa app",
+      "messageHelp": "Lo mostreremo alla persona che riceverà il regalo.",
+      "messagePlaceholder": "Scrivi un messaggio per chi riceverà il regalo…",
+      "recipientPlaceholder": "nome@esempio.com",
+      "purchaserPlaceholder": "latuaemail@esempio.com",
+      "messageFrom": "Messaggio da chi ti ha fatto il regalo"
     },
     "marketing": {
       "title": "Comunicazioni",
