@@ -249,7 +249,6 @@ export type Database = {
           created_at: string
           display_name: string | null
           email: string | null
-          has_paid: boolean
           id: string
           language: string
           onboarding_done: boolean
@@ -262,7 +261,6 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           email?: string | null
-          has_paid?: boolean
           id: string
           language?: string
           onboarding_done?: boolean
@@ -275,7 +273,6 @@ export type Database = {
           created_at?: string
           display_name?: string | null
           email?: string | null
-          has_paid?: boolean
           id?: string
           language?: string
           onboarding_done?: boolean
