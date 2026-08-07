@@ -21,10 +21,10 @@ export const Route = createFileRoute("/auth")({
   }),
   head: () => ({
     meta: [
-      { title: "Accedi — Fame o Fame?" },
-      { name: "description", content: "Accedi o crea il tuo spazio personale su Fame o Fame?." },
-      { property: "og:title", content: "Accedi — Fame o Fame?" },
-      { property: "og:description", content: "Accedi o crea il tuo spazio personale su Fame o Fame?." },
+      { title: "Accedi — Mini Web Apps" },
+      { name: "description", content: "Accedi o crea il tuo account Mini Web Apps." },
+      { property: "og:title", content: "Accedi — Mini Web Apps" },
+      { property: "og:description", content: "Accedi o crea il tuo account Mini Web Apps." },
     ],
   }),
   component: AuthPage,
