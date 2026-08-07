@@ -81,7 +81,15 @@ export function StoreShell({ children }: { children: ReactNode }) {
           <span translate="no" className="notranslate uppercase tracking-[0.22em] text-foreground/80">
             {t("store.brand")}
           </span>
-          <span>{t("store.footer")}</span>
+          <div className="flex flex-wrap items-center gap-4">
+            <Link
+              to="/faq"
+              className="transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              {t("store.faq.nav")}
+            </Link>
+            <span>{t("store.footer")}</span>
+          </div>
         </div>
       </footer>
     </div>
