@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
 import { useI18n } from "@/lib/i18n";
 
-export const Route = createFileRoute("/faq/")({
+export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
       { title: "Domande frequenti — Mini Web Apps" },
