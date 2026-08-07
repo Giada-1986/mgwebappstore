@@ -173,7 +173,7 @@ async function markStatus(session: any, status: string, env: StripeEnv) {
  * Full refund / chargeback handling. Idempotent: the purchase row is kept for
  * audit and only its status changes, and the entitlement is deactivated.
  */
-async function handleRefund(charge: any, env: StripeEnv, status: "refunded" | "charged_back") {
+async function handleRefund(charge: any, env: StripeEnv, status: "refunded") {
   const paymentIntentId =
     typeof charge?.payment_intent === "string" ? charge.payment_intent : charge?.payment_intent?.id;
   if (!paymentIntentId) return;
@@ -250,7 +250,7 @@ async function handleWebhook(req: Request, env: StripeEnv) {
       const dispute: any = event.data.object;
       if (dispute?.status !== "lost") break;
       const chargeId = typeof dispute.charge === "string" ? dispute.charge : dispute.charge?.id;
-      if (chargeId) await handleRefund({ payment_intent: dispute.payment_intent }, env, "charged_back");
+      if (chargeId) await handleRefund({ payment_intent: dispute.payment_intent }, env, "refunded");
       break;
     }
 
