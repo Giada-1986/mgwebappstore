@@ -23,6 +23,14 @@ function MyAppsPage() {
   const { session } = useSession();
   const { apps, isLoading } = useMyApps(session?.user.id);
 
+  // The purchase is confirmed server-side by the webhook; this only reports it.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const slug = new URLSearchParams(window.location.search).get("purchase");
+    if (slug && apps.some((a) => a.slug === slug)) track("purchase_completed", { product: slug });
+  }, [apps]);
+
+
   return (
     <StoreShell>
       <h1 className="text-3xl font-semibold tracking-tight">{t("store.myAppsTitle")}</h1>
