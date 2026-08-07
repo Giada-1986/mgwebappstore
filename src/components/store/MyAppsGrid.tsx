@@ -1,0 +1,39 @@
+import { Link } from "@tanstack/react-router";
+import { useI18n } from "@/lib/i18n";
+import { type Product, productName, productShort } from "@/lib/platform";
+import { LifetimeAccessBadge } from "@/components/store/Badges";
+
+/** Personal library grid — shows only products the user is entitled to. */
+export function MyAppsGrid({ apps }: { apps: Product[] }) {
+  const { t, lang } = useI18n();
+
+  if (apps.length === 0) {
+    return (
+      <div className="card-store p-10 text-center">
+        <p className="text-muted-foreground">{t("store.emptyLibrary")}</p>
+        <Link to="/apps" className="btn-store mt-6">
+          {t("store.discoverMiniApps")}
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid gap-5 sm:grid-cols-2">
+      {apps.map((app) => (
+        <article key={app.id} className="card-store flex flex-col gap-3 p-6">
+          <LifetimeAccessBadge />
+          <h3 className="text-lg font-semibold tracking-tight">{productName(app, lang)}</h3>
+          <p className="flex-1 text-sm text-muted-foreground">{productShort(app, lang)}</p>
+          {app.app_path ? (
+            <a href={app.app_path} className="btn-store mt-2 self-start">
+              {t("store.open")}
+            </a>
+          ) : (
+            <span className="text-xs text-muted-foreground">{t("store.comingSoon")}</span>
+          )}
+        </article>
+      ))}
+    </div>
+  );
+}
