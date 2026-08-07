@@ -36,8 +36,8 @@
     "noScales": "No calories, no scales. Just listening."
   },
   "auth": {
-    "title": "Welcome",
-    "subtitle": "Sign in or create your personal space.",
+    "title": "Sign in to your account",
+    "subtitle": "One account for all your mini apps.",
     "email": "Email",
     "password": "Password",
     "signIn": "Sign in",
@@ -45,7 +45,9 @@
     "toSignUp": "No account yet? Sign up",
     "toSignIn": "Already have an account? Sign in",
     "checkEmail": "We sent you a confirmation email. Check your inbox to activate your access.",
-    "error": "Something went wrong. Please try again."
+    "error": "Something went wrong. Please try again.",
+    "titleSignUp": "Create your account",
+    "subtitleSignUp": "All you need is an email and a password."
   },
   "paywall": {
     "title": "Your space is almost ready",
@@ -178,8 +180,8 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "account": "Account",
-    "heroTitle": "A store of mini apps that take care of you",
-    "heroText": "One account, many tools. Buy once, keep it forever.",
+    "heroTitle": "Simple apps. Instant solutions.",
+    "heroText": "A curated store of focused mini apps: buy once, keep them forever, no subscriptions.",
     "heroCta": "Browse the catalog",
     "featured": "Featured",
     "allApps": "All apps",
@@ -221,6 +223,8 @@
     "testMode": "All payments in preview are in test mode.",
     "testModeDetails": "Details",
     "brand": "MINI WEB APPS",
-    "promise": "Buy once. Your app stays yours. No subscription."
+    "promise": "Buy once. Your app stays yours. No subscription.",
+    "catalogIntro": "Essential digital tools, one for every need.",
+    "securePayment": "Secure payment with Stripe"
   }
 }
