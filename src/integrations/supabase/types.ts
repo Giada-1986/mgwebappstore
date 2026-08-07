@@ -241,6 +241,75 @@ export type Database = {
           },
         ]
       }
+      marketing_campaigns: {
+        Row: {
+          audience: string
+          brevo_campaign_id: string | null
+          category_id: string | null
+          created_at: string
+          created_by: string | null
+          error_message: string | null
+          html_content: string
+          id: string
+          language: string | null
+          product_id: string | null
+          recipients_count: number
+          sent_at: string | null
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          audience?: string
+          brevo_campaign_id?: string | null
+          category_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          error_message?: string | null
+          html_content: string
+          id?: string
+          language?: string | null
+          product_id?: string | null
+          recipients_count?: number
+          sent_at?: string | null
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          audience?: string
+          brevo_campaign_id?: string | null
+          category_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          error_message?: string | null
+          html_content?: string
+          id?: string
+          language?: string | null
+          product_id?: string | null
+          recipients_count?: number
+          sent_at?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketing_campaigns_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketing_campaigns_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           accent_color: string | null
@@ -320,11 +389,15 @@ export type Database = {
       }
       profiles: {
         Row: {
+          brevo_synced_at: string | null
           created_at: string
           display_name: string | null
           email: string | null
           id: string
           language: string
+          marketing_consent: boolean
+          marketing_consent_at: string | null
+          marketing_language: string
           onboarding_done: boolean
           preferred_language: string
           trigger_other: string | null
@@ -332,11 +405,15 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          brevo_synced_at?: string | null
           created_at?: string
           display_name?: string | null
           email?: string | null
           id: string
           language?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
+          marketing_language?: string
           onboarding_done?: boolean
           preferred_language?: string
           trigger_other?: string | null
@@ -344,11 +421,15 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          brevo_synced_at?: string | null
           created_at?: string
           display_name?: string | null
           email?: string | null
           id?: string
           language?: string
+          marketing_consent?: boolean
+          marketing_consent_at?: string | null
+          marketing_language?: string
           onboarding_done?: boolean
           preferred_language?: string
           trigger_other?: string | null
@@ -454,6 +535,27 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -465,10 +567,17 @@ export type Database = {
             Args: { _env?: string; _slug: string; _user_id: string }
             Returns: boolean
           }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       redeem_gift: { Args: { _token: string; _user_id: string }; Returns: Json }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -595,6 +704,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
