@@ -1,7 +1,13 @@
 {
   "brand": "Hungry, or Hungry?",
   "tagline": "Not all hunger comes from your stomach.",
-  "nav": { "checkin": "Check-in", "exercises": "Exercises", "report": "Report", "monthly": "Monthly", "settings": "Settings" },
+  "nav": {
+    "checkin": "Check-in",
+    "exercises": "Exercises",
+    "report": "Report",
+    "monthly": "Monthly",
+    "settings": "Settings"
+  },
   "common": {
     "continue": "Continue",
     "back": "Back",
@@ -73,7 +79,11 @@
     "big": "I'm about to eat between meals",
     "count": "check-ins so far",
     "q1": "Is this physical hunger (rumbling stomach, low energy) or something else?",
-    "q1a": { "physical": "Physical hunger", "unsure": "I'm not sure", "emotional": "Not physical hunger" },
+    "q1a": {
+      "physical": "Physical hunger",
+      "unsure": "I'm not sure",
+      "emotional": "Not physical hunger"
+    },
     "q2": "What are you feeling right now?",
     "q3": "What happened just before?",
     "q3Placeholder": "e.g. an argument with a colleague",
@@ -149,5 +159,63 @@
     "wait": "In {pct}% of cases you chose to wait or do an exercise instead of eating right away.",
     "kind": "Remember: noticing all of this is already self-care."
   },
-  "days": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  "days": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ],
+  "store": {
+    "tagline": "Small apps, real change",
+    "nav": {
+      "store": "Store",
+      "catalog": "Catalog",
+      "myApps": "My apps"
+    },
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "account": "Account",
+    "heroTitle": "A store of mini apps that take care of you",
+    "heroText": "One account, many tools. Buy once, keep it forever.",
+    "heroCta": "Browse the catalog",
+    "featured": "Featured",
+    "allApps": "All apps",
+    "categories": "Categories",
+    "allCategories": "All",
+    "noProducts": "No apps in this category yet.",
+    "discover": "Discover",
+    "open": "Open",
+    "openLibrary": "Go to my apps",
+    "buyFor": "Buy for {price}",
+    "oneTime": "One-time payment",
+    "lifetime": "Lifetime access",
+    "owned": "Owned",
+    "comingSoon": "Coming soon",
+    "type": {
+      "mini": "Mini app",
+      "premium": "Premium app",
+      "professional": "Professional app"
+    },
+    "myAppsTitle": "My apps",
+    "myAppsText": "Everything you unlocked, always available.",
+    "emptyLibrary": "You don't own any app yet.",
+    "discoverMiniApps": "Discover the mini apps",
+    "accountTitle": "Your account",
+    "purchases": "Purchases",
+    "noPurchases": "No purchases yet.",
+    "language": "Language",
+    "email": "Email",
+    "checkoutTitle": "Complete your purchase",
+    "checkoutBack": "Back to product",
+    "purchaseSuccess": "Thank you! We're confirming your payment — the app will appear here shortly.",
+    "noAccessTitle": "No active access",
+    "noAccessText": "This app is not in your library yet.",
+    "seeProduct": "See the product",
+    "whatYouGet": "What's included",
+    "notFound": "Product not found.",
+    "footer": "One account for every mini app. Secure payments with Stripe."
+  }
 }

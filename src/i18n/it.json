@@ -1,7 +1,13 @@
 {
   "brand": "Fame o Fame?",
   "tagline": "Non tutta la fame viene dallo stomaco.",
-  "nav": { "checkin": "Check-in", "exercises": "Esercizi", "report": "Report", "monthly": "Mensile", "settings": "Impostazioni" },
+  "nav": {
+    "checkin": "Check-in",
+    "exercises": "Esercizi",
+    "report": "Report",
+    "monthly": "Mensile",
+    "settings": "Impostazioni"
+  },
   "common": {
     "continue": "Continua",
     "back": "Indietro",
@@ -73,7 +79,11 @@
     "big": "Sto per mangiare qualcosa fuori pasto",
     "count": "check-in finora",
     "q1": "Hai fame fisica (stomaco che brontola, energia bassa) o è un'altra cosa?",
-    "q1a": { "physical": "Fame fisica", "unsure": "Non sono sicura", "emotional": "Non è fame fisica" },
+    "q1a": {
+      "physical": "Fame fisica",
+      "unsure": "Non sono sicura",
+      "emotional": "Non è fame fisica"
+    },
     "q2": "Cosa provi in questo momento?",
     "q3": "Cosa è successo poco prima?",
     "q3Placeholder": "es. discussione con un collega",
@@ -149,5 +159,63 @@
     "wait": "Nel {pct}% dei casi hai scelto di aspettare o fare un esercizio invece di mangiare subito.",
     "kind": "Ricorda: notare tutto questo è già prendersi cura di sé."
   },
-  "days": ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"]
+  "days": [
+    "Domenica",
+    "Lunedì",
+    "Martedì",
+    "Mercoledì",
+    "Giovedì",
+    "Venerdì",
+    "Sabato"
+  ],
+  "store": {
+    "tagline": "Piccole app, grandi cambiamenti",
+    "nav": {
+      "store": "Store",
+      "catalog": "Catalogo",
+      "myApps": "Le mie app"
+    },
+    "signIn": "Accedi",
+    "signOut": "Esci",
+    "account": "Account",
+    "heroTitle": "Uno store di mini app che si prendono cura di te",
+    "heroText": "Un solo account, tanti strumenti. Acquisti una volta e resta tuo per sempre.",
+    "heroCta": "Esplora il catalogo",
+    "featured": "In evidenza",
+    "allApps": "Tutte le app",
+    "categories": "Categorie",
+    "allCategories": "Tutte",
+    "noProducts": "Nessuna app in questa categoria, per ora.",
+    "discover": "Scopri",
+    "open": "Apri",
+    "openLibrary": "Vai alle mie app",
+    "buyFor": "Acquista a {price}",
+    "oneTime": "Pagamento unico",
+    "lifetime": "Accesso a vita",
+    "owned": "Già tua",
+    "comingSoon": "In arrivo",
+    "type": {
+      "mini": "Mini app",
+      "premium": "App premium",
+      "professional": "App professionale"
+    },
+    "myAppsTitle": "Le mie app",
+    "myAppsText": "Tutto ciò che hai sbloccato, sempre disponibile.",
+    "emptyLibrary": "Non hai ancora nessuna app.",
+    "discoverMiniApps": "Scopri le mini app",
+    "accountTitle": "Il tuo account",
+    "purchases": "Acquisti",
+    "noPurchases": "Nessun acquisto registrato.",
+    "language": "Lingua",
+    "email": "Email",
+    "checkoutTitle": "Completa l'acquisto",
+    "checkoutBack": "Torna al prodotto",
+    "purchaseSuccess": "Grazie! Stiamo confermando il pagamento: l'app comparirà qui tra pochi istanti.",
+    "noAccessTitle": "Accesso non attivo",
+    "noAccessText": "Questa app non è ancora nella tua libreria.",
+    "seeProduct": "Vedi il prodotto",
+    "whatYouGet": "Cosa include",
+    "notFound": "Prodotto non trovato.",
+    "footer": "Un solo account per tutte le mini app. Pagamenti sicuri con Stripe."
+  }
 }
