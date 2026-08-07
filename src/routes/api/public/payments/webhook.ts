@@ -228,6 +228,32 @@ async function handleWebhook(req: Request, env: StripeEnv) {
     case "checkout.session.async_payment_failed":
       await markStatus(event.data.object, "failed", env);
       break;
+    case "charge.refunded":
+    case "charge.refund.updated": {
+      // `charge.refund.updated` carries a Refund; re-read its charge from Stripe
+      // so the decision is based on the authoritative refunded totals.
+      let charge: any = event.data.object;
+      if (event.type === "charge.refund.updated") {
+        const chargeId = typeof charge?.charge === "string" ? charge.charge : charge?.charge?.id;
+        if (!chargeId) break;
+        try {
+          charge = await createStripeClient(env).charges.retrieve(chargeId);
+        } catch (e) {
+          console.error("Could not retrieve charge for refund", chargeId, e);
+          break;
+        }
+      }
+      if (isFullyRefunded(charge)) await handleRefund(charge, env, "refunded");
+      break;
+    }
+    case "charge.dispute.closed": {
+      const dispute: any = event.data.object;
+      if (dispute?.status !== "lost") break;
+      const chargeId = typeof dispute.charge === "string" ? dispute.charge : dispute.charge?.id;
+      if (chargeId) await handleRefund({ payment_intent: dispute.payment_intent }, env, "charged_back");
+      break;
+    }
+
     case "checkout.session.expired":
       await markStatus(event.data.object, "cancelled", env);
       break;
