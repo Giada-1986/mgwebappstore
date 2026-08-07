@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      bundle_products: {
+        Row: {
+          bundle_product_id: string
+          created_at: string
+          id: string
+          included_product_id: string
+          sort_order: number
+        }
+        Insert: {
+          bundle_product_id: string
+          created_at?: string
+          id?: string
+          included_product_id: string
+          sort_order?: number
+        }
+        Update: {
+          bundle_product_id?: string
+          created_at?: string
+          id?: string
+          included_product_id?: string
+          sort_order?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bundle_products_bundle_product_id_fkey"
+            columns: ["bundle_product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bundle_products_included_product_id_fkey"
+            columns: ["included_product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       categories: {
         Row: {
           created_at: string
@@ -310,11 +349,60 @@ export type Database = {
           },
         ]
       }
+      product_assets: {
+        Row: {
+          asset_type: string
+          created_at: string
+          external_url: string | null
+          id: string
+          is_active: boolean
+          product_id: string
+          sort_order: number
+          storage_path: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          asset_type?: string
+          created_at?: string
+          external_url?: string | null
+          id?: string
+          is_active?: boolean
+          product_id: string
+          sort_order?: number
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          asset_type?: string
+          created_at?: string
+          external_url?: string | null
+          id?: string
+          is_active?: boolean
+          product_id?: string
+          sort_order?: number
+          storage_path?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_assets_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           accent_color: string | null
+          access_mode: string
           app_path: string | null
           app_url: string | null
+          badge: string | null
           category_id: string | null
           created_at: string
           currency: string
@@ -336,8 +424,10 @@ export type Database = {
         }
         Insert: {
           accent_color?: string | null
+          access_mode?: string
           app_path?: string | null
           app_url?: string | null
+          badge?: string | null
           category_id?: string | null
           created_at?: string
           currency?: string
@@ -359,8 +449,10 @@ export type Database = {
         }
         Update: {
           accent_color?: string | null
+          access_mode?: string
           app_path?: string | null
           app_url?: string | null
+          badge?: string | null
           category_id?: string | null
           created_at?: string
           currency?: string
