@@ -7,7 +7,7 @@ import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useProfile, useSession, useUpdateProfile } from "@/lib/data";
 
-export const Route = createFileRoute("/_authenticated/app/settings")({
+export const Route = createFileRoute("/_authenticated/app/fame-o-fame/settings")({
   component: SettingsPage,
 });
 

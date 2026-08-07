@@ -4,7 +4,7 @@ import { ExerciseCard } from "@/components/ExerciseCard";
 import { useI18n } from "@/lib/i18n";
 import { useExercises } from "@/lib/data";
 
-export const Route = createFileRoute("/_authenticated/app/exercises")({
+export const Route = createFileRoute("/_authenticated/app/fame-o-fame/exercises")({
   component: ExercisesPage,
 });
 

@@ -5,7 +5,7 @@ import { useI18n } from "@/lib/i18n";
 import { useCheckins, useSession, type Checkin } from "@/lib/data";
 import { mockCheckins } from "@/lib/mock";
 
-export const Route = createFileRoute("/_authenticated/app/monthly")({
+export const Route = createFileRoute("/_authenticated/app/fame-o-fame/monthly")({
   component: MonthlyPage,
 });
 

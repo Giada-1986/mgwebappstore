@@ -8,7 +8,7 @@ import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useCheckins, useExercises, useSession, type Exercise } from "@/lib/data";
 
-export const Route = createFileRoute("/_authenticated/app/")({
+export const Route = createFileRoute("/_authenticated/app/fame-o-fame/")({
   component: CheckinPage,
 });
 

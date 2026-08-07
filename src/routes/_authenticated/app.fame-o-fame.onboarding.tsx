@@ -5,7 +5,7 @@ import { SakuraDivider } from "@/components/Sakura";
 import { useI18n } from "@/lib/i18n";
 import { useProfile, useSession, useUpdateProfile } from "@/lib/data";
 
-export const Route = createFileRoute("/_authenticated/onboarding")({
+export const Route = createFileRoute("/_authenticated/app/fame-o-fame/onboarding")({
   component: Onboarding,
 });
 
