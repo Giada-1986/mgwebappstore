@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
 import { BuyButton } from "@/components/store/BuyButton";
 import { LifetimeAccessBadge, ProductTypeBadge } from "@/components/store/Badges";
@@ -83,6 +83,15 @@ function ProductPage() {
               {formatPrice(Number(product.price), product.currency, lang)}
             </p>
             <BuyButton product={product} owned={owned} />
+            {product.status === "active" && (
+              <Link
+                to="/gift/$slug"
+                params={{ slug: product.slug }}
+                className="btn-store-ghost px-4 py-2 text-sm"
+              >
+                {t("store.gift.cta")}
+              </Link>
+            )}
             <span className="text-xs text-muted-foreground">
               {t("store.oneTime")} · {t("store.securePayment")}
             </span>

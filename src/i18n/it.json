@@ -238,7 +238,14 @@
       "expired": "Questo codice regalo è scaduto.",
       "refunded": "Questo regalo è stato rimborsato.",
       "cancelled": "Questo regalo è stato annullato.",
-      "error": "Non è stato possibile riscattare il regalo."
+      "error": "Non è stato possibile riscattare il regalo.",
+      "buyTitle": "Regala questa app",
+      "buyIntro": "Il destinatario riceverà un codice che sblocca solo questa app, collegato al suo account.",
+      "recipientEmail": "Email del destinatario",
+      "purchaserEmail": "La tua email (facoltativa)",
+      "message": "Messaggio (facoltativo)",
+      "continue": "Continua al pagamento",
+      "cta": "Regala questa app"
     }
   }
 }
