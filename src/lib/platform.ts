@@ -188,6 +188,12 @@ export function useProduct(slug: string) {
 
 /* ---------------- entitlements & purchases ---------------- */
 
+/** Environment of this build, derived from the pub Stripe token. */
+function clientPaymentsEnvironment(): "sandbox" | "live" {
+  const token = import.meta.env["VITE_PAYMENTS_CLIENT_TOKEN"] as string | undefined;
+  return token?.startsWith("pk_live_") ? "live" : "sandbox";
+}
+
 export function useEntitlements(userId?: string) {
   return useQuery({
     queryKey: ["entitlements", userId],
@@ -197,7 +203,9 @@ export function useEntitlements(userId?: string) {
         .from("entitlements")
         .select("*")
         .eq("user_id", userId!)
-        .eq("is_active", true);
+        .eq("is_active", true)
+        // Display-level filter only; the authoritative check is server-side.
+        .eq("environment", clientPaymentsEnvironment());
       if (error) throw error;
       return (data ?? []) as unknown as Entitlement[];
     },

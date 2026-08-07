@@ -6,7 +6,9 @@ const getEnv = (key: string): string => {
   return value;
 };
 
-export type StripeEnv = "sandbox" | "live";
+export type { StripeEnv } from "./payments-env.server";
+export { resolveServerStripeEnv } from "./payments-env.server";
+import type { StripeEnv } from "./payments-env.server";
 
 const GATEWAY_STRIPE_BASE = "https://connector-gateway.lovable.dev/stripe";
 
@@ -114,7 +116,17 @@ export async function verifyWebhook(
   );
   const expected = Buffer.from(new Uint8Array(signed)).toString("hex");
 
-  if (!v1Signatures.includes(expected)) throw new Error("Invalid webhook signature");
+  const expectedBytes = new TextEncoder().encode(expected);
+  const matches = v1Signatures.some((candidate) => {
+    const candidateBytes = new TextEncoder().encode(candidate);
+    if (candidateBytes.length !== expectedBytes.length) return false;
+    let diff = 0;
+    for (let i = 0; i < expectedBytes.length; i += 1) {
+      diff |= (expectedBytes[i] as number) ^ (candidateBytes[i] as number);
+    }
+    return diff === 0;
+  });
+  if (!matches) throw new Error("Invalid webhook signature");
 
   return JSON.parse(body);
 }

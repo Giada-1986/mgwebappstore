@@ -78,6 +78,7 @@ export type Database = {
         Row: {
           access_type: string
           created_at: string
+          environment: string
           granted_at: string
           id: string
           is_active: boolean
@@ -91,6 +92,7 @@ export type Database = {
         Insert: {
           access_type?: string
           created_at?: string
+          environment?: string
           granted_at?: string
           id?: string
           is_active?: boolean
@@ -104,6 +106,7 @@ export type Database = {
         Update: {
           access_type?: string
           created_at?: string
+          environment?: string
           granted_at?: string
           id?: string
           is_active?: boolean
@@ -288,6 +291,7 @@ export type Database = {
           amount_paid: number | null
           created_at: string
           currency: string
+          environment: string
           id: string
           product_id: string
           purchased_at: string | null
@@ -301,6 +305,7 @@ export type Database = {
           amount_paid?: number | null
           created_at?: string
           currency?: string
+          environment?: string
           id?: string
           product_id: string
           purchased_at?: string | null
@@ -314,6 +319,7 @@ export type Database = {
           amount_paid?: number | null
           created_at?: string
           currency?: string
+          environment?: string
           id?: string
           product_id?: string
           purchased_at?: string | null
@@ -382,10 +388,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      has_product_access: {
-        Args: { _slug: string; _user_id: string }
-        Returns: boolean
-      }
+      has_product_access:
+        | { Args: { _slug: string; _user_id: string }; Returns: boolean }
+        | {
+            Args: { _env?: string; _slug: string; _user_id: string }
+            Returns: boolean
+          }
     }
     Enums: {
       [_ in never]: never

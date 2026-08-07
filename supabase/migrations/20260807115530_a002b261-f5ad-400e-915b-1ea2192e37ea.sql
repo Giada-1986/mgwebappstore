@@ -1,0 +1,2 @@
+REVOKE EXECUTE ON FUNCTION public.has_product_access(uuid, text, text) FROM anon, authenticated, public;
+REVOKE EXECUTE ON FUNCTION public.has_product_access(uuid, text) FROM anon, authenticated, public;
