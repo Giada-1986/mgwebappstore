@@ -54,8 +54,10 @@ export const createProductCheckoutSession = createServerFn({ method: "POST" })
       const stripePrice = prices.data[0];
       if (!stripePrice) return { error: "Prezzo non trovato." };
 
-      const email = user?.email ?? undefined;
-      const customerId = await resolveOrCreateCustomer(stripe, { email, userId });
+      const customerId = await resolveOrCreateCustomer(stripe, {
+        userId,
+        ...(user?.email ? { email: user.email } : {}),
+      });
 
       const session = await stripe.checkout.sessions.create({
         line_items: [{ price: stripePrice.id, quantity: 1 }],
