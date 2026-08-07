@@ -20,10 +20,7 @@ export function AccountMenu() {
 
   if (!session) {
     return (
-      <Link
-        to="/auth"
-        className="rounded-full border border-border px-4 py-1.5 text-sm transition-colors hover:bg-accent"
-      >
+      <Link to="/auth" className="btn-store-ghost px-4 py-1.5 text-sm">
         {t("store.signIn")}
       </Link>
     );
@@ -31,15 +28,12 @@ export function AccountMenu() {
 
   return (
     <div className="flex items-center gap-2">
-      <Link
-        to="/account"
-        className="rounded-full border border-border px-4 py-1.5 text-sm transition-colors hover:bg-accent"
-      >
+      <Link to="/account" className="btn-store-ghost px-4 py-1.5 text-sm">
         {t("store.account")}
       </Link>
       <button
         onClick={signOut}
-        className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+        className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
       >
         {t("store.signOut")}
       </button>
