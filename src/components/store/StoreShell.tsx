@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { AccountMenu } from "@/components/store/AccountMenu";
+import { StoreLogo } from "@/components/store/StoreLogo";
+
 import { PaymentTestModeBanner } from "@/components/store/PaymentTestModeBanner";
 import { useI18n } from "@/lib/i18n";
 
@@ -20,12 +22,18 @@ export function StoreShell({ children }: { children: ReactNode }) {
       <PaymentTestModeBanner />
       <header className="border-b border-border/70 bg-card/70 backdrop-blur">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-4">
-          <Link to="/" className="flex items-baseline gap-2">
-            <span translate="no" className="notranslate text-lg font-semibold tracking-tight">
-              {t("store.brand")}
+          <Link to="/" className="flex items-center gap-3">
+            <StoreLogo className="h-10 w-10 rounded-lg" priority />
+            <span className="flex flex-col leading-tight">
+              <span translate="no" className="notranslate text-sm font-semibold tracking-[0.18em] uppercase">
+                {t("store.brand")}
+              </span>
+              <span translate="no" className="notranslate text-xs text-muted-foreground">
+                {t("store.tagline")}
+              </span>
             </span>
-            <span className="text-xs text-muted-foreground">{t("store.tagline")}</span>
           </Link>
+
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <AccountMenu />
