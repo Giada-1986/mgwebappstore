@@ -204,6 +204,8 @@ export function useEntitlements(userId?: string) {
         .select("*")
         .eq("user_id", userId!)
         .eq("is_active", true)
+        // Refunded / revoked access must disappear from the library too.
+        .is("revoked_at", null)
         // Display-level filter only; the authoritative check is server-side.
         .eq("environment", clientPaymentsEnvironment());
       if (error) throw error;
