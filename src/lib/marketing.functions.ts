@@ -77,10 +77,11 @@ export const setMarketingConsent = createServerFn({ method: "POST" })
         await brevo.blacklistBrevoContact(email);
       }
 
-      await supabase
+      await supabaseAdmin
         .from("profiles")
         .update({ brevo_synced_at: new Date().toISOString() } as never)
         .eq("id", userId);
+
 
       return { ok: true, synced: true };
     } catch (error) {
