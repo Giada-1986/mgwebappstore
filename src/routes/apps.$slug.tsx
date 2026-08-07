@@ -66,7 +66,7 @@ function ProductPage() {
             <ProductTypeBadge type={product.product_type} />
             <LifetimeAccessBadge />
           </div>
-          <h1 className="mt-4 text-3xl font-semibold tracking-tight">
+          <h1 translate="no" className="notranslate mt-4 text-3xl font-semibold tracking-tight">
             {productName(product, lang)}
           </h1>
           <p className="mt-2 text-muted-foreground">{productShort(product, lang)}</p>
