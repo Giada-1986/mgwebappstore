@@ -211,6 +211,8 @@ function AdminPage() {
         </section>
       )}
 
+      {tab === "products" && <ProductsPanel />}
+
       {tab === "marketing" && (
         <CampaignPanel campaigns={campaigns.data ?? []} loading={campaigns.isLoading} />
       )}
