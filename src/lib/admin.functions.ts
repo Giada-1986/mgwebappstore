@@ -84,7 +84,7 @@ export const getAdminOverview = createServerFn({ method: "POST" })
     }
 
     const emailById = new Map(allProfiles.map((p: any) => [p.id, p.email]));
-    const productById = new Map(allProducts.map((p: any) => [p.id, p]));
+    const productById = new Map<string, any>(allProducts.map((p: any) => [p.id, p]));
 
     const buyers = new Set(paid.map((p: any) => p.user_id)).size;
 
