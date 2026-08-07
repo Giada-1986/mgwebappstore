@@ -78,7 +78,8 @@ function ProductPage() {
         <div className="p-8 sm:p-10">
           <div className="flex flex-wrap items-center gap-2">
             <ProductTypeBadge type={product.product_type} />
-            <LifetimeAccessBadge />
+            {isFreeProduct(product) ? <FreeBadge /> : <LifetimeAccessBadge />}
+            {product.badge && <CustomBadge label={product.badge} />}
           </div>
           <h1 translate="no" className="notranslate mt-5 text-3xl sm:text-4xl font-semibold tracking-tight">
             {productName(product, lang)}
@@ -90,14 +91,26 @@ function ProductPage() {
             {productDescription(product, lang)}
           </p>
 
+          {product.product_type === "bundle" && (
+            <div className="mt-8">
+              <BundleContents bundleId={product.id} />
+            </div>
+          )}
+
+          {(owned || product.access_mode === "free_public") && (
+            <div className="mt-8">
+              <ProductContents product={product} />
+            </div>
+          )}
+
           <div className="store-hairline mt-9" />
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <p className="text-2xl font-semibold">
-              {formatPrice(Number(product.price), product.currency, lang)}
+              {priceLabel(product, lang, t("store.free"))}
             </p>
             <BuyButton product={product} owned={owned} />
-            {product.status === "active" && (
+            {product.status === "active" && !isFreeProduct(product) && (
               <Link
                 to="/gift/$slug"
                 params={{ slug: product.slug }}
@@ -107,7 +120,8 @@ function ProductPage() {
               </Link>
             )}
             <span className="text-xs text-muted-foreground">
-              {t("store.oneTime")} · {t("store.securePayment")}
+              {isFreeProduct(product) ? t("store.freeAccess") : t("store.oneTime")} ·{" "}
+              {t("store.securePayment")}
             </span>
           </div>
         </div>
