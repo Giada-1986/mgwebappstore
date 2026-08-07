@@ -5,6 +5,8 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/lib/platform";
+import { track } from "@/lib/analytics";
+import { PENDING_CONSENT_KEY } from "@/components/store/AnalyticsProvider";
 
 function safeRedirect(value: unknown): string {
   // Only same-origin app paths are accepted, never an external URL.
@@ -30,7 +32,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const navigate = useNavigate();
   const { redirect: redirectTo } = Route.useSearch();
   const { session } = useSession();
@@ -42,7 +44,6 @@ function AuthPage() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
-  const { lang } = useI18n();
 
   useEffect(() => {
     if (session) navigate({ to: redirectTo, replace: true });
@@ -125,6 +126,21 @@ function AuthPage() {
               className="input-store mt-1.5"
             />
           </label>
+
+          {mode === "signup" && (
+            <div className="rounded-2xl border border-border/70 bg-background/40 p-4">
+              <label className="flex items-start gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={marketing}
+                  onChange={(e) => setMarketing(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 rounded border-border accent-primary"
+                />
+                <span>{t("auth.marketingLabel")}</span>
+              </label>
+              <p className="mt-2 text-xs text-muted-foreground">{t("auth.marketingHint")}</p>
+            </div>
+          )}
 
           {error && <p className="text-sm text-destructive">{error}</p>}
           {message && <p className="text-sm text-foreground">{message}</p>}
