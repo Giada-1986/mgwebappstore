@@ -7,7 +7,18 @@ import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/lib/platform";
 
+function safeRedirect(value: unknown): string {
+  // Only same-origin app paths are accepted, never an external URL.
+  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) {
+    return "/my-apps";
+  }
+  return value;
+}
+
 export const Route = createFileRoute("/auth")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    redirect: safeRedirect(search["redirect"]),
+  }),
   head: () => ({
     meta: [
       { title: "Accedi — Fame o Fame?" },
@@ -22,6 +33,7 @@ export const Route = createFileRoute("/auth")({
 function AuthPage() {
   const { t } = useI18n();
   const navigate = useNavigate();
+  const { redirect: redirectTo } = Route.useSearch();
   const { session } = useSession();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
@@ -31,8 +43,8 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (session) navigate({ to: "/my-apps", replace: true });
-  }, [session, navigate]);
+    if (session) navigate({ to: redirectTo, replace: true });
+  }, [session, navigate, redirectTo]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
