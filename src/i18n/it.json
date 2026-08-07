@@ -418,6 +418,158 @@
     },
     "themes": "Categorie",
     "marketingOptIn": "Voglio ricevere novità, nuove risorse e offerte da MINI WEB APPS.",
-    "bundleIncludes": "Il bundle include"
+    "bundleIncludes": "Il bundle include",
+    "faq": {
+      "title": "Domande frequenti",
+      "intro": "Le risposte rapide su account, acquisti, prodotti gratuiti, regali e assistenza.",
+      "nav": "FAQ",
+      "groups": [
+        {
+          "title": "Account",
+          "items": [
+            {
+              "q": "Devo creare un account?",
+              "a": "Sì. L'account serve a collegare i prodotti che ottieni al tuo profilo, così restano disponibili nella tua Libreria da qualsiasi dispositivo."
+            },
+            {
+              "q": "Posso usare lo stesso account per tutti i prodotti?",
+              "a": "Sì. Un solo account MINI WEB APPS raccoglie tutte le mini app, checklist, template, ebook e guide che ottieni."
+            },
+            {
+              "q": "Ho dimenticato la password, cosa faccio?",
+              "a": "Nella pagina di accesso puoi richiedere il ripristino della password: riceverai via email un link per impostarne una nuova."
+            },
+            {
+              "q": "Posso cambiare email?",
+              "a": "L'email è l'identificativo del tuo account e non è modificabile direttamente dall'area personale. Se ti serve cambiarla, scrivi all'assistenza dall'indirizzo con cui ti sei registrato."
+            }
+          ]
+        },
+        {
+          "title": "Acquisti",
+          "items": [
+            {
+              "q": "Il pagamento è unico o c'è un abbonamento?",
+              "a": "Il pagamento è unico. Non ci sono abbonamenti né rinnovi automatici."
+            },
+            {
+              "q": "Quanto dura il mio accesso?",
+              "a": "L'accesso ai prodotti acquistati è a vita: restano nella tua Libreria e puoi riaprirli quando vuoi."
+            },
+            {
+              "q": "Dove trovo i prodotti che ho acquistato?",
+              "a": "Nella sezione La mia Libreria, accessibile dal menu in alto dopo l'accesso."
+            },
+            {
+              "q": "Se acquisto una web app ottengo anche le altre?",
+              "a": "No. Ogni prodotto è indipendente: l'acquisto sblocca soltanto il prodotto scelto (o, nel caso di un bundle, i prodotti indicati nel bundle stesso)."
+            },
+            {
+              "q": "Posso acquistare più prodotti con lo stesso account?",
+              "a": "Sì. Puoi acquistare quanti prodotti vuoi: si aggiungono tutti alla stessa Libreria."
+            }
+          ]
+        },
+        {
+          "title": "Prodotti gratuiti",
+          "items": [
+            {
+              "q": "Come funzionano i prodotti gratuiti?",
+              "a": "I prodotti gratuiti si ottengono con un clic dalla scheda prodotto e vengono aggiunti alla tua Libreria come tutti gli altri."
+            },
+            {
+              "q": "Devo registrarmi anche per un prodotto gratuito?",
+              "a": "Per alcuni prodotti gratuiti serve un account, così restano salvati nella tua Libreria; altri sono liberamente consultabili senza registrazione. Lo trovi indicato sulla scheda del prodotto."
+            }
+          ]
+        },
+        {
+          "title": "Regali",
+          "items": [
+            {
+              "q": "Posso regalare una web app o un altro prodotto?",
+              "a": "Sì. Sulla scheda del prodotto trovi l'opzione per regalarlo indicando l'email del destinatario."
+            },
+            {
+              "q": "Come riceve il regalo il destinatario?",
+              "a": "Il destinatario riceve un codice di riscatto collegato al prodotto regalato: aprendo il link, il prodotto viene aggiunto alla sua Libreria."
+            },
+            {
+              "q": "Il destinatario deve creare un account?",
+              "a": "Sì. Il regalo viene collegato al suo account, così resta disponibile nel tempo."
+            },
+            {
+              "q": "Un regalo sblocca soltanto il prodotto acquistato?",
+              "a": "Esatto. Ogni regalo sblocca esclusivamente il prodotto per cui è stato pagato, nessun altro."
+            }
+          ]
+        },
+        {
+          "title": "Pagamenti",
+          "items": [
+            {
+              "q": "I pagamenti sono sicuri?",
+              "a": "Sì. I pagamenti sono gestiti interamente da Stripe, che opera come provider certificato per i pagamenti online."
+            },
+            {
+              "q": "Quali metodi di pagamento sono accettati?",
+              "a": "Sono accettati i metodi di pagamento resi disponibili da Stripe al momento del checkout, come le principali carte di credito e debito."
+            },
+            {
+              "q": "MINI WEB APPS conserva i dati della mia carta?",
+              "a": "No. I dati completi della carta non transitano né vengono memorizzati dallo store: sono trattati direttamente da Stripe."
+            }
+          ]
+        },
+        {
+          "title": "Problemi tecnici",
+          "items": [
+            {
+              "q": "Ho acquistato ma il prodotto non compare nella mia Libreria.",
+              "a": "La conferma del pagamento avviene lato server e può richiedere qualche istante. Aggiorna la pagina della Libreria dopo un minuto; se il prodotto non compare, scrivi all'assistenza."
+            },
+            {
+              "q": "Il prodotto non si apre.",
+              "a": "Verifica di aver effettuato l'accesso con l'account usato per l'acquisto e riprova aggiornando la pagina. Se il problema persiste, contattaci."
+            },
+            {
+              "q": "Cosa faccio se una web app presenta un problema tecnico?",
+              "a": "Segnalacelo indicando il prodotto, il dispositivo e cosa stavi facendo: ci aiuta a individuare la causa più in fretta."
+            },
+            {
+              "q": "Posso usare i prodotti da telefono, tablet e computer?",
+              "a": "Sì. Lo store e le mini app sono pensati per funzionare da browser su smartphone, tablet e computer."
+            }
+          ]
+        },
+        {
+          "title": "Lingua",
+          "items": [
+            {
+              "q": "Posso utilizzare lo store in italiano e inglese?",
+              "a": "Sì. Puoi cambiare lingua in qualsiasi momento dal selettore IT/EN in alto: i contenuti sono tradotti internamente, senza traduzione automatica del browser."
+            }
+          ]
+        },
+        {
+          "title": "Privacy e marketing",
+          "items": [
+            {
+              "q": "Riceverò email pubblicitarie automaticamente?",
+              "a": "No. Le comunicazioni commerciali vengono inviate solo se hai prestato il relativo consenso. Le email di servizio (accesso, acquisti, ricevute) sono sempre inviate."
+            },
+            {
+              "q": "Come posso revocare il consenso alle comunicazioni commerciali?",
+              "a": "Dalla sezione Comunicazioni del tuo account puoi togliere il consenso in qualsiasi momento."
+            }
+          ]
+        }
+      ],
+      "contactTitle": "Non hai trovato la risposta?",
+      "contactText": "Scrivici rispondendo all'email di conferma dell'acquisto o all'email di registrazione: ti rispondiamo dallo stesso indirizzo. Indica il prodotto e, se possibile, cosa hai già provato.",
+      "contactAccount": "Vai al tuo account",
+      "contactCatalog": "Torna al catalogo",
+      "legalNote": "Per condizioni contrattuali, diritti e rimborsi fanno fede i Termini e Condizioni del servizio."
+    }
   }
 }
