@@ -5,8 +5,13 @@ import { formatPrice, useCategories } from "@/lib/platform";
 import {
   type AdminProduct,
   type ProductInput,
+  deleteProductAsset,
   listAdminProducts,
+  listBundleItems,
+  listProductAssets,
   saveAdminProduct,
+  saveProductAsset,
+  setBundleItem,
 } from "@/lib/products.functions";
 
 /**
