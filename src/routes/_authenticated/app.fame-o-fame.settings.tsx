@@ -6,7 +6,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useFameState } from "@/lib/data";
-import { useProfile, useSession, useUpdateProfile } from "@/lib/platform";
+import { useProfile, useSession } from "@/lib/platform";
 
 export const Route = createFileRoute("/_authenticated/app/fame-o-fame/settings")({
   component: SettingsPage,
@@ -15,10 +15,9 @@ export const Route = createFileRoute("/_authenticated/app/fame-o-fame/settings")
 const TRIGGERS = ["evening", "work", "boredom", "argument", "night", "alone"] as const;
 
 function SettingsPage() {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
   const { session } = useSession();
   const { data: profile } = useProfile(session?.user.id);
-  const update = useUpdateProfile(session?.user.id);
   const navigate = useNavigate();
   const qc = useQueryClient();
   const { triggers, updateState, updateSettings } = useFameState();
@@ -29,11 +28,6 @@ function SettingsPage() {
     setSelected(triggers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggers.join(",")]);
-
-  useEffect(() => {
-    if (profile && profile.preferred_language !== lang) update({ preferred_language: lang });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang, profile?.preferred_language]);
 
   async function toggle(key: string) {
     const next = selected.includes(key) ? selected.filter((k) => k !== key) : [...selected, key];

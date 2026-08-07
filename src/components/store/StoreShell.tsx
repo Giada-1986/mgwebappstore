@@ -21,7 +21,9 @@ export function StoreShell({ children }: { children: ReactNode }) {
       <header className="border-b border-border/70 bg-card/70 backdrop-blur">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-4">
           <Link to="/" className="flex items-baseline gap-2">
-            <span className="text-lg font-semibold tracking-tight">Mini Apps</span>
+            <span translate="no" className="notranslate text-lg font-semibold tracking-tight">
+              {t("store.brand")}
+            </span>
             <span className="text-xs text-muted-foreground">{t("store.tagline")}</span>
           </Link>
           <div className="flex items-center gap-2">
