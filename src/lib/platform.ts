@@ -45,8 +45,20 @@ export type Product = {
   price: number;
   currency: string;
   stripe_price_id: string | null;
-  product_type: "mini_app" | "premium_app" | "professional_app" | string;
+  product_type:
+    | "mini_app"
+    | "premium_app"
+    | "professional_app"
+    | "checklist"
+    | "template"
+    | "ebook"
+    | "guide"
+    | "bundle"
+    | string;
   status: string;
+  /** paid | free_account | free_public — decided by the admin, enforced server-side. */
+  access_mode: "paid" | "free_account" | "free_public" | string;
+  badge: string | null;
   /** Internal route of the mini app (preferred). */
   app_path: string | null;
   /** Optional external app address. A URL alone never authorises access. */
@@ -97,6 +109,18 @@ export function productDescription(p: Product, lang: Lang) {
 export function categoryName(c: Category, lang: Lang) {
   return lang === "en" ? c.name_en : c.name_it;
 }
+/** A product is free when the admin marked it as such, not because price = 0. */
+export function isFreeProduct(p: Pick<Product, "access_mode">) {
+  return p.access_mode === "free_account" || p.access_mode === "free_public";
+}
+
+/** Never render 0,00 € — free products show a label instead. */
+export function priceLabel(p: Product, lang: Lang, freeText: string) {
+  return isFreeProduct(p) || Number(p.price) <= 0
+    ? freeText
+    : formatPrice(Number(p.price), p.currency, lang);
+}
+
 export function formatPrice(price: number, currency: string, lang: Lang) {
   return new Intl.NumberFormat(lang === "en" ? "en-IE" : "it-IT", {
     style: "currency",
@@ -297,4 +321,60 @@ export function useUpdateProductState(userId?: string, productId?: string) {
     if (error) throw error;
     await qc.invalidateQueries({ queryKey: ["product-state", userId, productId] });
   };
+}
+
+/* ---------------- product contents (assets & bundles) ---------------- */
+
+export type ProductAsset = {
+  id: string;
+  product_id: string;
+  asset_type: string;
+  storage_path: string | null;
+  external_url: string | null;
+  title: string;
+  sort_order: number;
+  is_active: boolean;
+};
+
+/**
+ * Assets are read through RLS: a row is visible only for a product the user
+ * actually owns, or for a product explicitly published as free_public.
+ */
+export function useProductAssets(productId?: string) {
+  return useQuery({
+    queryKey: ["product-assets", productId],
+    enabled: !!productId,
+    queryFn: async (): Promise<ProductAsset[]> => {
+      const { data, error } = await supabase
+        .from("product_assets")
+        .select("*")
+        .eq("product_id", productId!)
+        .eq("is_active", true)
+        .order("sort_order");
+      if (error) throw error;
+      return (data ?? []) as unknown as ProductAsset[];
+    },
+  });
+}
+
+/** Products included in a bundle (public composition, no access implied). */
+export function useBundleContents(bundleId?: string) {
+  const products = useProducts();
+  const items = useQuery({
+    queryKey: ["bundle-contents", bundleId],
+    enabled: !!bundleId,
+    queryFn: async (): Promise<string[]> => {
+      const { data, error } = await supabase
+        .from("bundle_products")
+        .select("included_product_id")
+        .eq("bundle_product_id", bundleId!)
+        .order("sort_order");
+      if (error) throw error;
+      return (data ?? []).map((r) => (r as { included_product_id: string }).included_product_id);
+    },
+  });
+  const included = (items.data ?? [])
+    .map((id) => products.data?.find((p) => p.id === id))
+    .filter((p): p is Product => !!p);
+  return { included, isLoading: items.isLoading || products.isLoading };
 }
