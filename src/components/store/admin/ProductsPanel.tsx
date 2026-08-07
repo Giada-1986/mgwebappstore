@@ -263,7 +263,31 @@ export function ProductsPanel() {
                 <option value="mini_app">{t("store.admin.products.typeMini")}</option>
                 <option value="premium_app">{t("store.admin.products.typePremium")}</option>
                 <option value="professional_app">{t("store.admin.products.typePro")}</option>
+                <option value="checklist">{t("store.admin.products.typeChecklist")}</option>
+                <option value="template">{t("store.admin.products.typeTemplate")}</option>
+                <option value="ebook">{t("store.admin.products.typeEbook")}</option>
+                <option value="guide">{t("store.admin.products.typeGuide")}</option>
+                <option value="bundle">{t("store.admin.products.typeBundle")}</option>
               </select>
+            </Field>
+            <Field label={t("store.admin.products.fAccessMode")}>
+              <select
+                value={draft.access_mode}
+                onChange={(e) => set("access_mode", e.target.value)}
+                className="input-store mt-1.5"
+              >
+                <option value="paid">{t("store.admin.products.accessPaid")}</option>
+                <option value="free_account">{t("store.admin.products.accessFreeAccount")}</option>
+                <option value="free_public">{t("store.admin.products.accessFreePublic")}</option>
+              </select>
+            </Field>
+            <Field label={t("store.admin.products.fBadge")}>
+              <input
+                value={draft.badge ?? ""}
+                onChange={(e) => set("badge", e.target.value || null)}
+                maxLength={40}
+                className="input-store mt-1.5"
+              />
             </Field>
             <Field label={t("store.admin.products.fStatus")}>
               <select
