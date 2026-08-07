@@ -27,7 +27,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "overview" | "users" | "sales" | "marketing" | "analytics";
+type Tab = "overview" | "products" | "users" | "sales" | "marketing" | "analytics";
 
 function AdminPage() {
   const { t, lang } = useI18n();
