@@ -16,6 +16,15 @@ const links = [
 /** Common chrome for every platform (non mini-app) page. */
 export function StoreShell({ children }: { children: ReactNode }) {
   const { t } = useI18n();
+  const { session } = useSession();
+  // Admin status always comes from the server; the link is chrome only.
+  const { data: admin } = useQuery({
+    queryKey: ["admin", "access"],
+    enabled: !!session,
+    queryFn: () => getIsAdmin(),
+    staleTime: 5 * 60_000,
+  });
+
 
   return (
     <div className="store-scope flex min-h-screen flex-col">
