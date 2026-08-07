@@ -21,7 +21,7 @@ function SettingsPage() {
   const update = useUpdateProfile(session?.user.id);
   const navigate = useNavigate();
   const qc = useQueryClient();
-  const { triggers, updateState, updateSettings, settings } = useFameState();
+  const { triggers, updateState, updateSettings } = useFameState();
   const [selected, setSelected] = useState<string[]>([]);
   const [saved, setSaved] = useState(false);
 
