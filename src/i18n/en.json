@@ -418,6 +418,158 @@
     },
     "themes": "Categories",
     "marketingOptIn": "I want to receive news, new resources and offers from MINI WEB APPS.",
-    "bundleIncludes": "This bundle includes"
+    "bundleIncludes": "This bundle includes",
+    "faq": {
+      "title": "Frequently asked questions",
+      "intro": "Quick answers about accounts, purchases, free products, gifts and support.",
+      "nav": "FAQ",
+      "groups": [
+        {
+          "title": "Account",
+          "items": [
+            {
+              "q": "Do I need an account?",
+              "a": "Yes. Your account links the products you get to your profile, so they stay in your Library on any device."
+            },
+            {
+              "q": "Can I use the same account for every product?",
+              "a": "Yes. One MINI WEB APPS account holds all the mini apps, checklists, templates, ebooks and guides you get."
+            },
+            {
+              "q": "I forgot my password, what should I do?",
+              "a": "On the sign-in page you can request a password reset: you'll get an email with a link to set a new one."
+            },
+            {
+              "q": "Can I change my email?",
+              "a": "Your email identifies your account and can't be changed from the account area. If you need to change it, write to support from the address you signed up with."
+            }
+          ]
+        },
+        {
+          "title": "Purchases",
+          "items": [
+            {
+              "q": "Is it a one-time payment or a subscription?",
+              "a": "It's a one-time payment. No subscriptions, no automatic renewals."
+            },
+            {
+              "q": "How long does my access last?",
+              "a": "Access to purchased products is lifetime: they stay in your Library and you can reopen them any time."
+            },
+            {
+              "q": "Where do I find the products I bought?",
+              "a": "In My Library, from the top menu once you're signed in."
+            },
+            {
+              "q": "If I buy one web app, do I get the others too?",
+              "a": "No. Each product is separate: a purchase unlocks only that product (or, for a bundle, the products listed in the bundle)."
+            },
+            {
+              "q": "Can I buy several products with the same account?",
+              "a": "Yes. You can buy as many products as you like: they all land in the same Library."
+            }
+          ]
+        },
+        {
+          "title": "Free products",
+          "items": [
+            {
+              "q": "How do free products work?",
+              "a": "Free products are added to your Library in one click from the product page, just like the others."
+            },
+            {
+              "q": "Do I need to sign up for a free product too?",
+              "a": "Some free products need an account so they stay saved in your Library; others are open without signing up. The product page tells you which."
+            }
+          ]
+        },
+        {
+          "title": "Gifts",
+          "items": [
+            {
+              "q": "Can I gift a web app or another product?",
+              "a": "Yes. The product page has a gift option where you enter the recipient's email."
+            },
+            {
+              "q": "How does the recipient get the gift?",
+              "a": "They receive a redemption code tied to the gifted product: opening the link adds it to their Library."
+            },
+            {
+              "q": "Does the recipient need an account?",
+              "a": "Yes. The gift is linked to their account so it stays available over time."
+            },
+            {
+              "q": "Does a gift unlock only the purchased product?",
+              "a": "Exactly. Each gift unlocks only the product it was paid for, nothing else."
+            }
+          ]
+        },
+        {
+          "title": "Payments",
+          "items": [
+            {
+              "q": "Are payments secure?",
+              "a": "Yes. Payments are handled entirely by Stripe, a certified online payment provider."
+            },
+            {
+              "q": "Which payment methods are accepted?",
+              "a": "The methods Stripe offers at checkout, such as major credit and debit cards."
+            },
+            {
+              "q": "Does MINI WEB APPS store my card details?",
+              "a": "No. Full card details never pass through or get stored by the store: they are handled directly by Stripe."
+            }
+          ]
+        },
+        {
+          "title": "Technical issues",
+          "items": [
+            {
+              "q": "I paid but the product isn't in my Library.",
+              "a": "Payment confirmation happens server-side and can take a moment. Refresh your Library after a minute; if it's still missing, write to support."
+            },
+            {
+              "q": "The product won't open.",
+              "a": "Check that you're signed in with the account used for the purchase and refresh the page. If it persists, contact us."
+            },
+            {
+              "q": "What if a web app has a technical problem?",
+              "a": "Report it with the product name, your device and what you were doing: it helps us find the cause faster."
+            },
+            {
+              "q": "Can I use products on phone, tablet and computer?",
+              "a": "Yes. The store and the mini apps are built to work in the browser on phones, tablets and computers."
+            }
+          ]
+        },
+        {
+          "title": "Language",
+          "items": [
+            {
+              "q": "Can I use the store in Italian and English?",
+              "a": "Yes. Switch language any time with the IT/EN selector at the top: content is translated in-app, without browser auto-translation."
+            }
+          ]
+        },
+        {
+          "title": "Privacy and marketing",
+          "items": [
+            {
+              "q": "Will I get marketing emails automatically?",
+              "a": "No. Commercial emails are sent only if you gave your consent. Service emails (sign-in, purchases, receipts) are always sent."
+            },
+            {
+              "q": "How do I withdraw marketing consent?",
+              "a": "From the Communications section of your account you can withdraw consent at any time."
+            }
+          ]
+        }
+      ],
+      "contactTitle": "Didn't find your answer?",
+      "contactText": "Write to us by replying to your purchase confirmation email or to your sign-up email: we answer from the same address. Mention the product and what you already tried.",
+      "contactAccount": "Go to your account",
+      "contactCatalog": "Back to the catalog",
+      "legalNote": "Contractual terms, rights and refunds are governed by the service Terms and Conditions."
+    }
   }
 }

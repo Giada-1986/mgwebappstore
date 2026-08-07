@@ -20,14 +20,28 @@ export function AccountMenu() {
 
   if (!session) {
     return (
-      <Link to="/auth" search={{ redirect: "/my-apps" }} className="btn-store-ghost px-4 py-1.5 text-sm">
-        {t("store.signIn")}
-      </Link>
+      <div className="flex items-center gap-2">
+        <Link
+          to="/faq"
+          className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        >
+          {t("store.faq.nav")}
+        </Link>
+        <Link to="/auth" search={{ redirect: "/my-apps" }} className="btn-store-ghost px-4 py-1.5 text-sm">
+          {t("store.signIn")}
+        </Link>
+      </div>
     );
   }
 
   return (
     <div className="flex items-center gap-2">
+      <Link
+        to="/faq"
+        className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      >
+        {t("store.faq.nav")}
+      </Link>
       <Link to="/account" className="btn-store-ghost px-4 py-1.5 text-sm">
         {t("store.account")}
       </Link>
