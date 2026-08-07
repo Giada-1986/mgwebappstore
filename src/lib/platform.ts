@@ -16,6 +16,10 @@ export type Profile = {
   display_name: string | null;
   preferred_language: string;
   created_at: string;
+  /** Explicit opt-in for promotional email. Service emails never depend on it. */
+  marketing_consent: boolean;
+  marketing_consent_at: string | null;
+  marketing_language: string | null;
 };
 
 export type Category = {
@@ -122,7 +126,9 @@ export function useProfile(userId?: string) {
     queryFn: async (): Promise<Profile | null> => {
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, email, display_name, preferred_language, created_at")
+        .select(
+          "id, email, display_name, preferred_language, created_at, marketing_consent, marketing_consent_at, marketing_language",
+        )
         .eq("id", userId!)
         .maybeSingle();
       if (error) throw error;
@@ -135,7 +141,7 @@ export function useUpdateProfile(userId?: string) {
   const qc = useQueryClient();
   return async (patch: Partial<Profile>) => {
     if (!userId) return;
-    const { error } = await supabase.from("profiles").update(patch).eq("id", userId);
+    const { error } = await supabase.from("profiles").update(patch as never).eq("id", userId);
     if (error) throw error;
     await qc.invalidateQueries({ queryKey: ["profile", userId] });
   };

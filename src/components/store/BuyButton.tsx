@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { type Product, formatPrice, useSession } from "@/lib/platform";
+import { track } from "@/lib/analytics";
 
 /**
  * Starts the purchase flow for any product. It never grants access:
@@ -46,6 +47,7 @@ export function BuyButton({
           });
           return;
         }
+        track("checkout_started", { product: product.slug, price: Number(product.price) });
         navigate({ to: "/checkout/$slug", params: { slug: product.slug } });
       }}
     >

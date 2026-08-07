@@ -47,7 +47,9 @@
     "checkEmail": "We sent you a confirmation email. Check your inbox to activate your access.",
     "error": "Something went wrong. Please try again.",
     "titleSignUp": "Create your account",
-    "subtitleSignUp": "All you need is an email and a password."
+    "subtitleSignUp": "All you need is an email and a password.",
+    "marketingLabel": "I want to receive news, new mini apps and offers by email.",
+    "marketingHint": "Optional. No marketing emails without your consent: you can withdraw it any time from your account."
   },
   "paywall": {
     "title": "Your space is almost ready",
@@ -246,6 +248,75 @@
       "message": "Message (optional)",
       "continue": "Continue to payment",
       "cta": "Gift this app"
+    },
+    "marketing": {
+      "title": "Communications",
+      "consent": "I want to receive news, new mini apps and offers by email.",
+      "hint": "Service emails (sign-in, purchases, receipts) are always sent and do not depend on this choice.",
+      "since": "Consent given on {date}",
+      "saving": "Saving…",
+      "saved": "Preference saved",
+      "error": "We couldn't save your preference."
+    },
+    "admin": {
+      "nav": "Admin",
+      "title": "Admin dashboard",
+      "subtitle": "Aggregated data for the MINI WEB APPS store.",
+      "denied": "This area is reserved to the administrator.",
+      "tabs": {
+        "overview": "Overview",
+        "users": "Users",
+        "sales": "Sales",
+        "marketing": "Marketing",
+        "analytics": "Analytics"
+      },
+      "kpi": {
+        "users": "Registered users",
+        "new7": "New (7 days)",
+        "new30": "New (30 days)",
+        "consent": "Marketing consents",
+        "sales": "Confirmed purchases",
+        "revenue": "Total revenue",
+        "activeProducts": "Active apps",
+        "conversion": "Signup → purchase conversion"
+      },
+      "salesByProduct": "Sales by app",
+      "latestPurchases": "Latest purchases",
+      "usersTitle": "Users",
+      "colEmail": "Email",
+      "colLanguage": "Language",
+      "colConsent": "Marketing",
+      "colApps": "Apps",
+      "colDate": "Registered",
+      "colProduct": "App",
+      "colAmount": "Amount",
+      "colStatus": "Status",
+      "yes": "Yes",
+      "no": "No",
+      "campaignTitle": "Announce a new mini app",
+      "campaignHint": "The email is sent only when you press send, and only to users who gave marketing consent.",
+      "audience": "Recipients",
+      "audienceAll": "All consenting users",
+      "audienceIt": "Italian speakers only",
+      "audienceEn": "English speakers only",
+      "audienceCategory": "Owners of apps in a category",
+      "category": "Category",
+      "subject": "Subject",
+      "content": "Content (HTML)",
+      "senderName": "Sender name",
+      "senderEmail": "Sender email (domain verified in Brevo)",
+      "preview": "Count recipients",
+      "send": "Send campaign",
+      "sending": "Sending…",
+      "recipients": "Estimated recipients: {count}",
+      "sent": "Campaign sent to {count} recipients.",
+      "failed": "Sending failed: {error}",
+      "history": "Sent campaigns",
+      "noCampaigns": "No campaign sent yet.",
+      "analyticsTitle": "Product analytics",
+      "analyticsText": "Visits, funnels and events are collected in PostHog. Tracked events:",
+      "analyticsEvents": "store visit, product view, signup, login, checkout started, purchase completed, app opened.",
+      "analyticsPrivacy": "No payment data, passwords or sensitive data are sent."
     }
   }
 }

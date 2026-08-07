@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
 import { MyAppsGrid } from "@/components/store/MyAppsGrid";
 import { useI18n } from "@/lib/i18n";
+import { track } from "@/lib/analytics";
 import { useMyApps, useSession } from "@/lib/platform";
 
 export const Route = createFileRoute("/_authenticated/my-apps")({
@@ -22,6 +24,14 @@ function MyAppsPage() {
   const { t } = useI18n();
   const { session } = useSession();
   const { apps, isLoading } = useMyApps(session?.user.id);
+
+  // The purchase is confirmed server-side by the webhook; this only reports it.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const slug = new URLSearchParams(window.location.search).get("purchase");
+    if (slug && apps.some((a) => a.slug === slug)) track("purchase_completed", { product: slug });
+  }, [apps]);
+
 
   return (
     <StoreShell>

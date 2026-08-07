@@ -5,6 +5,8 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession } from "@/lib/platform";
+import { track } from "@/lib/analytics";
+import { PENDING_CONSENT_KEY } from "@/components/store/AnalyticsProvider";
 
 function safeRedirect(value: unknown): string {
   // Only same-origin app paths are accepted, never an external URL.
@@ -37,6 +39,8 @@ function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // Never pre-selected: marketing consent must be an explicit action.
+  const [marketing, setMarketing] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -52,16 +56,21 @@ function AuthPage() {
     setMessage(null);
     try {
       if (mode === "signup") {
+        track("signup_started");
         const { data, error: err } = await supabase.auth.signUp({
           email,
           password,
           options: { emailRedirectTo: window.location.origin },
         });
         if (err) throw err;
+        // Stored until a session exists (double opt-in creates it only later).
+        window.localStorage.setItem(PENDING_CONSENT_KEY, marketing ? "true" : "false");
+        track("signup_completed");
         if (!data.session) setMessage(t("auth.checkEmail"));
       } else {
         const { error: err } = await supabase.auth.signInWithPassword({ email, password });
         if (err) throw err;
+        track("login_completed");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : t("auth.error"));
@@ -117,6 +126,21 @@ function AuthPage() {
               className="input-store mt-1.5"
             />
           </label>
+
+          {mode === "signup" && (
+            <div className="rounded-2xl border border-border/70 bg-background/40 p-4">
+              <label className="flex items-start gap-3 text-sm">
+                <input
+                  type="checkbox"
+                  checked={marketing}
+                  onChange={(e) => setMarketing(e.target.checked)}
+                  className="mt-0.5 h-4 w-4 rounded border-border accent-primary"
+                />
+                <span>{t("auth.marketingLabel")}</span>
+              </label>
+              <p className="mt-2 text-xs text-muted-foreground">{t("auth.marketingHint")}</p>
+            </div>
+          )}
 
           {error && <p className="text-sm text-destructive">{error}</p>}
           {message && <p className="text-sm text-foreground">{message}</p>}

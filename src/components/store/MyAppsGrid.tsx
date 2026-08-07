@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { type Product, productName, productShort } from "@/lib/platform";
 import { LifetimeAccessBadge } from "@/components/store/Badges";
+import { track } from "@/lib/analytics";
 
 /** Personal library grid — shows only products the user is entitled to. */
 export function MyAppsGrid({ apps }: { apps: Product[] }) {
@@ -30,7 +31,11 @@ export function MyAppsGrid({ apps }: { apps: Product[] }) {
             {productShort(app, lang)}
           </p>
           {app.app_path ? (
-            <a href={app.app_path} className="btn-store mt-3 self-start">
+            <a
+              href={app.app_path}
+              onClick={() => track("product_opened", { product: app.slug })}
+              className="btn-store mt-3 self-start"
+            >
               {t("store.open")}
             </a>
           ) : (
