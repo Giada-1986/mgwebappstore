@@ -32,7 +32,9 @@ export function AppAccessGuard({
   const { data, isLoading } = useQuery({
     queryKey: ["product-access", slug, session?.user.id],
     enabled: !!session?.user.id,
-    staleTime: 30_000,
+    staleTime: 0,
+    refetchOnMount: "always",
+    refetchOnWindowFocus: "always",
     retry: false,
     queryFn: () => verify({ data: { slug } }),
   });
