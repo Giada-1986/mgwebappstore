@@ -12,6 +12,8 @@ import {
   useProduct,
   useSession,
 } from "@/lib/platform";
+import { track } from "@/lib/analytics";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/apps/$slug")({
   head: () => ({
@@ -34,6 +36,10 @@ function ProductPage() {
   const { data: product, isLoading } = useProduct(slug);
   const { data: entitlements } = useEntitlements(session?.user.id);
   const owned = !!product && (entitlements ?? []).some((e) => e.product_id === product.id);
+
+  useEffect(() => {
+    if (product) track("product_viewed", { product: product.slug });
+  }, [product?.slug]);
 
   if (isLoading) {
     return (
