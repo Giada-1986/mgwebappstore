@@ -32,7 +32,7 @@ export const Route = createFileRoute("/auth")({
 });
 
 function AuthPage() {
-  const { t, lang } = useI18n();
+  const { t } = useI18n();
   const navigate = useNavigate();
   const { redirect: redirectTo } = Route.useSearch();
   const { session } = useSession();
