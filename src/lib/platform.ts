@@ -47,7 +47,10 @@ export type Product = {
   stripe_price_id: string | null;
   product_type: "mini_app" | "premium_app" | "professional_app" | string;
   status: string;
+  /** Internal route of the mini app (preferred). */
   app_path: string | null;
+  /** Optional external app address. A URL alone never authorises access. */
+  app_url: string | null;
   sort_order: number;
 };
 

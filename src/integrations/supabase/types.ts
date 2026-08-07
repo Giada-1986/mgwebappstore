@@ -314,6 +314,7 @@ export type Database = {
         Row: {
           accent_color: string | null
           app_path: string | null
+          app_url: string | null
           category_id: string | null
           created_at: string
           currency: string
@@ -336,6 +337,7 @@ export type Database = {
         Insert: {
           accent_color?: string | null
           app_path?: string | null
+          app_url?: string | null
           category_id?: string | null
           created_at?: string
           currency?: string
@@ -358,6 +360,7 @@ export type Database = {
         Update: {
           accent_color?: string | null
           app_path?: string | null
+          app_url?: string | null
           category_id?: string | null
           created_at?: string
           currency?: string

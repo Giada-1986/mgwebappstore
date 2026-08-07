@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { StoreShell } from "@/components/store/StoreShell";
+import { ProductsPanel } from "@/components/store/admin/ProductsPanel";
 import { useI18n } from "@/lib/i18n";
 import { formatPrice, useCategories } from "@/lib/platform";
 import {
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "overview" | "users" | "sales" | "marketing" | "analytics";
+type Tab = "overview" | "products" | "users" | "sales" | "marketing" | "analytics";
 
 function AdminPage() {
   const { t, lang } = useI18n();
@@ -70,7 +71,7 @@ function AdminPage() {
     );
   }
 
-  const tabs: Tab[] = ["overview", "users", "sales", "marketing", "analytics"];
+  const tabs: Tab[] = ["overview", "products", "users", "sales", "marketing", "analytics"];
   const o = overview.data;
 
   return (
@@ -210,6 +211,8 @@ function AdminPage() {
           )}
         </section>
       )}
+
+      {tab === "products" && <ProductsPanel />}
 
       {tab === "marketing" && (
         <CampaignPanel campaigns={campaigns.data ?? []} loading={campaigns.isLoading} />
