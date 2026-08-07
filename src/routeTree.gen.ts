@@ -17,6 +17,7 @@ import { Route as AuthenticatedMyAppsRouteImport } from './routes/_authenticated
 import { Route as AppsIndexRouteImport } from './routes/apps.index'
 import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
 import { Route as AuthenticatedCheckoutSlugRouteImport } from './routes/_authenticated/checkout.$slug'
+import { Route as AuthenticatedRedeemTokenRouteImport } from './routes/_authenticated/redeem.$token'
 import { Route as AuthenticatedAppFameOFameIndexRouteImport } from './routes/_authenticated/app.fame-o-fame.index'
 import { Route as AuthenticatedAppFameOFameExercisesRouteImport } from './routes/_authenticated/app.fame-o-fame.exercises'
 import { Route as AuthenticatedAppFameOFameMonthlyRouteImport } from './routes/_authenticated/app.fame-o-fame.monthly'
@@ -63,6 +64,12 @@ const AuthenticatedCheckoutSlugRoute =
   AuthenticatedCheckoutSlugRouteImport.update({
     id: '/checkout/$slug',
     path: '/checkout/$slug',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedRedeemTokenRoute =
+  AuthenticatedRedeemTokenRouteImport.update({
+    id: '/redeem/$token',
+    path: '/redeem/$token',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedAppFameOFameIndexRoute =
@@ -116,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/apps/$slug': typeof AppsSlugRoute
   '/apps/': typeof AppsIndexRoute
   '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
+  '/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
   '/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
   '/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
@@ -132,6 +140,7 @@ export interface FileRoutesByTo {
   '/apps/$slug': typeof AppsSlugRoute
   '/apps': typeof AppsIndexRoute
   '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
+  '/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
   '/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
   '/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
@@ -150,6 +159,7 @@ export interface FileRoutesById {
   '/apps/$slug': typeof AppsSlugRoute
   '/apps/': typeof AppsIndexRoute
   '/_authenticated/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
+  '/_authenticated/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/_authenticated/app/fame-o-fame/exercises': typeof AuthenticatedAppFameOFameExercisesRoute
   '/_authenticated/app/fame-o-fame/monthly': typeof AuthenticatedAppFameOFameMonthlyRoute
   '/_authenticated/app/fame-o-fame/onboarding': typeof AuthenticatedAppFameOFameOnboardingRoute
@@ -168,6 +178,7 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/apps/'
     | '/checkout/$slug'
+    | '/redeem/$token'
     | '/app/fame-o-fame/exercises'
     | '/app/fame-o-fame/monthly'
     | '/app/fame-o-fame/onboarding'
@@ -184,6 +195,7 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/apps'
     | '/checkout/$slug'
+    | '/redeem/$token'
     | '/app/fame-o-fame/exercises'
     | '/app/fame-o-fame/monthly'
     | '/app/fame-o-fame/onboarding'
@@ -201,6 +213,7 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/apps/'
     | '/_authenticated/checkout/$slug'
+    | '/_authenticated/redeem/$token'
     | '/_authenticated/app/fame-o-fame/exercises'
     | '/_authenticated/app/fame-o-fame/monthly'
     | '/_authenticated/app/fame-o-fame/onboarding'
@@ -277,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCheckoutSlugRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/redeem/$token': {
+      id: '/_authenticated/redeem/$token'
+      path: '/redeem/$token'
+      fullPath: '/redeem/$token'
+      preLoaderRoute: typeof AuthenticatedRedeemTokenRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/app/fame-o-fame/': {
       id: '/_authenticated/app/fame-o-fame/'
       path: '/app/fame-o-fame'
@@ -333,6 +353,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
   AuthenticatedMyAppsRoute: typeof AuthenticatedMyAppsRoute
   AuthenticatedCheckoutSlugRoute: typeof AuthenticatedCheckoutSlugRoute
+  AuthenticatedRedeemTokenRoute: typeof AuthenticatedRedeemTokenRoute
   AuthenticatedAppFameOFameExercisesRoute: typeof AuthenticatedAppFameOFameExercisesRoute
   AuthenticatedAppFameOFameMonthlyRoute: typeof AuthenticatedAppFameOFameMonthlyRoute
   AuthenticatedAppFameOFameOnboardingRoute: typeof AuthenticatedAppFameOFameOnboardingRoute
@@ -345,6 +366,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAccountRoute: AuthenticatedAccountRoute,
   AuthenticatedMyAppsRoute: AuthenticatedMyAppsRoute,
   AuthenticatedCheckoutSlugRoute: AuthenticatedCheckoutSlugRoute,
+  AuthenticatedRedeemTokenRoute: AuthenticatedRedeemTokenRoute,
   AuthenticatedAppFameOFameExercisesRoute:
     AuthenticatedAppFameOFameExercisesRoute,
   AuthenticatedAppFameOFameMonthlyRoute: AuthenticatedAppFameOFameMonthlyRoute,
