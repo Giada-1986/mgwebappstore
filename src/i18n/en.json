@@ -18,7 +18,8 @@
     "loading": "One moment…",
     "start": "Start",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "backToApps": "Back to my apps"
   },
   "landing": {
     "heroTitle": "Learn to recognise your hunger",
