@@ -275,25 +275,26 @@ export function useIsAdmin(userId?: string) {
 
 /**
  * Products the user owns, joined with the catalog.
- * Admins see the whole active catalogue without any entitlement being created.
+ * Only products currently published in the store (`status === "active"`) are
+ * listed: archived / inactive / unpublished products disappear from the
+ * library even when a historical entitlement still exists in the database.
  */
 export function useMyApps(userId?: string) {
   const entitlements = useEntitlements(userId);
   const products = useProducts();
   const admin = useIsAdmin(userId);
 
-  // A retired (archived) product never shows up in the library, not even for
-  // users who still hold a historical sandbox entitlement for it.
+  const isPublished = (p: Product) => p.status === "active";
+
   const owned = (entitlements.data ?? [])
     .map((e) => products.data?.find((p) => p.id === e.product_id))
-    .filter((p): p is Product => !!p && p.status !== "archived");
+    .filter((p): p is Product => !!p && isPublished(p));
 
   const isAdmin = admin.data === true;
-  // Admins may open and test every non-retired product, including the ones not
-  // published yet (draft/coming soon). RLS only exposes those rows to admins.
-  const apps = isAdmin
-    ? (products.data ?? []).filter((p) => p.status !== "archived")
-    : owned;
+  // Admins get every published product without buying it — never the retired
+  // or unpublished ones.
+  const apps = isAdmin ? (products.data ?? []).filter(isPublished) : owned;
+
 
   const ownedIds = new Set(owned.map((p) => p.id));
 
