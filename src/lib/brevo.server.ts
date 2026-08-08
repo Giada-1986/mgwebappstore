@@ -115,3 +115,26 @@ export async function sendBrevoAnnouncement(params: {
   }
   return sent;
 }
+
+/**
+ * One-to-one transactional email (gift delivery, receipts).
+ * Not a campaign: it is triggered by a single confirmed event for a single
+ * recipient, and is unaffected by marketing blacklisting.
+ */
+export async function sendBrevoTransactional(params: {
+  senderEmail: string;
+  senderName: string;
+  to: string;
+  subject: string;
+  htmlContent: string;
+}) {
+  return brevoFetch("smtp/email", {
+    method: "POST",
+    body: JSON.stringify({
+      sender: { name: params.senderName, email: params.senderEmail },
+      to: [{ email: params.to }],
+      subject: params.subject,
+      htmlContent: params.htmlContent,
+    }),
+  });
+}
