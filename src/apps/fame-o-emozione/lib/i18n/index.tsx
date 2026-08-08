@@ -85,10 +85,20 @@ const I18nContext = createContext<I18nValue>({
   setLang: () => {},
 });
 
-export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(DEFAULT_LANG);
+/**
+ * `lang` (opzionale) permette al contenitore MINI WEB APPS di pilotare la
+ * lingua dell'app: quando è presente, l'app segue sempre la lingua dello store
+ * e non tenta alcuna risoluzione autonoma.
+ */
+export function I18nProvider({ children, lang: controlled }: { children: ReactNode; lang?: Lang }) {
+  const [lang, setLangState] = useState<Lang>(controlled ?? DEFAULT_LANG);
 
   useEffect(() => {
+    if (controlled) setLangState(controlled);
+  }, [controlled]);
+
+  useEffect(() => {
+    if (controlled) return;
     setLangState(resolveLang());
 
     const onMessage = (event: MessageEvent) => {
