@@ -121,12 +121,13 @@ export function I18nProvider({ children, lang: controlled }: { children: ReactNo
       window.removeEventListener("message", onMessage);
       window.removeEventListener("storage", onStorage);
     };
-  }, []);
+  }, [controlled]);
 
+  // Nel MASTER l'attributo lang di <html> è già gestito dallo store.
   useEffect(() => {
-    if (typeof document === "undefined") return;
+    if (controlled || typeof document === "undefined") return;
     document.documentElement.setAttribute("lang", lang);
-  }, [lang]);
+  }, [lang, controlled]);
 
   const value = useMemo<I18nValue>(
     () => ({
