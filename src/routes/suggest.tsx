@@ -110,8 +110,8 @@ function SuggestPage() {
   const { session } = useSession();
   const send = useServerFn(submitSuggestion);
 
-  const [solutionType, setSolutionType] = useState("");
-  const [solutionTypeOther, setSolutionTypeOther] = useState("");
+  const [domains, setDomains] = useState<string[]>([]);
+  const [domainOther, setDomainOther] = useState("");
   const [goal, setGoal] = useState("");
   const [problem, setProblem] = useState("");
   const [audience, setAudience] = useState<string[]>([]);
@@ -119,12 +119,15 @@ function SuggestPage() {
   const [frequency, setFrequency] = useState("");
   const [formats, setFormats] = useState<string[]>([]);
   const [importance, setImportance] = useState(3);
-  const [purchaseInterest, setPurchaseInterest] = useState("");
+  const [currentApproach, setCurrentApproach] = useState<string[]>([]);
+  const [currentApproachTool, setCurrentApproachTool] = useState("");
+  const [currentApproachOther, setCurrentApproachOther] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [tried, setTried] = useState("");
   const [triedDetail, setTriedDetail] = useState("");
   const [notify, setNotify] = useState(false);
   const [notifyEmail, setNotifyEmail] = useState("");
+
 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
