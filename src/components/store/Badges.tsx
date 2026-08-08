@@ -18,6 +18,16 @@ export function PurchasedBadge() {
   );
 }
 
+/** Shown when a store administrator opens a product through the admin role. */
+export function AdminAccessBadge() {
+  const { t } = useI18n();
+  return (
+    <span className="inline-flex items-center rounded-full border border-amber-400/50 bg-amber-400/10 px-3 py-1 text-xs font-medium tracking-wide text-amber-300">
+      {t("store.adminAccess")}
+    </span>
+  );
+}
+
 export function FreeBadge() {
   const { t } = useI18n();
   return (
