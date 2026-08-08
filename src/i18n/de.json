@@ -215,7 +215,9 @@
     "accountTitle": "Dein Konto",
     "purchases": "Käufe",
     "noPurchases": "Noch keine Käufe.",
-    "language": "Sprache",
+    "language": {
+      "label": "Sprache"
+    },
     "email": "E-Mail",
     "checkoutTitle": "Schließe deinen Kauf ab",
     "checkoutBack": "Zurück zum Produkt",
