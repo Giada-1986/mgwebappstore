@@ -75,7 +75,7 @@ export function trackPageView(path: string) {
 
 /** Bind events to the internal Supabase user id. */
 export function identifyUser(userId: string, properties: Record<string, unknown> = {}) {
-  if (!ready) return;
+  if (!ready || blocked) return;
   posthog.identify(userId, properties);
 }
 
