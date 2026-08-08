@@ -55,9 +55,14 @@ export function SuggestionsPanel() {
             value={String(stats.avgImportance)}
           />
           <Tally
-            label={t("store.admin.suggestions.byType")}
-            items={stats.byType.slice(0, 4)}
-            render={(k) => t(`store.suggest.types.${k}`)}
+            label={t("store.admin.suggestions.byDomain")}
+            items={stats.byDomain.slice(0, 4)}
+            render={(k) => t(`store.suggest.domains.${k}`)}
+          />
+          <Tally
+            label={t("store.admin.suggestions.byApproach")}
+            items={stats.byApproach.slice(0, 4)}
+            render={(k) => t(`store.suggest.approaches.${k}`)}
           />
           <Tally
             label={t("store.admin.suggestions.byFormat")}
@@ -70,12 +75,18 @@ export function SuggestionsPanel() {
             render={(k) => t(`store.suggest.audiences.${k}`)}
           />
           <Tally
+            label={t("store.admin.suggestions.byPrice")}
+            items={stats.byPrice.slice(0, 4)}
+            render={(k) => t(`store.suggest.prices.${k}`)}
+          />
+          <Tally
             label={t("store.admin.suggestions.byStatus")}
             items={stats.byStatus}
             render={(k) => t(`store.admin.suggestions.statuses.${k}`)}
           />
         </div>
       )}
+
 
       <div className="flex flex-wrap gap-1.5">
         {["all", ...SUGGESTION_STATUSES].map((key) => (
