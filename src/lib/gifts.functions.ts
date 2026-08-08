@@ -71,6 +71,10 @@ export const createGiftCheckoutSession = createServerFn({ method: "POST" })
 
     const token = generateRedemptionToken();
     const tokenHash = await hashToken(token);
+    // The plaintext is never stored: only its SHA-256 (single-use check) and an
+    // AES-GCM ciphertext, needed to build the email link after payment.
+    const { encryptGiftToken } = await import("@/lib/gift-token.server");
+    const tokenEncrypted = await encryptGiftToken(token);
 
     // Created as `pending` with no payment reference: it becomes usable only
     // when the signed webhook confirms the payment for THIS product.
@@ -82,6 +86,7 @@ export const createGiftCheckoutSession = createServerFn({ method: "POST" })
         purchaser_email: data.purchaserEmail?.toLowerCase() ?? null,
         gift_message: data.giftMessage ?? null,
         redemption_token_hash: tokenHash,
+        redemption_token_encrypted: tokenEncrypted,
         currency: product.currency,
         environment,
         status: "pending",
