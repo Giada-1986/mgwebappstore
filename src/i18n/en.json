@@ -449,7 +449,6 @@
         "empty": "No suggestions yet.",
         "total": "Total suggestions",
         "avgImportance": "Average importance",
-        "byType": "Most requested types",
         "byFormat": "Most requested formats",
         "byAudience": "Most frequent audiences",
         "byStatus": "Status",
@@ -459,7 +458,6 @@
         "frequency": "Frequency",
         "formats": "Preferred format",
         "importance": "Importance",
-        "intent": "Purchase interest",
         "price": "Price range",
         "tried": "Solutions already tried",
         "email": "Email for updates",
@@ -474,7 +472,11 @@
           "building": "In development",
           "done": "Released",
           "archived": "Archived"
-        }
+        },
+        "byDomain": "Most requested areas",
+        "byApproach": "Current workarounds",
+        "byPrice": "Price ranges",
+        "approach": "How they cope today"
       }
     },
     "free": "FREE",
@@ -664,8 +666,8 @@
       "homeText": "Suggest a problem to solve or a resource you would like to find in the store.",
       "required": "required",
       "optional": "optional",
-      "q1": "What kind of solution would you like to find?",
-      "q1Other": "Describe the kind of solution",
+      "q1": "In which area would you need this solution?",
+      "q1Other": "Which other area?",
       "q2": "What would you like to be able to do?",
       "q2Placeholder": "Tell us what you would like to simplify, solve or achieve…",
       "q3": "What is your main problem today?",
@@ -679,7 +681,7 @@
       "q7": "How important would it be for you to solve this problem?",
       "q7Min": "Not very important",
       "q7Max": "I really need it",
-      "q8": "If a well-made solution existed, would you consider buying it?",
+      "q8": "How are you trying to solve this problem today?",
       "q9": "Which price range would feel reasonable?",
       "q9Hint": "Optional research question: it is not a commitment to buy.",
       "q10": "Have you already tried other solutions?",
@@ -699,7 +701,7 @@
       "successNote": "We can't promise every suggestion will be built, but we read them all.",
       "another": "Send another suggestion",
       "backCatalog": "Back to the catalogue",
-      "errorInvalid": "Please check the required fields: solution type and description.",
+      "errorInvalid": "Please check the required fields: area and description.",
       "errorRate": "You have already sent several suggestions recently. Please try again later.",
       "errorGeneric": "Sending failed. Please try again in a moment.",
       "privacy": "Suggestions are never published and your details are never shown to other users.",
@@ -752,7 +754,6 @@
         "no": "No, I'm just suggesting an idea"
       },
       "prices": {
-        "free": "Free",
         "upto5": "Up to €5",
         "5to10": "€5–10",
         "10to25": "€10–25",
@@ -767,6 +768,35 @@
         "yes_complex": "Yes, but they're too complicated",
         "yes_missing": "Yes, but something is missing",
         "no": "No"
+      },
+      "q1Hint": "You can select more than one.",
+      "q8Hint": "You can select more than one.",
+      "q8Tool": "Which app or tool do you use?",
+      "q8Other": "Describe how you handle it today",
+      "domains": {
+        "daily": "Everyday life",
+        "work": "Work",
+        "business": "Business",
+        "productivity": "Organisation and productivity",
+        "home": "Home and family",
+        "study": "Study and learning",
+        "clients": "Client management",
+        "content": "Content and creativity",
+        "money": "Money and budgeting",
+        "wellbeing": "Wellbeing and habits",
+        "other": "Other"
+      },
+      "approaches": {
+        "manual": "I do it manually",
+        "spreadsheets": "I use spreadsheets",
+        "notes": "I use notes or reminders",
+        "app": "I use a specific app or tool",
+        "multiple": "I combine several tools",
+        "online": "I search online every time",
+        "help": "I ask someone for help",
+        "stuck": "I'm not solving it right now",
+        "not_searched": "I haven't looked for a solution yet",
+        "other": "Other"
       }
     },
     "mySuggestions": {

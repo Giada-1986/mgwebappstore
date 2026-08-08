@@ -610,6 +610,11 @@ export type Database = {
           audience: string[]
           audience_other: string | null
           created_at: string
+          current_approach: string[]
+          current_approach_other: string | null
+          current_approach_tool: string | null
+          domain_other: string | null
+          domains: string[]
           formats: string[]
           frequency: string | null
           goal: string
@@ -621,7 +626,7 @@ export type Database = {
           price_range: string | null
           problem: string | null
           purchase_interest: string | null
-          solution_type: string
+          solution_type: string | null
           solution_type_other: string | null
           status: string
           submitter_hash: string | null
@@ -635,6 +640,11 @@ export type Database = {
           audience?: string[]
           audience_other?: string | null
           created_at?: string
+          current_approach?: string[]
+          current_approach_other?: string | null
+          current_approach_tool?: string | null
+          domain_other?: string | null
+          domains?: string[]
           formats?: string[]
           frequency?: string | null
           goal: string
@@ -646,7 +656,7 @@ export type Database = {
           price_range?: string | null
           problem?: string | null
           purchase_interest?: string | null
-          solution_type: string
+          solution_type?: string | null
           solution_type_other?: string | null
           status?: string
           submitter_hash?: string | null
@@ -660,6 +670,11 @@ export type Database = {
           audience?: string[]
           audience_other?: string | null
           created_at?: string
+          current_approach?: string[]
+          current_approach_other?: string | null
+          current_approach_tool?: string | null
+          domain_other?: string | null
+          domains?: string[]
           formats?: string[]
           frequency?: string | null
           goal?: string
@@ -671,7 +686,7 @@ export type Database = {
           price_range?: string | null
           problem?: string | null
           purchase_interest?: string | null
-          solution_type?: string
+          solution_type?: string | null
           solution_type_other?: string | null
           status?: string
           submitter_hash?: string | null

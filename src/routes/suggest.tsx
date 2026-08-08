@@ -6,14 +6,15 @@ import { useI18n } from "@/lib/i18n";
 import { useSession } from "@/lib/platform";
 import {
   AUDIENCES,
+  CURRENT_APPROACHES,
+  DOMAINS,
   FORMATS,
   FREQUENCIES,
   PRICE_RANGES,
-  PURCHASE_INTENTS,
-  SOLUTION_TYPES,
   TRIED_OPTIONS,
   submitSuggestion,
 } from "@/lib/suggestions.functions";
+
 
 export const Route = createFileRoute("/suggest")({
   head: () => ({
@@ -109,8 +110,8 @@ function SuggestPage() {
   const { session } = useSession();
   const send = useServerFn(submitSuggestion);
 
-  const [solutionType, setSolutionType] = useState("");
-  const [solutionTypeOther, setSolutionTypeOther] = useState("");
+  const [domains, setDomains] = useState<string[]>([]);
+  const [domainOther, setDomainOther] = useState("");
   const [goal, setGoal] = useState("");
   const [problem, setProblem] = useState("");
   const [audience, setAudience] = useState<string[]>([]);
@@ -118,12 +119,15 @@ function SuggestPage() {
   const [frequency, setFrequency] = useState("");
   const [formats, setFormats] = useState<string[]>([]);
   const [importance, setImportance] = useState(3);
-  const [purchaseInterest, setPurchaseInterest] = useState("");
+  const [currentApproach, setCurrentApproach] = useState<string[]>([]);
+  const [currentApproachTool, setCurrentApproachTool] = useState("");
+  const [currentApproachOther, setCurrentApproachOther] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [tried, setTried] = useState("");
   const [triedDetail, setTriedDetail] = useState("");
   const [notify, setNotify] = useState(false);
   const [notifyEmail, setNotifyEmail] = useState("");
+
 
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -133,13 +137,13 @@ function SuggestPage() {
     set(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
 
   const canSubmit = useMemo(
-    () => !!solutionType && goal.trim().length >= 5 && !busy,
-    [solutionType, goal, busy],
+    () => domains.length > 0 && goal.trim().length >= 5 && !busy,
+    [domains, goal, busy],
   );
 
   const reset = () => {
-    setSolutionType("");
-    setSolutionTypeOther("");
+    setDomains([]);
+    setDomainOther("");
     setGoal("");
     setProblem("");
     setAudience([]);
@@ -147,7 +151,9 @@ function SuggestPage() {
     setFrequency("");
     setFormats([]);
     setImportance(3);
-    setPurchaseInterest("");
+    setCurrentApproach([]);
+    setCurrentApproachTool("");
+    setCurrentApproachOther("");
     setPriceRange("");
     setTried("");
     setTriedDetail("");
@@ -164,8 +170,8 @@ function SuggestPage() {
     try {
       const result = await send({
         data: {
-          solutionType,
-          solutionTypeOther,
+          domains,
+          domainOther,
           goal,
           problem,
           audience,
@@ -173,7 +179,9 @@ function SuggestPage() {
           frequency,
           formats,
           importance,
-          purchaseInterest,
+          currentApproach,
+          currentApproachTool: currentApproach.includes("app") ? currentApproachTool : "",
+          currentApproachOther: currentApproach.includes("other") ? currentApproachOther : "",
           priceRange,
           tried,
           triedDetail,
@@ -182,6 +190,7 @@ function SuggestPage() {
           language: lang,
         },
       });
+
       if (result.ok) {
         setDone(true);
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -242,29 +251,35 @@ function SuggestPage() {
         </header>
 
         <form onSubmit={onSubmit} className="space-y-4">
-          <Question n={1} title={t("store.suggest.q1")} badge={t("store.suggest.required")}>
+          <Question
+            n={1}
+            title={t("store.suggest.q1")}
+            hint={t("store.suggest.q1Hint")}
+            badge={t("store.suggest.required")}
+          >
             <div className="grid gap-2 sm:grid-cols-2">
-              {SOLUTION_TYPES.map((key) => (
+              {DOMAINS.map((key) => (
                 <Chip
                   key={key}
-                  active={solutionType === key}
-                  onClick={() => setSolutionType(key)}
+                  active={domains.includes(key)}
+                  onClick={() => toggle(domains, setDomains, key)}
                 >
-                  {t(`store.suggest.types.${key}`)}
+                  {t(`store.suggest.domains.${key}`)}
                 </Chip>
               ))}
             </div>
-            {solutionType === "other" && (
+            {domains.includes("other") && (
               <input
                 className="field-pearl mt-3 w-full rounded-xl px-3.5 py-2.5 text-sm"
                 maxLength={120}
                 placeholder={t("store.suggest.q1Other")}
                 aria-label={t("store.suggest.q1Other")}
-                value={solutionTypeOther}
-                onChange={(e) => setSolutionTypeOther(e.target.value)}
+                value={domainOther}
+                onChange={(e) => setDomainOther(e.target.value)}
               />
             )}
           </Question>
+
 
           <Question n={2} title={t("store.suggest.q2")} badge={t("store.suggest.required")}>
             <textarea
@@ -358,19 +373,44 @@ function SuggestPage() {
             </div>
           </Question>
 
-          <Question n={8} title={t("store.suggest.q8")}>
+          <Question n={8} title={t("store.suggest.q8")} hint={t("store.suggest.q8Hint")}>
             <div className="grid gap-2 sm:grid-cols-2">
-              {PURCHASE_INTENTS.map((key) => (
+              {CURRENT_APPROACHES.map((key) => (
                 <Chip
                   key={key}
-                  active={purchaseInterest === key}
-                  onClick={() => setPurchaseInterest(key)}
+                  active={currentApproach.includes(key)}
+                  onClick={() => toggle(currentApproach, setCurrentApproach, key)}
                 >
-                  {t(`store.suggest.intents.${key}`)}
+                  {t(`store.suggest.approaches.${key}`)}
                 </Chip>
               ))}
             </div>
+            {currentApproach.includes("app") && (
+              <div className="mt-3">
+                <label className="mb-1.5 block text-xs text-muted-foreground">
+                  {t("store.suggest.q8Tool")} · {t("store.suggest.optional")}
+                </label>
+                <input
+                  className="field-pearl w-full rounded-xl px-3.5 py-2.5 text-sm"
+                  maxLength={160}
+                  aria-label={t("store.suggest.q8Tool")}
+                  value={currentApproachTool}
+                  onChange={(e) => setCurrentApproachTool(e.target.value)}
+                />
+              </div>
+            )}
+            {currentApproach.includes("other") && (
+              <input
+                className="field-pearl mt-3 w-full rounded-xl px-3.5 py-2.5 text-sm"
+                maxLength={160}
+                placeholder={t("store.suggest.q8Other")}
+                aria-label={t("store.suggest.q8Other")}
+                value={currentApproachOther}
+                onChange={(e) => setCurrentApproachOther(e.target.value)}
+              />
+            )}
           </Question>
+
 
           <Question
             n={9}

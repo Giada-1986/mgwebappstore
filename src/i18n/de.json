@@ -449,7 +449,6 @@
         "empty": "Noch keine Vorschläge.",
         "total": "Vorschläge gesamt",
         "avgImportance": "Durchschnittliche Wichtigkeit",
-        "byType": "Meistgewünschte Arten",
         "byFormat": "Meistgewünschte Formate",
         "byAudience": "Häufigste Zielgruppen",
         "byStatus": "Status",
@@ -459,7 +458,6 @@
         "frequency": "Häufigkeit",
         "formats": "Bevorzugtes Format",
         "importance": "Wichtigkeit",
-        "intent": "Kaufinteresse",
         "price": "Preisspanne",
         "tried": "Bereits getestete Lösungen",
         "email": "E-Mail für Updates",
@@ -474,7 +472,11 @@
           "building": "In Entwicklung",
           "done": "Umgesetzt",
           "archived": "Archiviert"
-        }
+        },
+        "byDomain": "Gefragteste Bereiche",
+        "byApproach": "Aktuelle Behelfslösungen",
+        "byPrice": "Preisspannen",
+        "approach": "Wie er/sie es heute löst"
       }
     },
     "free": "KOSTENLOS",
@@ -664,8 +666,8 @@
       "homeText": "Schlage ein Problem vor, das gelöst werden soll, oder eine Ressource, die du im Store finden möchtest.",
       "required": "erforderlich",
       "optional": "optional",
-      "q1": "Welche Art von Lösung würdest du dir wünschen?",
-      "q1Other": "Beschreibe die Art der Lösung",
+      "q1": "In welchem Bereich brauchst du diese Lösung?",
+      "q1Other": "In welchem anderen Bereich?",
       "q2": "Was möchtest du tun können?",
       "q2Placeholder": "Erzähl uns, was du vereinfachen, lösen oder erreichen möchtest…",
       "q3": "Was ist heute dein Hauptproblem?",
@@ -679,7 +681,7 @@
       "q7": "Wie wichtig wäre es dir, dieses Problem zu lösen?",
       "q7Min": "Wenig wichtig",
       "q7Max": "Ich brauche es wirklich",
-      "q8": "Würdest du eine gut gemachte Lösung kaufen?",
+      "q8": "Wie löst du dieses Problem heute?",
       "q9": "Welche Preisspanne fändest du angemessen?",
       "q9Hint": "Optionale Forschungsfrage: keine Kaufverpflichtung.",
       "q10": "Hast du schon andere Lösungen ausprobiert?",
@@ -699,7 +701,7 @@
       "successNote": "Wir können nicht versprechen, dass jeder Vorschlag umgesetzt wird, aber wir lesen alle.",
       "another": "Weiteren Vorschlag senden",
       "backCatalog": "Zurück zum Katalog",
-      "errorInvalid": "Bitte prüfe die Pflichtfelder: Art der Lösung und Beschreibung.",
+      "errorInvalid": "Bitte Pflichtfelder prüfen: Bereich und Beschreibung.",
       "errorRate": "Du hast in letzter Zeit bereits mehrere Vorschläge gesendet. Bitte versuche es später erneut.",
       "errorGeneric": "Senden fehlgeschlagen. Bitte versuche es gleich noch einmal.",
       "privacy": "Vorschläge werden nicht veröffentlicht und deine Daten nie anderen Nutzern gezeigt.",
@@ -752,7 +754,6 @@
         "no": "Nein, ich schlage nur eine Idee vor"
       },
       "prices": {
-        "free": "Kostenlos",
         "upto5": "Bis 5 €",
         "5to10": "5–10 €",
         "10to25": "10–25 €",
@@ -767,6 +768,35 @@
         "yes_complex": "Ja, aber sie sind zu kompliziert",
         "yes_missing": "Ja, aber es fehlt etwas",
         "no": "Nein"
+      },
+      "q1Hint": "Mehrfachauswahl möglich.",
+      "q8Hint": "Mehrfachauswahl möglich.",
+      "q8Tool": "Welche App oder welches Tool nutzt du?",
+      "q8Other": "Beschreibe, wie du es heute machst",
+      "domains": {
+        "daily": "Alltag",
+        "work": "Beruf",
+        "business": "Unternehmen",
+        "productivity": "Organisation und Produktivität",
+        "home": "Haushalt und Familie",
+        "study": "Studium und Weiterbildung",
+        "clients": "Kundenverwaltung",
+        "content": "Inhalte und Kreativität",
+        "money": "Geld und Budget",
+        "wellbeing": "Wohlbefinden und Gewohnheiten",
+        "other": "Sonstiges"
+      },
+      "approaches": {
+        "manual": "Ich mache es manuell",
+        "spreadsheets": "Ich nutze Tabellen",
+        "notes": "Ich nutze Notizen oder Erinnerungen",
+        "app": "Ich nutze eine bestimmte App oder ein Tool",
+        "multiple": "Ich kombiniere mehrere Tools",
+        "online": "Ich suche jedes Mal online",
+        "help": "Ich frage jemanden um Hilfe",
+        "stuck": "Aktuell löse ich es nicht",
+        "not_searched": "Ich habe noch keine Lösung gesucht",
+        "other": "Sonstiges"
       }
     },
     "mySuggestions": {

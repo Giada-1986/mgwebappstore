@@ -11,6 +11,36 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
  * payments, entitlements, gifts or marketing consent.
  */
 
+/** Q1 — areas of life/work the solution would serve (multi-select). */
+export const DOMAINS = [
+  "daily",
+  "work",
+  "business",
+  "productivity",
+  "home",
+  "study",
+  "clients",
+  "content",
+  "money",
+  "wellbeing",
+  "other",
+] as const;
+
+/** Q8 — how the person copes with the problem today (multi-select). */
+export const CURRENT_APPROACHES = [
+  "manual",
+  "spreadsheets",
+  "notes",
+  "app",
+  "multiple",
+  "online",
+  "help",
+  "stuck",
+  "not_searched",
+  "other",
+] as const;
+
+/** Legacy Q1 values, kept only to render proposals submitted before the rework. */
 export const SOLUTION_TYPES = [
   "mini_app",
   "checklist",
@@ -23,6 +53,7 @@ export const SOLUTION_TYPES = [
   "unsure",
   "other",
 ] as const;
+
 
 export const AUDIENCES = [
   "me",
@@ -49,10 +80,10 @@ export const FORMATS = [
   "none",
 ] as const;
 
+/** Legacy Q8 values, kept only to render older proposals. */
 export const PURCHASE_INTENTS = ["yes", "maybe", "cheap", "free", "no"] as const;
 
 export const PRICE_RANGES = [
-  "free",
   "upto5",
   "5to10",
   "10to25",
@@ -61,6 +92,9 @@ export const PRICE_RANGES = [
   "over100",
   "unsure",
 ] as const;
+
+/** "free" is no longer offered, but old rows may still carry it. */
+const PRICE_RANGES_STORED = [...PRICE_RANGES, "free"] as const;
 
 export const TRIED_OPTIONS = [
   "yes_unsatisfied",
@@ -81,8 +115,8 @@ export const SUGGESTION_STATUSES = [
 ] as const;
 
 export type SuggestionInput = {
-  solutionType: string;
-  solutionTypeOther?: string;
+  domains: string[];
+  domainOther?: string;
   goal: string;
   problem?: string;
   audience: string[];
@@ -90,7 +124,9 @@ export type SuggestionInput = {
   frequency?: string;
   formats: string[];
   importance: number;
-  purchaseInterest?: string;
+  currentApproach: string[];
+  currentApproachTool?: string;
+  currentApproachOther?: string;
   priceRange?: string;
   tried?: string;
   triedDetail?: string;
@@ -98,6 +134,7 @@ export type SuggestionInput = {
   notifyEmail?: string;
   language: string;
 };
+
 
 /** Strips tags/control chars: free text is stored as plain text, never HTML. */
 function clean(value: unknown, max: number): string {
@@ -170,9 +207,10 @@ export type SubmitResult = { ok: true } | { ok: false; reason: "invalid" | "rate
 export const submitSuggestion = createServerFn({ method: "POST" })
   .inputValidator((input: SuggestionInput) => input)
   .handler(async ({ data }): Promise<SubmitResult> => {
-    const solutionType = pick(data?.solutionType, SOLUTION_TYPES);
+    const domains = pickMany(data?.domains, DOMAINS);
     const goal = clean(data?.goal, 1000);
-    if (!solutionType || goal.length < 5) return { ok: false, reason: "invalid" };
+    if (domains.length === 0 || goal.length < 5) return { ok: false, reason: "invalid" };
+
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const admin = supabaseAdmin as any;
@@ -204,8 +242,10 @@ export const submitSuggestion = createServerFn({ method: "POST" })
 
     const { error } = await admin.from("suggestions").insert({
       user_id: user?.id ?? null,
-      solution_type: solutionType,
-      solution_type_other: solutionType === "other" ? clean(data?.solutionTypeOther, 120) || null : null,
+      solution_type: null,
+      solution_type_other: null,
+      domains,
+      domain_other: domains.includes("other") ? clean(data?.domainOther, 120) || null : null,
       goal,
       problem: clean(data?.problem, 1000) || null,
       audience: pickMany(data?.audience, AUDIENCES),
@@ -213,8 +253,11 @@ export const submitSuggestion = createServerFn({ method: "POST" })
       frequency: pick(data?.frequency, FREQUENCIES),
       formats: pickMany(data?.formats, FORMATS),
       importance: Math.min(5, Math.max(1, Math.round(Number(data?.importance) || 3))),
-      purchase_interest: pick(data?.purchaseInterest, PURCHASE_INTENTS),
-      price_range: pick(data?.priceRange, PRICE_RANGES),
+      current_approach: pickMany(data?.currentApproach, CURRENT_APPROACHES),
+      current_approach_tool: clean(data?.currentApproachTool, 160) || null,
+      current_approach_other: clean(data?.currentApproachOther, 160) || null,
+      price_range: pick(data?.priceRange, PRICE_RANGES_STORED),
+
       tried: pick(data?.tried, TRIED_OPTIONS),
       tried_detail: clean(data?.triedDetail, 500) || null,
       notify,
@@ -240,7 +283,9 @@ export type AdminSuggestion = {
   id: string;
   createdAt: string;
   status: string;
-  solutionType: string;
+  domains: string[];
+  domainOther: string | null;
+  solutionType: string | null;
   solutionTypeOther: string | null;
   goal: string;
   problem: string | null;
@@ -249,6 +294,9 @@ export type AdminSuggestion = {
   frequency: string | null;
   formats: string[];
   importance: number;
+  currentApproach: string[];
+  currentApproachTool: string | null;
+  currentApproachOther: string | null;
   purchaseInterest: string | null;
   priceRange: string | null;
   tried: string | null;
@@ -261,13 +309,16 @@ export type SuggestionsDigest = {
   rows: AdminSuggestion[];
   stats: {
     total: number;
-    byType: { key: string; count: number }[];
+    byDomain: { key: string; count: number }[];
+    byApproach: { key: string; count: number }[];
     byFormat: { key: string; count: number }[];
     byAudience: { key: string; count: number }[];
+    byPrice: { key: string; count: number }[];
     byStatus: { key: string; count: number }[];
     avgImportance: number;
   };
 };
+
 
 function tally(values: string[]): { key: string; count: number }[] {
   const map = new Map<string, number>();
@@ -292,6 +343,8 @@ export const listSuggestions = createServerFn({ method: "POST" })
       id: r.id,
       createdAt: r.created_at,
       status: r.status,
+      domains: r.domains ?? [],
+      domainOther: r.domain_other,
       solutionType: r.solution_type,
       solutionTypeOther: r.solution_type_other,
       goal: r.goal,
@@ -301,6 +354,9 @@ export const listSuggestions = createServerFn({ method: "POST" })
       frequency: r.frequency,
       formats: r.formats ?? [],
       importance: r.importance,
+      currentApproach: r.current_approach ?? [],
+      currentApproachTool: r.current_approach_tool,
+      currentApproachOther: r.current_approach_other,
       purchaseInterest: r.purchase_interest,
       priceRange: r.price_range,
       tried: r.tried,
@@ -313,9 +369,11 @@ export const listSuggestions = createServerFn({ method: "POST" })
       rows,
       stats: {
         total: rows.length,
-        byType: tally(rows.map((r) => r.solutionType)),
+        byDomain: tally(rows.flatMap((r) => r.domains)),
+        byApproach: tally(rows.flatMap((r) => r.currentApproach)),
         byFormat: tally(rows.flatMap((r) => r.formats)),
         byAudience: tally(rows.flatMap((r) => r.audience)),
+        byPrice: tally(rows.flatMap((r) => (r.priceRange ? [r.priceRange] : []))),
         byStatus: tally(rows.map((r) => r.status)),
         avgImportance: rows.length
           ? Math.round((rows.reduce((s, r) => s + r.importance, 0) / rows.length) * 10) / 10
@@ -323,6 +381,7 @@ export const listSuggestions = createServerFn({ method: "POST" })
       },
     };
   });
+
 
 export const setSuggestionStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -363,7 +422,9 @@ export type MySuggestion = {
   id: string;
   createdAt: string;
   status: (typeof USER_VISIBLE_STATUSES)[number];
-  solutionType: string;
+  domains: string[];
+  domainOther: string | null;
+  solutionType: string | null;
   solutionTypeOther: string | null;
   preview: string;
 };
@@ -378,7 +439,9 @@ export const listMySuggestions = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data } = await (supabaseAdmin as any)
       .from("suggestions")
-      .select("id, created_at, status, solution_type, solution_type_other, problem, goal")
+      .select(
+        "id, created_at, status, domains, domain_other, solution_type, solution_type_other, problem, goal",
+      )
       .eq("user_id", (context as any).userId)
       .order("created_at", { ascending: false })
       .limit(100);
@@ -388,9 +451,12 @@ export const listMySuggestions = createServerFn({ method: "POST" })
         id: r.id,
         createdAt: r.created_at,
         status: publicStatus(r.status),
+        domains: r.domains ?? [],
+        domainOther: r.domain_other,
         solutionType: r.solution_type,
         solutionTypeOther: r.solution_type_other,
         preview: String(r.problem || r.goal || "").slice(0, 160),
       })),
     };
   });
+

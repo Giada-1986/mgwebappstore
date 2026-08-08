@@ -55,9 +55,14 @@ export function SuggestionsPanel() {
             value={String(stats.avgImportance)}
           />
           <Tally
-            label={t("store.admin.suggestions.byType")}
-            items={stats.byType.slice(0, 4)}
-            render={(k) => t(`store.suggest.types.${k}`)}
+            label={t("store.admin.suggestions.byDomain")}
+            items={stats.byDomain.slice(0, 4)}
+            render={(k) => t(`store.suggest.domains.${k}`)}
+          />
+          <Tally
+            label={t("store.admin.suggestions.byApproach")}
+            items={stats.byApproach.slice(0, 4)}
+            render={(k) => t(`store.suggest.approaches.${k}`)}
           />
           <Tally
             label={t("store.admin.suggestions.byFormat")}
@@ -70,12 +75,18 @@ export function SuggestionsPanel() {
             render={(k) => t(`store.suggest.audiences.${k}`)}
           />
           <Tally
+            label={t("store.admin.suggestions.byPrice")}
+            items={stats.byPrice.slice(0, 4)}
+            render={(k) => t(`store.suggest.prices.${k}`)}
+          />
+          <Tally
             label={t("store.admin.suggestions.byStatus")}
             items={stats.byStatus}
             render={(k) => t(`store.admin.suggestions.statuses.${k}`)}
           />
         </div>
       )}
+
 
       <div className="flex flex-wrap gap-1.5">
         {["all", ...SUGGESTION_STATUSES].map((key) => (
@@ -101,9 +112,16 @@ export function SuggestionsPanel() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="min-w-0">
                 <p className="text-sm font-medium">
-                  {t(`store.suggest.types.${r.solutionType}`)}
-                  {r.solutionTypeOther ? ` — ${r.solutionTypeOther}` : ""}
+                  {[
+                    ...r.domains.map((d) => t(`store.suggest.domains.${d}`)),
+                    r.domainOther ?? "",
+                    r.solutionType ? t(`store.suggest.types.${r.solutionType}`) : "",
+                    r.solutionTypeOther ?? "",
+                  ]
+                    .filter(Boolean)
+                    .join(", ") || "—"}
                 </p>
+
                 <p className="text-xs text-muted-foreground">
                   {fmtDate(r.createdAt)} · {t("store.admin.suggestions.language")}:{" "}
                   <span className="uppercase">{r.language}</span> ·{" "}
@@ -152,9 +170,19 @@ export function SuggestionsPanel() {
                 }
               />
               <Row
-                label={t("store.admin.suggestions.intent")}
-                value={r.purchaseInterest ? t(`store.suggest.intents.${r.purchaseInterest}`) : "—"}
+                label={t("store.admin.suggestions.approach")}
+                value={
+                  [
+                    ...r.currentApproach.map((a) => t(`store.suggest.approaches.${a}`)),
+                    r.currentApproachTool ?? "",
+                    r.currentApproachOther ?? "",
+                  ]
+                    .filter(Boolean)
+                    .join(", ") || "—"
+                }
+                wide
               />
+
               <Row
                 label={t("store.admin.suggestions.price")}
                 value={r.priceRange ? t(`store.suggest.prices.${r.priceRange}`) : "—"}
