@@ -182,9 +182,11 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
 /**
  * One-time post-purchase confirmation email.
  *
- * Duplicate protection: a unique row per purchase in `purchase_emails` is
- * inserted BEFORE sending; a webhook retry hits the unique constraint and
- * exits. Admins (role-based access) are skipped, and gifts never reach here.
+ * Duplicate protection: one row per purchase in `purchase_emails` with a
+ * status of pending/sent/failed. Only `sent` blocks a webhook retry; `failed`
+ * can be retried, and a `locked_at` lease avoids concurrent double sends.
+ * Admins (role-based access) are skipped, and gifts never reach here.
+
  */
 async function deliverPurchaseEmail(args: {
   supabase: any;
