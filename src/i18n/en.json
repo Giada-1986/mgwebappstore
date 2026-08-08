@@ -768,6 +768,20 @@
         "yes_missing": "Yes, but something is missing",
         "no": "No"
       }
+    },
+    "mySuggestions": {
+      "title": "My proposals",
+      "text": "Review the solutions you suggested to MINI WEB APPS.",
+      "cta": "Suggest a new solution",
+      "empty": "You haven't submitted any proposal yet.",
+      "status": "Status",
+      "statuses": {
+        "new": "Submitted",
+        "evaluating": "Under review",
+        "building": "In development",
+        "done": "Released",
+        "archived": "Archived"
+      }
     }
   }
 }

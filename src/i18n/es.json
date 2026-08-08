@@ -768,6 +768,20 @@
         "yes_missing": "Sí, pero les falta algo",
         "no": "No"
       }
+    },
+    "mySuggestions": {
+      "title": "Mis propuestas",
+      "text": "Revisa las soluciones que has sugerido a MINI WEB APPS.",
+      "cta": "Proponer una nueva solución",
+      "empty": "Todavía no has enviado ninguna propuesta.",
+      "status": "Estado",
+      "statuses": {
+        "new": "Enviada",
+        "evaluating": "En evaluación",
+        "building": "En desarrollo",
+        "done": "Publicada",
+        "archived": "Archivada"
+      }
     }
   }
 }
