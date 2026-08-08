@@ -251,29 +251,35 @@ function SuggestPage() {
         </header>
 
         <form onSubmit={onSubmit} className="space-y-4">
-          <Question n={1} title={t("store.suggest.q1")} badge={t("store.suggest.required")}>
+          <Question
+            n={1}
+            title={t("store.suggest.q1")}
+            hint={t("store.suggest.q1Hint")}
+            badge={t("store.suggest.required")}
+          >
             <div className="grid gap-2 sm:grid-cols-2">
-              {SOLUTION_TYPES.map((key) => (
+              {DOMAINS.map((key) => (
                 <Chip
                   key={key}
-                  active={solutionType === key}
-                  onClick={() => setSolutionType(key)}
+                  active={domains.includes(key)}
+                  onClick={() => toggle(domains, setDomains, key)}
                 >
-                  {t(`store.suggest.types.${key}`)}
+                  {t(`store.suggest.domains.${key}`)}
                 </Chip>
               ))}
             </div>
-            {solutionType === "other" && (
+            {domains.includes("other") && (
               <input
                 className="field-pearl mt-3 w-full rounded-xl px-3.5 py-2.5 text-sm"
                 maxLength={120}
                 placeholder={t("store.suggest.q1Other")}
                 aria-label={t("store.suggest.q1Other")}
-                value={solutionTypeOther}
-                onChange={(e) => setSolutionTypeOther(e.target.value)}
+                value={domainOther}
+                onChange={(e) => setDomainOther(e.target.value)}
               />
             )}
           </Question>
+
 
           <Question n={2} title={t("store.suggest.q2")} badge={t("store.suggest.required")}>
             <textarea
