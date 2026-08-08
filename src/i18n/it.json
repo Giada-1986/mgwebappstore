@@ -260,6 +260,10 @@
       "messageFrom": "Messaggio da chi ti ha fatto il regalo",
       "inboxTitle": "🎁 Hai ricevuto un regalo",
       "inboxIntro": "Questo regalo è collegato alla tua email. Riscattalo per aggiungerlo alla tua libreria.",
+      "receivedBadge": "🎁 Regalo ricevuto",
+      "viewMessage": "Vedi messaggio del regalo",
+      "hideMessage": "Nascondi messaggio",
+      "giftedTitle": "🎁 Questa app ti è stata regalata",
       "not_authenticated": "Accedi per riscattare il regalo."
     },
     "marketing": {

@@ -288,3 +288,27 @@ export const redeemReceivedGift = createServerFn({ method: "POST" })
     if (!result?.ok) return { ok: false, reason: String(result?.reason ?? "error") };
     return { ok: true, productSlug: result.product_slug ?? null };
   });
+
+/* ------------------------------------------------------------------ *
+ * Post-redemption: which owned products came from a gift, and the
+ * personal message that came with them. RLS-scoped to the redeemer.
+ * ------------------------------------------------------------------ */
+
+export type RedeemedGift = { productId: string; giftMessage: string | null };
+
+export const listRedeemedGifts = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<RedeemedGift[]> => {
+    // context.supabase acts as the user: the "redeemer can view redeemed gift"
+    // policy already restricts rows to redeemed_by_user_id = auth.uid().
+    const { data } = await (context.supabase as any)
+      .from("gifts")
+      .select("product_id, gift_message")
+      .eq("redeemed_by_user_id", context.userId)
+      .eq("status", "redeemed");
+
+    return (data ?? []).map((g: any) => ({
+      productId: g.product_id as string,
+      giftMessage: typeof g.gift_message === "string" && g.gift_message.trim() ? g.gift_message : null,
+    }));
+  });
