@@ -63,33 +63,51 @@ function StoreHome() {
         <p className="text-base font-medium sm:text-lg">{t("store.promise")}</p>
       </section>
 
-      <section className="panel-pearl mt-6 flex flex-wrap items-center justify-between gap-4 px-8 py-7">
+      <section className="panel-pearl panel-pearl-hairline mt-6 grid gap-5 px-7 py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-6 sm:px-8">
         <div className="min-w-0">
           <h2 className="text-base font-semibold sm:text-lg">{t("store.suggest.homeTitle")}</h2>
-          <p className="mt-1.5 text-sm text-muted-foreground">{t("store.suggest.homeText")}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-store-muted">
+            {t("store.suggest.homeText")}
+          </p>
         </div>
-        <Link to="/suggest" className="btn-store-ghost text-sm">
+        <Link to="/suggest" className="btn-store w-full text-sm sm:w-auto sm:shrink-0">
           {t("store.suggest.cta")}
         </Link>
       </section>
 
-      <section className="mt-14">
-        <div className="mb-6 flex items-end justify-between gap-4">
-          <h2 className="text-xl font-semibold tracking-tight">{t("store.featured")}</h2>
-          <Link to="/apps" className="text-sm text-muted-foreground hover:text-foreground">
-            {t("store.allApps")}
-          </Link>
-        </div>
-        {isLoading ? (
-          <p className="text-muted-foreground">{t("common.loading")}</p>
-        ) : (
+      {/* The catalogue headings only exist when the store really has something
+          to show: the condition reads the live product list, so publishing a
+          product makes the sections reappear on their own. */}
+      {isLoading ? (
+        <p className="mt-14 text-muted-foreground">{t("common.loading")}</p>
+      ) : featured.length > 0 ? (
+        <section className="mt-14">
+          <div className="mb-6 flex items-end justify-between gap-4">
+            <h2 className="text-xl font-semibold tracking-tight">{t("store.featured")}</h2>
+            <Link to="/apps" className="text-sm text-muted-foreground hover:text-foreground">
+              {t("store.allApps")}
+            </Link>
+          </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((p) => (
               <ProductCard key={p.id} product={p} owned={owned.has(p.id)} />
             ))}
           </div>
-        )}
-      </section>
+        </section>
+      ) : (
+        <section className="panel-pearl panel-pearl-hairline mt-14 px-7 py-10 text-center sm:px-10">
+          <h2 className="text-lg font-semibold tracking-tight sm:text-xl">
+            {t("store.soon.title")}
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-store-muted">
+            {t("store.soon.text")}
+          </p>
+          <Link to="/suggest" className="btn-store mt-7 w-full text-sm sm:w-auto">
+            {t("store.suggest.cta")}
+          </Link>
+        </section>
+      )}
+
     </StoreShell>
   );
 }

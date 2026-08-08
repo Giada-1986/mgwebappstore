@@ -186,6 +186,17 @@
   box-shadow: 0 24px 60px -34px oklch(0.05 0.02 262 / 0.75);
 }
 
+/* Secondary copy on a pearl panel: taupe, still well above 4.5:1 contrast. */
+@utility text-store-muted {
+  color: color-mix(in oklab, var(--store-ink) 72%, oklch(0.62 0.02 70));
+}
+
+/* Hairline champagne border variant for invitation panels. */
+@utility panel-pearl-hairline {
+  border-color: color-mix(in oklab, var(--champagne) 55%, transparent);
+}
+
+
 @utility btn-store {
   display: inline-flex;
   align-items: center;
