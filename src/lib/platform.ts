@@ -289,8 +289,10 @@ export function useMyApps(userId?: string) {
     .filter((p): p is Product => !!p && p.status !== "archived");
 
   const isAdmin = admin.data === true;
+  // Admins may open and test every non-retired product, including the ones not
+  // published yet (draft/coming soon). RLS only exposes those rows to admins.
   const apps = isAdmin
-    ? (products.data ?? []).filter((p) => p.status === "active")
+    ? (products.data ?? []).filter((p) => p.status !== "archived")
     : owned;
 
   const ownedIds = new Set(owned.map((p) => p.id));
