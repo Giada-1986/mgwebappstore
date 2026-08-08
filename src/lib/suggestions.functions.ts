@@ -242,8 +242,10 @@ export const submitSuggestion = createServerFn({ method: "POST" })
 
     const { error } = await admin.from("suggestions").insert({
       user_id: user?.id ?? null,
-      solution_type: solutionType,
-      solution_type_other: solutionType === "other" ? clean(data?.solutionTypeOther, 120) || null : null,
+      solution_type: null,
+      solution_type_other: null,
+      domains,
+      domain_other: domains.includes("other") ? clean(data?.domainOther, 120) || null : null,
       goal,
       problem: clean(data?.problem, 1000) || null,
       audience: pickMany(data?.audience, AUDIENCES),
@@ -251,8 +253,11 @@ export const submitSuggestion = createServerFn({ method: "POST" })
       frequency: pick(data?.frequency, FREQUENCIES),
       formats: pickMany(data?.formats, FORMATS),
       importance: Math.min(5, Math.max(1, Math.round(Number(data?.importance) || 3))),
-      purchase_interest: pick(data?.purchaseInterest, PURCHASE_INTENTS),
-      price_range: pick(data?.priceRange, PRICE_RANGES),
+      current_approach: pickMany(data?.currentApproach, CURRENT_APPROACHES),
+      current_approach_tool: clean(data?.currentApproachTool, 160) || null,
+      current_approach_other: clean(data?.currentApproachOther, 160) || null,
+      price_range: pick(data?.priceRange, PRICE_RANGES_STORED),
+
       tried: pick(data?.tried, TRIED_OPTIONS),
       tried_detail: clean(data?.triedDetail, 500) || null,
       notify,
