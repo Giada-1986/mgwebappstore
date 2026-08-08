@@ -168,7 +168,109 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
     environment: env,
     purchaseId: purchase?.["id"] ?? null,
   });
+
+  // Confirmation email — strictly after the entitlement exists.
+  await deliverPurchaseEmail({
+    supabase,
+    purchaseId: purchase?.["id"] ?? null,
+    userId,
+    productId,
+    env,
+  });
 }
+
+/**
+ * One-time post-purchase confirmation email.
+ *
+ * Duplicate protection: a unique row per purchase in `purchase_emails` is
+ * inserted BEFORE sending; a webhook retry hits the unique constraint and
+ * exits. Admins (role-based access) are skipped, and gifts never reach here.
+ */
+async function deliverPurchaseEmail(args: {
+  supabase: any;
+  purchaseId: string | null;
+  userId: string;
+  productId: string;
+  env: StripeEnv;
+}) {
+  const { supabase, purchaseId, userId, productId, env } = args;
+  if (!purchaseId) return;
+
+  try {
+    // Entitlement must really exist and be active before anything is sent.
+    const { data: entitlement } = await supabase
+      .from("entitlements")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("product_id", productId)
+      .eq("environment", env)
+      .eq("is_active", true)
+      .maybeSingle();
+    if (!entitlement) return;
+
+    const { data: adminRole } = await supabase
+      .from("user_roles")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("role", "admin")
+      .maybeSingle();
+    if (adminRole) return;
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("email, display_name, preferred_language")
+      .eq("id", userId)
+      .maybeSingle();
+
+    const recipient = profile?.["email"];
+    if (!recipient) return;
+
+    const { error: insertError } = await supabase.from("purchase_emails").insert({
+      purchase_id: purchaseId,
+      user_id: userId,
+      product_id: productId,
+      environment: env,
+      recipient_email: recipient,
+      attempts: 1,
+    });
+    // Already logged → this event is a retry, nothing to send.
+    if (insertError) return;
+
+    const { data: product } = await supabase
+      .from("products")
+      .select("name_it, name_en")
+      .eq("id", productId)
+      .maybeSingle();
+
+    const { sendPurchaseEmail, resolvePurchaseEmailLang } = await import(
+      "@/lib/purchase-email.server"
+    );
+    const lang = resolvePurchaseEmailLang(profile?.["preferred_language"]);
+    const productName =
+      (lang === "it" ? product?.["name_it"] : (product?.["name_en"] ?? product?.["name_it"])) ??
+      "MINI WEB APPS";
+
+    const result = await sendPurchaseEmail({
+      recipientEmail: String(recipient),
+      productName: String(productName),
+      firstName: (profile?.["display_name"] as string | null) ?? null,
+      lang,
+    });
+
+    await supabase
+      .from("purchase_emails")
+      .update({
+        sent_at: result.sent ? new Date().toISOString() : null,
+        error: result.sent ? null : (result.error ?? "unknown_error"),
+      })
+      .eq("purchase_id", purchaseId);
+
+    if (!result.sent) console.error("Purchase email not delivered", purchaseId, result.error);
+  } catch (e) {
+    console.error("Purchase email step failed", purchaseId, e);
+  }
+}
+
 
 /**
  * Gift fulfilment. Runs the SAME validations as a normal purchase
