@@ -813,6 +813,8 @@
         "done": "Realizzata",
         "archived": "Archiviata"
       }
-    }
+    },
+    "appUnavailable": "App non disponibile",
+    "appUnavailableText": "Questa mini app non è più disponibile nello store. Trovi qui sotto la tua libreria e il catalogo aggiornato."
   }
 }

@@ -813,6 +813,8 @@
         "done": "Réalisée",
         "archived": "Archivée"
       }
-    }
+    },
+    "appUnavailable": "App indisponible",
+    "appUnavailableText": "Cette mini app n'est plus disponible dans la boutique. Retrouvez ci-dessous votre bibliothèque et le catalogue à jour."
   }
 }

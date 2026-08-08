@@ -21,6 +21,7 @@ import { Route as AuthenticatedMyAppsRouteImport } from './routes/_authenticated
 import { Route as AppsIndexRouteImport } from './routes/apps.index'
 import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
 import { Route as GiftSlugRouteImport } from './routes/gift.$slug'
+import { Route as AuthenticatedAppSplatRouteImport } from './routes/_authenticated/app.$'
 import { Route as AuthenticatedCheckoutSlugRouteImport } from './routes/_authenticated/checkout.$slug'
 import { Route as AuthenticatedRedeemTokenRouteImport } from './routes/_authenticated/redeem.$token'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -84,6 +85,11 @@ const GiftSlugRoute = GiftSlugRouteImport.update({
   path: '/gift/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAppSplatRoute = AuthenticatedAppSplatRouteImport.update({
+  id: '/app/$',
+  path: '/app/$',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedCheckoutSlugRoute =
   AuthenticatedCheckoutSlugRouteImport.update({
     id: '/checkout/$slug',
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/apps/$slug': typeof AppsSlugRoute
   '/gift/$slug': typeof GiftSlugRoute
   '/apps/': typeof AppsIndexRoute
+  '/app/$': typeof AuthenticatedAppSplatRoute
   '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -131,6 +138,7 @@ export interface FileRoutesByTo {
   '/apps/$slug': typeof AppsSlugRoute
   '/gift/$slug': typeof GiftSlugRoute
   '/apps': typeof AppsIndexRoute
+  '/app/$': typeof AuthenticatedAppSplatRoute
   '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -149,6 +157,7 @@ export interface FileRoutesById {
   '/apps/$slug': typeof AppsSlugRoute
   '/gift/$slug': typeof GiftSlugRoute
   '/apps/': typeof AppsIndexRoute
+  '/_authenticated/app/$': typeof AuthenticatedAppSplatRoute
   '/_authenticated/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/_authenticated/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/gift/$slug'
     | '/apps/'
+    | '/app/$'
     | '/checkout/$slug'
     | '/redeem/$token'
     | '/api/public/payments/webhook'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/gift/$slug'
     | '/apps'
+    | '/app/$'
     | '/checkout/$slug'
     | '/redeem/$token'
     | '/api/public/payments/webhook'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/apps/$slug'
     | '/gift/$slug'
     | '/apps/'
+    | '/_authenticated/app/$'
     | '/_authenticated/checkout/$slug'
     | '/_authenticated/redeem/$token'
     | '/api/public/payments/webhook'
@@ -304,6 +316,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GiftSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/app/$': {
+      id: '/_authenticated/app/$'
+      path: '/app/$'
+      fullPath: '/app/$'
+      preLoaderRoute: typeof AuthenticatedAppSplatRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/checkout/$slug': {
       id: '/_authenticated/checkout/$slug'
       path: '/checkout/$slug'
@@ -332,6 +351,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedMyAppsRoute: typeof AuthenticatedMyAppsRoute
+  AuthenticatedAppSplatRoute: typeof AuthenticatedAppSplatRoute
   AuthenticatedCheckoutSlugRoute: typeof AuthenticatedCheckoutSlugRoute
   AuthenticatedRedeemTokenRoute: typeof AuthenticatedRedeemTokenRoute
 }
@@ -340,6 +360,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAccountRoute: AuthenticatedAccountRoute,
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedMyAppsRoute: AuthenticatedMyAppsRoute,
+  AuthenticatedAppSplatRoute: AuthenticatedAppSplatRoute,
   AuthenticatedCheckoutSlugRoute: AuthenticatedCheckoutSlugRoute,
   AuthenticatedRedeemTokenRoute: AuthenticatedRedeemTokenRoute,
 }
