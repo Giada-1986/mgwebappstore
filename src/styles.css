@@ -297,3 +297,111 @@
     transition: background-color 9999s ease-out 0s;
   }
 }
+
+/* ---------------------------------------------------------------
+ * Mini app scope — "Fame o Emozione?"
+ * Palette propria dell'app (bianco perlato / oro champagne / rosa cipria)
+ * confinata al contenitore .foe-scope: lo store resta intatto.
+ * --------------------------------------------------------------- */
+@theme inline {
+  --color-gold-light: var(--gold-light);
+  --color-gold-deep: var(--gold-deep);
+  --color-pearl-warm: var(--pearl-warm);
+  --color-pearl-deep: var(--pearl-deep);
+  --color-blush-soft: var(--blush-soft);
+  --color-blush-strong: var(--blush-strong);
+  --color-blush-foreground: var(--blush-foreground);
+}
+
+:root {
+  --gold-light: oklch(0.896 0.073 89.3);
+  --gold-deep: oklch(0.767 0.113 86.2);
+  --pearl-warm: oklch(0.995 0.002 60);
+  --pearl-deep: oklch(0.963 0.005 30);
+  --blush-soft: oklch(0.925 0.016 11);
+  --blush-strong: oklch(0.702 0.066 8);
+  --blush-foreground: oklch(0.43 0.058 10);
+}
+
+@utility foe-scope {
+  --radius: 1.15rem;
+  --pearl: oklch(0.987 0.0035 70);
+  --pearl-warm: oklch(0.995 0.002 60);
+  --pearl-deep: oklch(0.963 0.005 30);
+  --gold: oklch(0.79 0.107 88.3);
+  --gold-light: oklch(0.896 0.073 89.3);
+  --gold-deep: oklch(0.767 0.113 86.2);
+  --blush: oklch(0.857 0.033 12);
+  --blush-soft: oklch(0.925 0.016 11);
+  --blush-strong: oklch(0.702 0.066 8);
+  --blush-foreground: oklch(0.43 0.058 10);
+
+  --background: var(--pearl);
+  --foreground: oklch(0.282 0.006 30);
+  --card: oklch(0.994 0.003 65);
+  --card-foreground: var(--foreground);
+  --popover: oklch(0.994 0.003 65);
+  --popover-foreground: var(--foreground);
+  --primary: var(--gold);
+  --primary-foreground: oklch(0.25 0.008 40);
+  --secondary: var(--blush-soft);
+  --secondary-foreground: var(--blush-foreground);
+  --muted: var(--pearl-deep);
+  --muted-foreground: oklch(0.522 0.007 30);
+  --accent: var(--blush-soft);
+  --accent-foreground: var(--blush-foreground);
+  --destructive: oklch(0.577 0.13 24);
+  --destructive-foreground: oklch(0.99 0.003 20);
+  --border: oklch(0.925 0.013 62);
+  --input: oklch(0.928 0.016 20);
+  --ring: var(--gold);
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --gradient-pearl: linear-gradient(
+    170deg,
+    var(--pearl-warm) 0%,
+    var(--pearl) 45%,
+    color-mix(in oklab, var(--blush-soft) 30%, var(--pearl)) 100%
+  );
+
+  background-color: var(--pearl);
+  background-image: var(--gradient-pearl);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  border: 1px solid color-mix(in oklab, var(--gold) 30%, transparent);
+  box-shadow: 0 18px 45px -26px oklch(0.5 0.04 40 / 45%);
+  -webkit-font-smoothing: antialiased;
+
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+}
+
+@utility step-in {
+  animation: step-in 0.38s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility gold-rule {
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklab, var(--gold) 55%, transparent),
+    transparent
+  );
+}
