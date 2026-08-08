@@ -6,14 +6,15 @@ import { useI18n } from "@/lib/i18n";
 import { useSession } from "@/lib/platform";
 import {
   AUDIENCES,
+  CURRENT_APPROACHES,
+  DOMAINS,
   FORMATS,
   FREQUENCIES,
   PRICE_RANGES,
-  PURCHASE_INTENTS,
-  SOLUTION_TYPES,
   TRIED_OPTIONS,
   submitSuggestion,
 } from "@/lib/suggestions.functions";
+
 
 export const Route = createFileRoute("/suggest")({
   head: () => ({
