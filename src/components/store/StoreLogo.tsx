@@ -1,12 +1,10 @@
-import logoIt from "@/assets/logo-store-it.png.asset.json";
-import logoEn from "@/assets/logo-store-en.png.asset.json";
+import logo from "@/assets/logo-store.png.asset.json";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 /**
- * Store-wide brand mark (MINI WEB APPS).
- * Not to be confused with the per-app logos (e.g. Fame o Fame?).
- * The asset itself is localised: the browser must never translate it.
+ * Official MINI WEB APPS brand mark. Identical in every language:
+ * the logo carries no slogan, so nothing inside it needs translating.
  */
 export function StoreLogo({
   className,
@@ -15,13 +13,12 @@ export function StoreLogo({
   className?: string;
   priority?: boolean;
 }) {
-  const { lang, t } = useI18n();
-  const asset = lang === "it" ? logoIt : logoEn;
+  const { t } = useI18n();
 
   return (
     <img
-      src={asset.url}
-      alt={`${t("store.brand")} — ${t("store.tagline")}`}
+      src={logo.url}
+      alt={t("store.brand")}
       width={1024}
       height={1024}
       translate="no"
