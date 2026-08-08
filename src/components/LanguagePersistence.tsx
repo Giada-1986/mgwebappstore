@@ -26,7 +26,3 @@ export function LanguagePersistence() {
 
   return null;
 }
-
-
-  return null;
-}
