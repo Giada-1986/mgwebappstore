@@ -137,13 +137,13 @@ function SuggestPage() {
     set(list.includes(value) ? list.filter((v) => v !== value) : [...list, value]);
 
   const canSubmit = useMemo(
-    () => !!solutionType && goal.trim().length >= 5 && !busy,
-    [solutionType, goal, busy],
+    () => domains.length > 0 && goal.trim().length >= 5 && !busy,
+    [domains, goal, busy],
   );
 
   const reset = () => {
-    setSolutionType("");
-    setSolutionTypeOther("");
+    setDomains([]);
+    setDomainOther("");
     setGoal("");
     setProblem("");
     setAudience([]);
@@ -151,7 +151,9 @@ function SuggestPage() {
     setFrequency("");
     setFormats([]);
     setImportance(3);
-    setPurchaseInterest("");
+    setCurrentApproach([]);
+    setCurrentApproachTool("");
+    setCurrentApproachOther("");
     setPriceRange("");
     setTried("");
     setTriedDetail("");
@@ -168,8 +170,8 @@ function SuggestPage() {
     try {
       const result = await send({
         data: {
-          solutionType,
-          solutionTypeOther,
+          domains,
+          domainOther,
           goal,
           problem,
           audience,
@@ -177,7 +179,9 @@ function SuggestPage() {
           frequency,
           formats,
           importance,
-          purchaseInterest,
+          currentApproach,
+          currentApproachTool: currentApproach.includes("app") ? currentApproachTool : "",
+          currentApproachOther: currentApproach.includes("other") ? currentApproachOther : "",
           priceRange,
           tried,
           triedDetail,
@@ -186,6 +190,7 @@ function SuggestPage() {
           language: lang,
         },
       });
+
       if (result.ok) {
         setDone(true);
         window.scrollTo({ top: 0, behavior: "smooth" });
