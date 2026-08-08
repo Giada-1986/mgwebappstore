@@ -213,6 +213,8 @@ export type Database = {
           currency: string
           email_attempts: number
           email_error: string | null
+          email_last_attempt_at: string | null
+          email_last_message_id: string | null
           email_sent_at: string | null
           environment: string
           expires_at: string | null
@@ -238,6 +240,8 @@ export type Database = {
           currency?: string
           email_attempts?: number
           email_error?: string | null
+          email_last_attempt_at?: string | null
+          email_last_message_id?: string | null
           email_sent_at?: string | null
           environment?: string
           expires_at?: string | null
@@ -263,6 +267,8 @@ export type Database = {
           currency?: string
           email_attempts?: number
           email_error?: string | null
+          email_last_attempt_at?: string | null
+          email_last_message_id?: string | null
           email_sent_at?: string | null
           environment?: string
           expires_at?: string | null
