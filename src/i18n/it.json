@@ -449,7 +449,6 @@
         "empty": "Nessuna proposta ricevuta.",
         "total": "Proposte totali",
         "avgImportance": "Importanza media",
-        "byType": "Tipi più richiesti",
         "byFormat": "Formati più richiesti",
         "byAudience": "Destinatari più frequenti",
         "byStatus": "Stato",
@@ -459,7 +458,6 @@
         "frequency": "Frequenza",
         "formats": "Formato preferito",
         "importance": "Importanza",
-        "intent": "Interesse all'acquisto",
         "price": "Fascia di prezzo",
         "tried": "Soluzioni già provate",
         "email": "Email per aggiornamenti",
@@ -474,7 +472,11 @@
           "building": "In sviluppo",
           "done": "Realizzata",
           "archived": "Archiviata"
-        }
+        },
+        "byDomain": "Ambiti più richiesti",
+        "byApproach": "Soluzioni attuali",
+        "byPrice": "Fasce di prezzo",
+        "approach": "Come lo risolve oggi"
       }
     },
     "free": "GRATIS",
@@ -664,8 +666,8 @@
       "homeText": "Suggerisci un problema da risolvere o una risorsa che vorresti trovare nello store.",
       "required": "obbligatorio",
       "optional": "facoltativo",
-      "q1": "Che tipo di soluzione ti piacerebbe trovare?",
-      "q1Other": "Descrivi il tipo di soluzione",
+      "q1": "In quale ambito ti servirebbe questa soluzione?",
+      "q1Other": "In quale altro ambito?",
       "q2": "Che cosa vorresti riuscire a fare?",
       "q2Placeholder": "Raccontaci cosa vorresti semplificare, risolvere o ottenere…",
       "q3": "Qual è il problema principale che hai oggi?",
@@ -679,7 +681,7 @@
       "q7": "Quanto sarebbe importante per te risolvere questo problema?",
       "q7Min": "Poco importante",
       "q7Max": "Mi servirebbe davvero",
-      "q8": "Se esistesse una soluzione fatta bene, prenderesti in considerazione l'acquisto?",
+      "q8": "Come stai cercando di risolvere questo problema oggi?",
       "q9": "Fascia di prezzo che ti sembrerebbe ragionevole?",
       "q9Hint": "Domanda di ricerca, facoltativa: non è un impegno all'acquisto.",
       "q10": "Hai già provato altre soluzioni?",
@@ -699,7 +701,7 @@
       "successNote": "Non possiamo garantire che ogni proposta venga realizzata, ma leggiamo tutto.",
       "another": "Invia un'altra proposta",
       "backCatalog": "Torna al catalogo",
-      "errorInvalid": "Controlla i campi obbligatori: tipo di soluzione e descrizione.",
+      "errorInvalid": "Controlla i campi obbligatori: ambito e descrizione.",
       "errorRate": "Hai già inviato diverse proposte di recente. Riprova più tardi.",
       "errorGeneric": "Invio non riuscito. Riprova tra qualche istante.",
       "privacy": "Non pubblichiamo le proposte e non mostriamo i tuoi dati agli altri utenti.",
@@ -752,7 +754,6 @@
         "no": "No, sto solo suggerendo un'idea"
       },
       "prices": {
-        "free": "Gratis",
         "upto5": "Fino a 5 €",
         "5to10": "5–10 €",
         "10to25": "10–25 €",
@@ -767,6 +768,35 @@
         "yes_complex": "Sì, ma sono troppo complicate",
         "yes_missing": "Sì, ma manca qualcosa",
         "no": "No"
+      },
+      "q1Hint": "Puoi selezionare più risposte.",
+      "q8Hint": "Puoi selezionare più risposte.",
+      "q8Tool": "Quale app o strumento usi?",
+      "q8Other": "Descrivi come fai oggi",
+      "domains": {
+        "daily": "Vita quotidiana",
+        "work": "Lavoro",
+        "business": "Attività o impresa",
+        "productivity": "Organizzazione e produttività",
+        "home": "Casa e famiglia",
+        "study": "Studio e formazione",
+        "clients": "Gestione clienti",
+        "content": "Contenuti e creatività",
+        "money": "Soldi e budget",
+        "wellbeing": "Benessere e abitudini",
+        "other": "Altro"
+      },
+      "approaches": {
+        "manual": "Lo faccio manualmente",
+        "spreadsheets": "Uso fogli di calcolo",
+        "notes": "Uso note o promemoria",
+        "app": "Uso un'app o uno strumento specifico",
+        "multiple": "Uso più strumenti insieme",
+        "online": "Cerco informazioni online ogni volta",
+        "help": "Chiedo aiuto a qualcuno",
+        "stuck": "Al momento non lo risolvo",
+        "not_searched": "Non ho ancora cercato una soluzione",
+        "other": "Altro"
       }
     },
     "mySuggestions": {
