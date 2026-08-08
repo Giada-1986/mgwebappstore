@@ -11,6 +11,36 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
  * payments, entitlements, gifts or marketing consent.
  */
 
+/** Q1 — areas of life/work the solution would serve (multi-select). */
+export const DOMAINS = [
+  "daily",
+  "work",
+  "business",
+  "productivity",
+  "home",
+  "study",
+  "clients",
+  "content",
+  "money",
+  "wellbeing",
+  "other",
+] as const;
+
+/** Q8 — how the person copes with the problem today (multi-select). */
+export const CURRENT_APPROACHES = [
+  "manual",
+  "spreadsheets",
+  "notes",
+  "app",
+  "multiple",
+  "online",
+  "help",
+  "stuck",
+  "not_searched",
+  "other",
+] as const;
+
+/** Legacy Q1 values, kept only to render proposals submitted before the rework. */
 export const SOLUTION_TYPES = [
   "mini_app",
   "checklist",
@@ -23,6 +53,7 @@ export const SOLUTION_TYPES = [
   "unsure",
   "other",
 ] as const;
+
 
 export const AUDIENCES = [
   "me",
