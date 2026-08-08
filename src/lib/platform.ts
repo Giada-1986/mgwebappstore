@@ -96,19 +96,25 @@ export type ProductState = {
   settings: Record<string, unknown>;
 };
 
-/** Localised helpers so store components never hardcode a language. */
+/**
+ * Localised helpers so store components never hardcode a language.
+ * Catalogue content only exists in IT/EN: other UI languages fall back to
+ * English copy, while product names keep the official Italian title
+ * (only English has an approved localised product name).
+ */
 export function productName(p: Product, lang: Lang) {
   return lang === "en" ? p.name_en : p.name_it;
 }
 export function productShort(p: Product, lang: Lang) {
-  return lang === "en" ? p.short_description_en : p.short_description_it;
+  return lang === "it" ? p.short_description_it : p.short_description_en;
 }
 export function productDescription(p: Product, lang: Lang) {
-  return lang === "en" ? p.description_en : p.description_it;
+  return lang === "it" ? p.description_it : p.description_en;
 }
 export function categoryName(c: Category, lang: Lang) {
-  return lang === "en" ? c.name_en : c.name_it;
+  return lang === "it" ? c.name_it : c.name_en;
 }
+
 /** A product is free when the admin marked it as such, not because price = 0. */
 export function isFreeProduct(p: Pick<Product, "access_mode">) {
   return p.access_mode === "free_account" || p.access_mode === "free_public";
