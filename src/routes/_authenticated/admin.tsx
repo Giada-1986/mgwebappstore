@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { StoreShell } from "@/components/store/StoreShell";
 import { ProductsPanel } from "@/components/store/admin/ProductsPanel";
 import { GiftsPanel } from "@/components/store/admin/GiftsPanel";
+import { SuggestionsPanel } from "@/components/store/admin/SuggestionsPanel";
 
 import { useI18n } from "@/lib/i18n";
 import { formatPrice, useCategories } from "@/lib/platform";
@@ -30,7 +31,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-type Tab = "overview" | "products" | "users" | "sales" | "gifts" | "marketing" | "analytics";
+type Tab = "overview" | "products" | "users" | "sales" | "gifts" | "suggestions" | "marketing" | "analytics";
 
 function AdminPage() {
   const { t, lang } = useI18n();
@@ -73,7 +74,7 @@ function AdminPage() {
     );
   }
 
-  const tabs: Tab[] = ["overview", "products", "users", "sales", "gifts", "marketing", "analytics"];
+  const tabs: Tab[] = ["overview", "products", "users", "sales", "gifts", "suggestions", "marketing", "analytics"];
   const o = overview.data;
 
   return (
