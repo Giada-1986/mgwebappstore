@@ -63,6 +63,16 @@ function StoreHome() {
         <p className="text-base font-medium sm:text-lg">{t("store.promise")}</p>
       </section>
 
+      <section className="panel-pearl mt-6 flex flex-wrap items-center justify-between gap-4 px-8 py-7">
+        <div className="min-w-0">
+          <h2 className="text-base font-semibold sm:text-lg">{t("store.suggest.homeTitle")}</h2>
+          <p className="mt-1.5 text-sm text-muted-foreground">{t("store.suggest.homeText")}</p>
+        </div>
+        <Link to="/suggest" className="btn-store-ghost text-sm">
+          {t("store.suggest.cta")}
+        </Link>
+      </section>
+
       <section className="mt-14">
         <div className="mb-6 flex items-end justify-between gap-4">
           <h2 className="text-xl font-semibold tracking-tight">{t("store.featured")}</h2>

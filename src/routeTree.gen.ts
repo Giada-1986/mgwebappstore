@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SuggestRouteImport } from './routes/suggest'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedMyAppsRouteImport } from './routes/_authenticated/my-apps'
@@ -52,6 +53,11 @@ const FaqRoute = FaqRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuggestRoute = SuggestRouteImport.update({
+  id: '/suggest',
+  path: '/suggest',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/faq': typeof FaqRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/suggest': typeof SuggestRoute
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/my-apps': typeof AuthenticatedMyAppsRoute
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/faq': typeof FaqRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/suggest': typeof SuggestRoute
   '/account': typeof AuthenticatedAccountRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/my-apps': typeof AuthenticatedMyAppsRoute
@@ -188,6 +196,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/faq': typeof FaqRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/suggest': typeof SuggestRoute
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/my-apps': typeof AuthenticatedMyAppsRoute
@@ -211,6 +220,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/faq'
     | '/reset-password'
+    | '/suggest'
     | '/account'
     | '/admin'
     | '/my-apps'
@@ -232,6 +242,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/faq'
     | '/reset-password'
+    | '/suggest'
     | '/account'
     | '/admin'
     | '/my-apps'
@@ -254,6 +265,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/faq'
     | '/reset-password'
+    | '/suggest'
     | '/_authenticated/account'
     | '/_authenticated/admin'
     | '/_authenticated/my-apps'
@@ -277,6 +289,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   FaqRoute: typeof FaqRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SuggestRoute: typeof SuggestRoute
   AppsSlugRoute: typeof AppsSlugRoute
   GiftSlugRoute: typeof GiftSlugRoute
   AppsIndexRoute: typeof AppsIndexRoute
@@ -318,6 +331,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/suggest': {
+      id: '/suggest'
+      path: '/suggest'
+      fullPath: '/suggest'
+      preLoaderRoute: typeof SuggestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/account': {
@@ -468,6 +488,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   FaqRoute: FaqRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SuggestRoute: SuggestRoute,
   AppsSlugRoute: AppsSlugRoute,
   GiftSlugRoute: GiftSlugRoute,
   AppsIndexRoute: AppsIndexRoute,

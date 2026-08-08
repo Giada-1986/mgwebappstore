@@ -87,6 +87,12 @@ export function StoreShell({ children }: { children: ReactNode }) {
           </span>
           <div className="flex flex-wrap items-center gap-4">
             <Link
+              to="/suggest"
+              className="transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              {t("store.suggest.nav")}
+            </Link>
+            <Link
               to="/faq"
               className="transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
