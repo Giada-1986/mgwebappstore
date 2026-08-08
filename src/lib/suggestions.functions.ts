@@ -207,9 +207,10 @@ export type SubmitResult = { ok: true } | { ok: false; reason: "invalid" | "rate
 export const submitSuggestion = createServerFn({ method: "POST" })
   .inputValidator((input: SuggestionInput) => input)
   .handler(async ({ data }): Promise<SubmitResult> => {
-    const solutionType = pick(data?.solutionType, SOLUTION_TYPES);
+    const domains = pickMany(data?.domains, DOMAINS);
     const goal = clean(data?.goal, 1000);
-    if (!solutionType || goal.length < 5) return { ok: false, reason: "invalid" };
+    if (domains.length === 0 || goal.length < 5) return { ok: false, reason: "invalid" };
+
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const admin = supabaseAdmin as any;
