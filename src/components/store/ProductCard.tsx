@@ -1,7 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { type Product, isFreeProduct, priceLabel, productName, productShort } from "@/lib/platform";
 import {
+  type Product,
+  isFreeProduct,
+  priceLabel,
+  productName,
+  productShort,
+  useIsAdmin,
+  useSession,
+} from "@/lib/platform";
+import {
+  AdminAccessBadge,
   CustomBadge,
   FreeBadge,
   ProductTypeBadge,
@@ -11,7 +20,13 @@ import {
 /** Generic catalogue card — works for any kind of digital product. */
 export function ProductCard({ product, owned }: { product: Product; owned?: boolean }) {
   const { t, lang } = useI18n();
+  const { session } = useSession();
+  const { data: isAdmin } = useIsAdmin(session?.user.id);
   const free = isFreeProduct(product);
+  // Administrators already have access to every active product (role-based),
+  // so the card shows a discreet marker instead of a purchase invitation.
+  const adminAccess = isAdmin === true && product.status === "active" && !owned;
+
 
   return (
     <article className="card-store group flex flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1">
