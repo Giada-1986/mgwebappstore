@@ -22,7 +22,7 @@ const notesByLang: Record<string, string[]> = {
 const actions = ["wait", "exercise", "eat", "wait", "eat", "wait"];
 
 /** Deterministic-ish sample check-ins used to preview the reports. */
-export function mockCheckins(lang: "it" | "en" = "it", count = 34): Checkin[] {
+export function mockCheckins(lang: string = "it", count = 34): Checkin[] {
   const notes = notesByLang[lang] ?? notesByLang["it"]!;
   const out: Checkin[] = [];
   const now = Date.now();
