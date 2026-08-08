@@ -80,12 +80,14 @@ export function MyAppsGrid({ apps }: { apps: Product[] }) {
         const external = !app.app_path && !!app.app_url;
         const isApp = APP_TYPES.includes(app.product_type);
         const isBundle = app.product_type === "bundle";
+        const gift = gifted?.find((g) => g.productId === app.id);
 
         return (
           <article key={app.id} className="card-store flex flex-col gap-3 p-7">
             <div className="flex flex-wrap items-center gap-2">
               <ProductTypeBadge type={app.product_type} />
               <LifetimeAccessBadge />
+              {gift ? <GiftReceivedBadge /> : null}
             </div>
             <h3 translate="no" className="notranslate text-lg font-semibold tracking-tight">
               {productName(app, lang)}
@@ -94,9 +96,12 @@ export function MyAppsGrid({ apps }: { apps: Product[] }) {
               {productShort(app, lang)}
             </p>
 
+            {gift?.giftMessage ? <GiftMessage message={gift.giftMessage} /> : null}
+
             {isBundle && <BundleContents bundleId={app.id} />}
 
             <ProductContents product={app} />
+
 
             {isApp && target ? (
               <a
