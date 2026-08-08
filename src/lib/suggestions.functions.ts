@@ -343,6 +343,8 @@ export const listSuggestions = createServerFn({ method: "POST" })
       id: r.id,
       createdAt: r.created_at,
       status: r.status,
+      domains: r.domains ?? [],
+      domainOther: r.domain_other,
       solutionType: r.solution_type,
       solutionTypeOther: r.solution_type_other,
       goal: r.goal,
@@ -352,6 +354,9 @@ export const listSuggestions = createServerFn({ method: "POST" })
       frequency: r.frequency,
       formats: r.formats ?? [],
       importance: r.importance,
+      currentApproach: r.current_approach ?? [],
+      currentApproachTool: r.current_approach_tool,
+      currentApproachOther: r.current_approach_other,
       purchaseInterest: r.purchase_interest,
       priceRange: r.price_range,
       tried: r.tried,
@@ -364,9 +369,11 @@ export const listSuggestions = createServerFn({ method: "POST" })
       rows,
       stats: {
         total: rows.length,
-        byType: tally(rows.map((r) => r.solutionType)),
+        byDomain: tally(rows.flatMap((r) => r.domains)),
+        byApproach: tally(rows.flatMap((r) => r.currentApproach)),
         byFormat: tally(rows.flatMap((r) => r.formats)),
         byAudience: tally(rows.flatMap((r) => r.audience)),
+        byPrice: tally(rows.flatMap((r) => (r.priceRange ? [r.priceRange] : []))),
         byStatus: tally(rows.map((r) => r.status)),
         avgImportance: rows.length
           ? Math.round((rows.reduce((s, r) => s + r.importance, 0) / rows.length) * 10) / 10
@@ -374,6 +381,7 @@ export const listSuggestions = createServerFn({ method: "POST" })
       },
     };
   });
+
 
 export const setSuggestionStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
