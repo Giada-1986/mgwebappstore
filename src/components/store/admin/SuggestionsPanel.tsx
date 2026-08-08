@@ -112,9 +112,16 @@ export function SuggestionsPanel() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div className="min-w-0">
                 <p className="text-sm font-medium">
-                  {t(`store.suggest.types.${r.solutionType}`)}
-                  {r.solutionTypeOther ? ` — ${r.solutionTypeOther}` : ""}
+                  {[
+                    ...r.domains.map((d) => t(`store.suggest.domains.${d}`)),
+                    r.domainOther ?? "",
+                    r.solutionType ? t(`store.suggest.types.${r.solutionType}`) : "",
+                    r.solutionTypeOther ?? "",
+                  ]
+                    .filter(Boolean)
+                    .join(", ") || "—"}
                 </p>
+
                 <p className="text-xs text-muted-foreground">
                   {fmtDate(r.createdAt)} · {t("store.admin.suggestions.language")}:{" "}
                   <span className="uppercase">{r.language}</span> ·{" "}
