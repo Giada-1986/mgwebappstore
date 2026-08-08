@@ -38,6 +38,7 @@ function MyAppsPage() {
       <h1 className="text-3xl font-semibold tracking-tight">{t("store.myAppsTitle")}</h1>
       <p className="mt-2 text-muted-foreground">{t("store.myAppsText")}</p>
       <div className="mt-8">
+        <ReceivedGifts />
         {isLoading ? (
           <p className="text-muted-foreground">{t("common.loading")}</p>
         ) : (
