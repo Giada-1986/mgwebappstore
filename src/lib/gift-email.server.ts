@@ -79,16 +79,16 @@ function renderHtml(input: GiftEmailInput): string {
     <p style="margin:0;font-size:16px;line-height:1.6">${c.intro(product)}</p>
     ${message}
     <p style="margin:28px 0">
-      <a href="${input.redeemUrl}" style="display:inline-block;background:#16213e;color:#ffffff;text-decoration:none;padding:14px 26px;border-radius:999px;font-size:16px">${c.cta}</a>
+      <a href="${input.redeemUrl}" style="display:inline-block;background:#16213e;color:#ffffff;text-decoration:none;padding:14px 26px;border-radius:999px;font-size:16px">${input.mode === "account" ? c.ctaAccount : c.cta}</a>
     </p>
-    <p style="margin:0;font-size:13px;line-height:1.6;color:#6b6659">${c.note}</p>
+    <p style="margin:0;font-size:13px;line-height:1.6;color:#6b6659">${input.mode === "account" ? c.noteAccount : c.note}</p>
   </div>
 </body></html>`;
 }
 
 export async function sendGiftEmail(
   input: GiftEmailInput,
-): Promise<{ sent: boolean; error?: string }> {
+): Promise<{ sent: boolean; error?: string; messageId?: string }> {
   const senderEmail = process.env["GIFT_SENDER_EMAIL"];
   const senderName = process.env["GIFT_SENDER_NAME"] ?? "MINI WEB APPS";
 
@@ -97,16 +97,17 @@ export async function sendGiftEmail(
 
   const c = COPY[input.lang];
   try {
-    await sendBrevoTransactional({
+    const response = (await sendBrevoTransactional({
       senderEmail,
       senderName,
       to: input.recipientEmail,
       subject: c.subject(input.productName),
       htmlContent: renderHtml(input),
-    });
-    return { sent: true };
+    })) as { messageId?: string } | null;
+    return { sent: true, messageId: response?.messageId };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     return { sent: false, error: message.slice(0, 500) };
+
   }
 }
