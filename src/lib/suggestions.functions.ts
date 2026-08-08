@@ -283,7 +283,9 @@ export type AdminSuggestion = {
   id: string;
   createdAt: string;
   status: string;
-  solutionType: string;
+  domains: string[];
+  domainOther: string | null;
+  solutionType: string | null;
   solutionTypeOther: string | null;
   goal: string;
   problem: string | null;
@@ -292,6 +294,9 @@ export type AdminSuggestion = {
   frequency: string | null;
   formats: string[];
   importance: number;
+  currentApproach: string[];
+  currentApproachTool: string | null;
+  currentApproachOther: string | null;
   purchaseInterest: string | null;
   priceRange: string | null;
   tried: string | null;
@@ -304,13 +309,16 @@ export type SuggestionsDigest = {
   rows: AdminSuggestion[];
   stats: {
     total: number;
-    byType: { key: string; count: number }[];
+    byDomain: { key: string; count: number }[];
+    byApproach: { key: string; count: number }[];
     byFormat: { key: string; count: number }[];
     byAudience: { key: string; count: number }[];
+    byPrice: { key: string; count: number }[];
     byStatus: { key: string; count: number }[];
     avgImportance: number;
   };
 };
+
 
 function tally(values: string[]): { key: string; count: number }[] {
   const map = new Map<string, number>();
