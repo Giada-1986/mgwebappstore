@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
 import { MyAppsGrid } from "@/components/store/MyAppsGrid";
+import { ReceivedGifts } from "@/components/store/ReceivedGifts";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/analytics";
 import { useMyApps, useSession } from "@/lib/platform";
