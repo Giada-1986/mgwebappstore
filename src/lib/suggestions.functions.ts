@@ -422,7 +422,9 @@ export type MySuggestion = {
   id: string;
   createdAt: string;
   status: (typeof USER_VISIBLE_STATUSES)[number];
-  solutionType: string;
+  domains: string[];
+  domainOther: string | null;
+  solutionType: string | null;
   solutionTypeOther: string | null;
   preview: string;
 };
@@ -437,7 +439,9 @@ export const listMySuggestions = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data } = await (supabaseAdmin as any)
       .from("suggestions")
-      .select("id, created_at, status, solution_type, solution_type_other, problem, goal")
+      .select(
+        "id, created_at, status, domains, domain_other, solution_type, solution_type_other, problem, goal",
+      )
       .eq("user_id", (context as any).userId)
       .order("created_at", { ascending: false })
       .limit(100);
@@ -447,9 +451,12 @@ export const listMySuggestions = createServerFn({ method: "POST" })
         id: r.id,
         createdAt: r.created_at,
         status: publicStatus(r.status),
+        domains: r.domains ?? [],
+        domainOther: r.domain_other,
         solutionType: r.solution_type,
         solutionTypeOther: r.solution_type_other,
         preview: String(r.problem || r.goal || "").slice(0, 160),
       })),
     };
   });
+
