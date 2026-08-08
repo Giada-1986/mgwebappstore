@@ -63,18 +63,6 @@ function StoreHome() {
         <p className="text-base font-medium sm:text-lg">{t("store.promise")}</p>
       </section>
 
-      <section className="panel-pearl panel-pearl-hairline mt-6 grid gap-5 px-7 py-7 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-6 sm:px-8">
-        <div className="min-w-0">
-          <h2 className="text-base font-semibold sm:text-lg">{t("store.suggest.homeTitle")}</h2>
-          <p className="mt-1.5 text-sm leading-relaxed text-store-muted">
-            {t("store.suggest.homeText")}
-          </p>
-        </div>
-        <Link to="/suggest" className="btn-store w-full text-sm sm:w-auto sm:shrink-0">
-          {t("store.suggest.cta")}
-        </Link>
-      </section>
-
       {/* The catalogue headings only exist when the store really has something
           to show: the condition reads the live product list, so publishing a
           product makes the sections reappear on their own. */}
