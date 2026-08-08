@@ -215,7 +215,9 @@
     "accountTitle": "Il tuo account",
     "purchases": "Acquisti",
     "noPurchases": "Nessun acquisto registrato.",
-    "language": "Lingua",
+    "language": {
+      "label": "Lingua"
+    },
     "email": "Email",
     "checkoutTitle": "Completa l'acquisto",
     "checkoutBack": "Torna al prodotto",
