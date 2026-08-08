@@ -110,6 +110,10 @@ function AccountPage() {
         )}
       </section>
 
+      <MySuggestions />
+
+
+
 
       <section className="card-store mt-5 p-7">
         <h2 className="text-lg font-semibold">{t("store.purchases")}</h2>
