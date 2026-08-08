@@ -551,6 +551,45 @@ export type Database = {
         }
         Relationships: []
       }
+      purchase_emails: {
+        Row: {
+          attempts: number
+          created_at: string
+          environment: string
+          error: string | null
+          id: string
+          product_id: string
+          purchase_id: string
+          recipient_email: string
+          sent_at: string | null
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          environment: string
+          error?: string | null
+          id?: string
+          product_id: string
+          purchase_id: string
+          recipient_email: string
+          sent_at?: string | null
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          environment?: string
+          error?: string | null
+          id?: string
+          product_id?: string
+          purchase_id?: string
+          recipient_email?: string
+          sent_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       purchases: {
         Row: {
           amount_paid: number | null
