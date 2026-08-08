@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { AccountMenu } from "@/components/store/AccountMenu";
 import { StoreLogo } from "@/components/store/StoreLogo";
+import { MobileNav } from "@/components/store/MobileNav";
 
 import { PaymentTestModeBanner } from "@/components/store/PaymentTestModeBanner";
 import { useI18n } from "@/lib/i18n";
@@ -33,28 +34,31 @@ export function StoreShell({ children }: { children: ReactNode }) {
     <div className="store-scope flex min-h-screen flex-col">
       <PaymentTestModeBanner />
       <header className="sticky top-0 z-30 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-4">
-          <Link to="/" className="flex items-center gap-3 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">
-            <StoreLogo className="h-10 w-10 rounded-xl ring-1 ring-primary/25" priority />
-            <span className="flex flex-col leading-tight">
+        <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 sm:px-5 sm:py-4">
+          <Link to="/" className="flex min-w-0 items-center gap-3 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring">
+            <StoreLogo className="h-10 w-10 shrink-0 rounded-xl ring-1 ring-primary/25" priority />
+            <span className="flex min-w-0 flex-col leading-tight">
               <span
                 translate="no"
-                className="notranslate text-sm font-semibold uppercase tracking-[0.22em]"
+                className="notranslate truncate text-sm font-semibold uppercase tracking-[0.22em]"
               >
                 {t("store.brand")}
               </span>
-              <span translate="no" className="notranslate text-xs text-muted-foreground">
+              <span translate="no" className="notranslate truncate text-xs text-muted-foreground">
                 {t("store.tagline")}
               </span>
             </span>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <LanguageSwitcher />
-            <AccountMenu />
+            <div className="hidden md:block">
+              <AccountMenu />
+            </div>
+            <MobileNav isAdmin={!!admin?.isAdmin} />
           </div>
         </div>
-        <nav className="mx-auto flex max-w-5xl gap-1 px-4 pb-3 text-sm">
+        <nav className="mx-auto hidden max-w-5xl flex-wrap gap-1 px-4 pb-3 text-sm md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -75,7 +79,7 @@ export function StoreShell({ children }: { children: ReactNode }) {
           )}
         </nav>
       </header>
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 py-12">{children}</main>
+      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-5 sm:py-12">{children}</main>
       <footer className="mt-auto border-t border-border/60">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-5 py-8 text-xs text-muted-foreground">
           <span translate="no" className="notranslate uppercase tracking-[0.22em] text-foreground/80">
