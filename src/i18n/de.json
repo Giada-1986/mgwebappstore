@@ -177,7 +177,9 @@
     "nav": {
       "store": "Store",
       "catalog": "Katalog",
-      "myApps": "Meine Bibliothek"
+      "myApps": "Meine Bibliothek",
+      "menu": "Menü",
+      "close": "Schließen"
     },
     "signIn": "Anmelden",
     "signOut": "Abmelden",
