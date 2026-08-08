@@ -338,3 +338,59 @@ export const setSuggestionStatus = createServerFn({ method: "POST" })
       .eq("id", data.id);
     return { ok: !error };
   });
+
+/* ---------------- personal ("My proposals") ---------------- */
+
+/** Statuses the user sees; internal triage values collapse into "evaluating". */
+export const USER_VISIBLE_STATUSES = ["new", "evaluating", "building", "done", "archived"] as const;
+
+export function publicStatus(status: string): (typeof USER_VISIBLE_STATUSES)[number] {
+  switch (status) {
+    case "new":
+      return "new";
+    case "building":
+      return "building";
+    case "done":
+      return "done";
+    case "archived":
+      return "archived";
+    default:
+      return "evaluating";
+  }
+}
+
+export type MySuggestion = {
+  id: string;
+  createdAt: string;
+  status: (typeof USER_VISIBLE_STATUSES)[number];
+  solutionType: string;
+  solutionTypeOther: string | null;
+  preview: string;
+};
+
+/**
+ * Own proposals only: rows are matched on the authenticated user_id captured at
+ * submission time (never on e-mail), and admin-only columns are never returned.
+ */
+export const listMySuggestions = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<{ rows: MySuggestion[] }> => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await (supabaseAdmin as any)
+      .from("suggestions")
+      .select("id, created_at, status, solution_type, solution_type_other, problem, goal")
+      .eq("user_id", (context as any).userId)
+      .order("created_at", { ascending: false })
+      .limit(100);
+
+    return {
+      rows: (data ?? []).map((r: any) => ({
+        id: r.id,
+        createdAt: r.created_at,
+        status: publicStatus(r.status),
+        solutionType: r.solution_type,
+        solutionTypeOther: r.solution_type_other,
+        preview: String(r.problem || r.goal || "").slice(0, 160),
+      })),
+    };
+  });
