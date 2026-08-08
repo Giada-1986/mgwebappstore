@@ -170,9 +170,19 @@ export function SuggestionsPanel() {
                 }
               />
               <Row
-                label={t("store.admin.suggestions.intent")}
-                value={r.purchaseInterest ? t(`store.suggest.intents.${r.purchaseInterest}`) : "—"}
+                label={t("store.admin.suggestions.approach")}
+                value={
+                  [
+                    ...r.currentApproach.map((a) => t(`store.suggest.approaches.${a}`)),
+                    r.currentApproachTool ?? "",
+                    r.currentApproachOther ?? "",
+                  ]
+                    .filter(Boolean)
+                    .join(", ") || "—"
+                }
+                wide
               />
+
               <Row
                 label={t("store.admin.suggestions.price")}
                 value={r.priceRange ? t(`store.suggest.prices.${r.priceRange}`) : "—"}
