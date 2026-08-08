@@ -1,37 +1,48 @@
-import { useI18n, type Lang } from "@/lib/i18n";
+import { Globe, Check } from "lucide-react";
+import { LANGUAGES, useI18n, type Lang } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
+/** Discreet globe icon opening the language menu (language, never country). */
 export function LanguageSwitcher({ className }: { className?: string }) {
-  const { lang, setLang } = useI18n();
-  const options: Lang[] = ["it", "en"];
+  const { lang, setLang, t } = useI18n();
 
   return (
-    <div
-      translate="no"
-      className={cn(
-        "notranslate inline-flex items-center rounded-full border border-border bg-card/70 p-0.5 backdrop-blur",
-        className,
-      )}
-    >
-      {options.map((opt) => (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <button
-          key={opt}
           type="button"
-          translate="no"
-          lang={opt}
-          onClick={() => setLang(opt)}
-          aria-pressed={lang === opt}
-          aria-label={opt === "it" ? "Italiano" : "English"}
+          aria-label={t("store.language.label")}
+          title={t("store.language.label")}
           className={cn(
-            "notranslate rounded-full px-3 py-1 text-xs font-semibold tracking-widest uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-            lang === opt
-              ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:text-foreground",
+            "inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-card/70 text-muted-foreground backdrop-blur transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+            className,
           )}
         >
-          {opt}
+          <Globe size={18} aria-hidden="true" />
         </button>
-      ))}
-    </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-44">
+        {LANGUAGES.map((l) => (
+          <DropdownMenuItem
+            key={l.code}
+            onSelect={() => setLang(l.code as Lang)}
+            translate="no"
+            lang={l.code}
+            className="notranslate flex items-center justify-between gap-3"
+          >
+            <span translate="no" className="notranslate">
+              {l.label}
+            </span>
+            {lang === l.code && <Check size={14} aria-hidden="true" />}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
