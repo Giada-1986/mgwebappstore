@@ -182,9 +182,11 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
 /**
  * One-time post-purchase confirmation email.
  *
- * Duplicate protection: a unique row per purchase in `purchase_emails` is
- * inserted BEFORE sending; a webhook retry hits the unique constraint and
- * exits. Admins (role-based access) are skipped, and gifts never reach here.
+ * Duplicate protection: one row per purchase in `purchase_emails` with a
+ * status of pending/sent/failed. Only `sent` blocks a webhook retry; `failed`
+ * can be retried, and a `locked_at` lease avoids concurrent double sends.
+ * Admins (role-based access) are skipped, and gifts never reach here.
+
  */
 async function deliverPurchaseEmail(args: {
   supabase: any;
@@ -225,16 +227,35 @@ async function deliverPurchaseEmail(args: {
     const recipient = profile?.["email"];
     if (!recipient) return;
 
-    const { error: insertError } = await supabase.from("purchase_emails").insert({
+    // State machine: pending → sent | failed. A row is created (or reused)
+    // before sending; only `sent` blocks a retry. A `locked_at` lease prevents
+    // two concurrent webhook deliveries from sending the same email twice.
+    await supabase.from("purchase_emails").insert({
       purchase_id: purchaseId,
       user_id: userId,
       product_id: productId,
       environment: env,
       recipient_email: recipient,
-      attempts: 1,
+      status: "pending",
+      attempts: 0,
     });
-    // Already logged → this event is a retry, nothing to send.
-    if (insertError) return;
+
+    const staleLock = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const { data: claimed } = await supabase
+      .from("purchase_emails")
+      .update({
+        status: "pending",
+        recipient_email: recipient,
+        locked_at: new Date().toISOString(),
+      })
+      .eq("purchase_id", purchaseId)
+      .neq("status", "sent")
+      .or(`locked_at.is.null,locked_at.lt.${staleLock}`)
+      .select("id, attempts");
+
+    // Already sent, or another delivery is in flight → nothing to do.
+    if (!claimed || claimed.length === 0) return;
+    const attempts = Number(claimed[0]?.["attempts"] ?? 0) + 1;
 
     const { data: product } = await supabase
       .from("products")
@@ -250,26 +271,56 @@ async function deliverPurchaseEmail(args: {
       (lang === "it" ? product?.["name_it"] : (product?.["name_en"] ?? product?.["name_it"])) ??
       "MINI WEB APPS";
 
-    const result = await sendPurchaseEmail({
-      recipientEmail: String(recipient),
-      productName: String(productName),
-      firstName: (profile?.["display_name"] as string | null) ?? null,
-      lang,
-    });
+    let result: { sent: boolean; error?: string; messageId?: string | null };
+    try {
+      result = await sendPurchaseEmail({
+        recipientEmail: String(recipient),
+        productName: String(productName),
+        firstName: (profile?.["display_name"] as string | null) ?? null,
+        lang,
+      });
+    } catch (e) {
+      result = { sent: false, error: e instanceof Error ? e.message : String(e) };
+    }
 
     await supabase
       .from("purchase_emails")
-      .update({
-        sent_at: result.sent ? new Date().toISOString() : null,
-        error: result.sent ? null : (result.error ?? "unknown_error"),
-      })
+      .update(
+        result.sent
+          ? {
+              status: "sent",
+              sent_at: new Date().toISOString(),
+              message_id: result.messageId ?? null,
+              error: null,
+              attempts,
+              locked_at: null,
+            }
+          : {
+              status: "failed",
+              sent_at: null,
+              error: (result.error ?? "unknown_error").slice(0, 500),
+              attempts,
+              locked_at: null,
+            },
+      )
       .eq("purchase_id", purchaseId);
 
     if (!result.sent) console.error("Purchase email not delivered", purchaseId, result.error);
   } catch (e) {
     console.error("Purchase email step failed", purchaseId, e);
+    // Release the lease so a later webhook retry can attempt again.
+    try {
+      await supabase
+        .from("purchase_emails")
+        .update({ status: "failed", locked_at: null, error: String(e).slice(0, 500) })
+        .eq("purchase_id", purchaseId)
+        .neq("status", "sent");
+    } catch {
+      /* best effort */
+    }
   }
 }
+
 
 
 /**

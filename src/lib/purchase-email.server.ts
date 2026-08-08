@@ -116,7 +116,7 @@ export async function sendPurchaseEmail(input: {
   productName: string;
   firstName?: string | null;
   lang: PurchaseEmailLang;
-}): Promise<{ sent: boolean; error?: string }> {
+}): Promise<{ sent: boolean; error?: string; messageId?: string | null }> {
   const senderEmail = process.env["GIFT_SENDER_EMAIL"];
   const senderName = process.env["GIFT_SENDER_NAME"] ?? "MINI WEB APPS";
 
@@ -124,16 +124,17 @@ export async function sendPurchaseEmail(input: {
   if (!senderEmail) return { sent: false, error: "sender_not_configured" };
 
   try {
-    await sendBrevoTransactional({
+    const response = (await sendBrevoTransactional({
       senderEmail,
       senderName,
       to: input.recipientEmail,
       subject: COPY[input.lang].subject,
       htmlContent: renderHtml(input.lang, input.productName, input.firstName ?? null),
-    });
-    return { sent: true };
+    })) as { messageId?: string } | null;
+    return { sent: true, messageId: response?.messageId ?? null };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     return { sent: false, error: message.slice(0, 500) };
   }
 }
+
