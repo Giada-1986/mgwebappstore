@@ -286,7 +286,8 @@
         "sales": "Vendite",
         "marketing": "Marketing",
         "analytics": "Analytics",
-        "products": "Prodotti"
+        "products": "Prodotti",
+        "gifts": "Regali"
       },
       "kpi": {
         "users": "Utenti registrati",
@@ -403,6 +404,19 @@
         "addAsset": "Aggiungi asset",
         "remove": "Rimuovi",
         "bundleHint": "I prodotti selezionati vengono sbloccati lato server all'acquisto del bundle."
+      },
+      "gifts": {
+        "title": "Regali",
+        "hint": "Solo regali dell'ambiente corrente, con pagamento confermato. Il reinvio non crea nuovi regali, token o accessi.",
+        "resend": "Reinvia email",
+        "sending": "Invio…",
+        "confirm": "Reinviare l'email di questo regalo al destinatario?",
+        "accepted": "Email accettata da Brevo",
+        "alreadyRedeemed": "Regalo già riscattato: nessun link di riscatto inviato.",
+        "cooldown": "Attendi un minuto prima di un nuovo invio.",
+        "notPaid": "Pagamento non confermato.",
+        "empty": "Nessun regalo in questo ambiente.",
+        "sentAt": "inviata il"
       }
     },
     "free": "GRATIS",

@@ -286,7 +286,8 @@
         "sales": "Sales",
         "marketing": "Marketing",
         "analytics": "Analytics",
-        "products": "Products"
+        "products": "Products",
+        "gifts": "Gifts"
       },
       "kpi": {
         "users": "Registered users",
@@ -403,6 +404,19 @@
         "addAsset": "Add asset",
         "remove": "Remove",
         "bundleHint": "Selected products are unlocked server-side when the bundle is purchased."
+      },
+      "gifts": {
+        "title": "Gifts",
+        "hint": "Only gifts in the current environment with a confirmed payment. Resending never creates gifts, tokens or access.",
+        "resend": "Resend email",
+        "sending": "Sending…",
+        "confirm": "Resend this gift email to the recipient?",
+        "accepted": "Email accepted by Brevo",
+        "alreadyRedeemed": "Gift already redeemed: no redemption link was sent.",
+        "cooldown": "Please wait a minute before sending again.",
+        "notPaid": "Payment not confirmed.",
+        "empty": "No gifts in this environment.",
+        "sentAt": "sent on"
       }
     },
     "free": "FREE",
