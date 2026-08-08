@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
 import { MyAppsGrid } from "@/components/store/MyAppsGrid";
+import { ReceivedGifts } from "@/components/store/ReceivedGifts";
 import { useI18n } from "@/lib/i18n";
 import { track } from "@/lib/analytics";
 import { useMyApps, useSession } from "@/lib/platform";
@@ -38,6 +39,7 @@ function MyAppsPage() {
       <h1 className="text-3xl font-semibold tracking-tight">{t("store.myAppsTitle")}</h1>
       <p className="mt-2 text-muted-foreground">{t("store.myAppsText")}</p>
       <div className="mt-8">
+        <ReceivedGifts />
         {isLoading ? (
           <p className="text-muted-foreground">{t("common.loading")}</p>
         ) : (

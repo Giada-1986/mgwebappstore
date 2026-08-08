@@ -257,7 +257,10 @@
       "messagePlaceholder": "Scrivi un messaggio per chi riceverà il regalo…",
       "recipientPlaceholder": "nome@esempio.com",
       "purchaserPlaceholder": "latuaemail@esempio.com",
-      "messageFrom": "Messaggio da chi ti ha fatto il regalo"
+      "messageFrom": "Messaggio da chi ti ha fatto il regalo",
+      "inboxTitle": "🎁 Hai ricevuto un regalo",
+      "inboxIntro": "Questo regalo è collegato alla tua email. Riscattalo per aggiungerlo alla tua libreria.",
+      "not_authenticated": "Accedi per riscattare il regalo."
     },
     "marketing": {
       "title": "Comunicazioni",

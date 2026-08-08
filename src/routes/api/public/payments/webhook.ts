@@ -175,7 +175,7 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
  * (product identity, payment_status, price id, livemode, amount, currency)
  * but grants NO entitlement: the gift only becomes redeemable.
  */
-async function fulfilGift(sessionFromEvent: any, env: StripeEnv) {
+async function fulfilGift(sessionFromEvent: any, env: StripeEnv, origin: string) {
   let session: any;
   try {
     session = await createStripeClient(env).checkout.sessions.retrieve(sessionFromEvent.id, {
@@ -304,7 +304,73 @@ async function fulfilGift(sessionFromEvent: any, env: StripeEnv) {
 
   // NOTE: intentionally no entitlement here — the gift stays `pending` until
   // the recipient redeems the token with an authenticated account.
-  if (error) console.error("Failed to mark gift as paid", error);
+  if (error) {
+    console.error("Failed to mark gift as paid", error);
+    return;
+  }
+
+  // Delivery happens only now, after a signed confirmation of THIS payment.
+  await deliverGiftEmail(giftId, origin);
+}
+
+/**
+ * Sends the redemption email. The plaintext token exists only in memory here,
+ * decrypted from the ciphertext stored at checkout time.
+ */
+export async function deliverGiftEmail(giftId: string, origin: string) {
+  const supabase = getSupabase();
+  const { data: gift } = await supabase
+    .from("gifts")
+    .select(
+      "id, recipient_email, gift_message, redemption_token_encrypted, purchased_at, status, email_sent_at, email_attempts, products(name_it, name_en)",
+    )
+    .eq("id", giftId)
+    .maybeSingle();
+
+  if (!gift || !gift["purchased_at"] || gift["status"] !== "pending") return;
+  if (gift["email_sent_at"]) return;
+
+  const { decryptGiftToken } = await import("@/lib/gift-token.server");
+  const { sendGiftEmail } = await import("@/lib/gift-email.server");
+
+  const token = await decryptGiftToken((gift["redemption_token_encrypted"] as string) ?? null);
+  const attempts = Number(gift["email_attempts"] ?? 0) + 1;
+
+  if (!token) {
+    await supabase
+      .from("gifts")
+      .update({ email_error: "token_unavailable", email_attempts: attempts })
+      .eq("id", giftId);
+    return;
+  }
+
+  const recipient = String(gift["recipient_email"]);
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("preferred_language")
+    .eq("email", recipient)
+    .maybeSingle();
+  const lang = profile?.["preferred_language"] === "en" ? "en" : "it";
+  const product: any = (gift as any).products ?? {};
+
+  const result = await sendGiftEmail({
+    recipientEmail: recipient,
+    productName: (lang === "en" ? product.name_en : product.name_it) ?? "MINI WEB APPS",
+    giftMessage: (gift["gift_message"] as string) ?? null,
+    redeemUrl: `${origin}/redeem/${token}`,
+    lang,
+  });
+
+  await supabase
+    .from("gifts")
+    .update({
+      email_attempts: attempts,
+      email_sent_at: result.sent ? new Date().toISOString() : null,
+      email_error: result.sent ? null : (result.error ?? "unknown_error"),
+    })
+    .eq("id", giftId);
+
+  if (!result.sent) console.error("Gift email not delivered", giftId, result.error);
 }
 
 /** Refund of a gift: revoke it, and any entitlement it already produced. */
@@ -400,19 +466,20 @@ function isFullyRefunded(charge: any): boolean {
 
 async function handleWebhook(req: Request, env: StripeEnv) {
   const event = await verifyWebhook(req, env);
+  const origin = process.env["PUBLIC_SITE_URL"] ?? new URL(req.url).origin;
 
   const isGift = (s: any) => s?.metadata?.kind === "gift";
 
   switch (event.type) {
     case "checkout.session.completed": {
       const s = event.data.object;
-      if (isGift(s)) await fulfilGift(s, env);
+      if (isGift(s)) await fulfilGift(s, env, origin);
       else await fulfil(s, env);
       break;
     }
     case "checkout.session.async_payment_succeeded": {
       const s = event.data.object;
-      if (isGift(s)) await fulfilGift(s, env);
+      if (isGift(s)) await fulfilGift(s, env, origin);
       else await fulfil(s, env);
       break;
     }

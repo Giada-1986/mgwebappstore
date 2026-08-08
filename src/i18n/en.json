@@ -257,7 +257,10 @@
       "messagePlaceholder": "Write a message for whoever receives the gift…",
       "recipientPlaceholder": "name@example.com",
       "purchaserPlaceholder": "youremail@example.com",
-      "messageFrom": "Message from the person who gifted this"
+      "messageFrom": "Message from the person who gifted this",
+      "inboxTitle": "🎁 You received a gift",
+      "inboxIntro": "This gift is linked to your email. Redeem it to add it to your library.",
+      "not_authenticated": "Sign in to redeem this gift."
     },
     "marketing": {
       "title": "Communications",

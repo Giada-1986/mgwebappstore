@@ -211,6 +211,9 @@ export type Database = {
           amount_paid: number | null
           created_at: string
           currency: string
+          email_attempts: number
+          email_error: string | null
+          email_sent_at: string | null
           environment: string
           expires_at: string | null
           gift_message: string | null
@@ -222,6 +225,7 @@ export type Database = {
           recipient_email: string
           redeemed_at: string | null
           redeemed_by_user_id: string | null
+          redemption_token_encrypted: string | null
           redemption_token_hash: string
           status: string
           stripe_checkout_session_id: string | null
@@ -232,6 +236,9 @@ export type Database = {
           amount_paid?: number | null
           created_at?: string
           currency?: string
+          email_attempts?: number
+          email_error?: string | null
+          email_sent_at?: string | null
           environment?: string
           expires_at?: string | null
           gift_message?: string | null
@@ -243,6 +250,7 @@ export type Database = {
           recipient_email: string
           redeemed_at?: string | null
           redeemed_by_user_id?: string | null
+          redemption_token_encrypted?: string | null
           redemption_token_hash: string
           status?: string
           stripe_checkout_session_id?: string | null
@@ -253,6 +261,9 @@ export type Database = {
           amount_paid?: number | null
           created_at?: string
           currency?: string
+          email_attempts?: number
+          email_error?: string | null
+          email_sent_at?: string | null
           environment?: string
           expires_at?: string | null
           gift_message?: string | null
@@ -264,6 +275,7 @@ export type Database = {
           recipient_email?: string
           redeemed_at?: string | null
           redeemed_by_user_id?: string | null
+          redemption_token_encrypted?: string | null
           redemption_token_hash?: string
           status?: string
           stripe_checkout_session_id?: string | null
