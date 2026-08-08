@@ -216,6 +216,7 @@
     "oneTime": "One-time payment",
     "lifetime": "Lifetime access",
     "view": "View",
+    "adminAccessHint": "Included by your admin role",
     "adminAccess": "Admin access",
     "owned": "Owned",
     "comingSoon": "Coming soon",

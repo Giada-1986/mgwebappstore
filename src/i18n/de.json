@@ -216,6 +216,7 @@
     "oneTime": "Einmalige Zahlung",
     "lifetime": "Lebenslanger Zugang",
     "view": "Ansehen",
+    "adminAccessHint": "Durch deine Admin-Rolle enthalten",
     "adminAccess": "Admin-Zugang",
     "owned": "Im Besitz",
     "comingSoon": "Demnächst",
