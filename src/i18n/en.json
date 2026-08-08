@@ -816,6 +816,10 @@
       }
     },
     "appUnavailable": "App unavailable",
-    "appUnavailableText": "This mini app is no longer available in the store. Your library and the updated catalogue are below."
+    "appUnavailableText": "This mini app is no longer available in the store. Your library and the updated catalogue are below.",
+    "soon": {
+      "title": "New solutions are on the way.",
+      "text": "We're preparing the first MINI WEB APPS tools. In the meantime, tell us what you'd like to find here."
+    }
   }
 }

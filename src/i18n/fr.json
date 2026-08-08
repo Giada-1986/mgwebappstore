@@ -816,6 +816,10 @@
       }
     },
     "appUnavailable": "App indisponible",
-    "appUnavailableText": "Cette mini app n'est plus disponible dans la boutique. Retrouvez ci-dessous votre bibliothèque et le catalogue à jour."
+    "appUnavailableText": "Cette mini app n'est plus disponible dans la boutique. Retrouvez ci-dessous votre bibliothèque et le catalogue à jour.",
+    "soon": {
+      "title": "De nouvelles solutions arrivent.",
+      "text": "Nous préparons les premiers outils de MINI WEB APPS. En attendant, dites-nous ce que vous aimeriez trouver ici."
+    }
   }
 }
