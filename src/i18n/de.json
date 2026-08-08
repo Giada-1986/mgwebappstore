@@ -196,6 +196,7 @@
     "buyFor": "Kaufen für {price}",
     "oneTime": "Einmalige Zahlung",
     "lifetime": "Lebenslanger Zugang",
+    "adminAccess": "Admin-Zugang",
     "owned": "Im Besitz",
     "comingSoon": "Demnächst",
     "type": {
