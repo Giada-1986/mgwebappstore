@@ -253,18 +253,55 @@ export function useEntitlements(userId?: string) {
   });
 }
 
-/** Products the user owns, joined with the catalog. */
+/**
+ * Admin role, decided by the database function `has_role` (never a local flag).
+ * Used for display only: every real access check stays server-side.
+ */
+export function useIsAdmin(userId?: string) {
+  return useQuery({
+    queryKey: ["is-admin", userId],
+    enabled: !!userId,
+    staleTime: 60_000,
+    queryFn: async (): Promise<boolean> => {
+      const { data, error } = await supabase.rpc("has_role", {
+        _user_id: userId!,
+        _role: "admin",
+      });
+      if (error) return false;
+      return data === true;
+    },
+  });
+}
+
+/**
+ * Products the user owns, joined with the catalog.
+ * Admins see the whole active catalogue without any entitlement being created.
+ */
 export function useMyApps(userId?: string) {
   const entitlements = useEntitlements(userId);
   const products = useProducts();
+  const admin = useIsAdmin(userId);
+
   const owned = (entitlements.data ?? [])
     .map((e) => products.data?.find((p) => p.id === e.product_id))
     .filter((p): p is Product => !!p);
+
+  const isAdmin = admin.data === true;
+  const apps = isAdmin
+    ? (products.data ?? []).filter((p) => p.status === "active")
+    : owned;
+
+  const ownedIds = new Set(owned.map((p) => p.id));
+
   return {
-    apps: owned,
-    isLoading: entitlements.isLoading || products.isLoading,
+    apps,
+    isAdmin,
+    /** True when the product is only visible thanks to the admin role. */
+    isAdminOnly: (productId: string) => isAdmin && !ownedIds.has(productId),
+    isLoading: entitlements.isLoading || products.isLoading || admin.isLoading,
   };
 }
+
 
 /** Access check for a single product slug — always entitlement-based. */
 export function useHasAccess(slug: string, userId?: string) {
