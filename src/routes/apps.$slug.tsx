@@ -63,7 +63,9 @@ function ProductPage() {
     );
   }
 
-  if (!product) {
+  // Archived products are invisible in the store: the direct URL behaves as if
+  // the product did not exist (history stays untouched in the database).
+  if (!product || product.status === "archived") {
     return (
       <StoreShell>
         <p className="text-muted-foreground">{t("store.notFound")}</p>

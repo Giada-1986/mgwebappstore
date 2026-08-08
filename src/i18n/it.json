@@ -429,7 +429,8 @@
         "fAssetUrl": "URL esterno",
         "addAsset": "Aggiungi asset",
         "remove": "Rimuovi",
-        "bundleHint": "I prodotti selezionati vengono sbloccati lato server all'acquisto del bundle."
+        "bundleHint": "I prodotti selezionati vengono sbloccati lato server all'acquisto del bundle.",
+        "statusArchived": "Archiviato"
       },
       "gifts": {
         "title": "Regali",
@@ -813,6 +814,8 @@
         "done": "Realizzata",
         "archived": "Archiviata"
       }
-    }
+    },
+    "appUnavailable": "App non disponibile",
+    "appUnavailableText": "Questa mini app non è più disponibile nello store. Trovi qui sotto la tua libreria e il catalogo aggiornato."
   }
 }

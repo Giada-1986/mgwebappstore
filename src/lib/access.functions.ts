@@ -36,6 +36,9 @@ export const checkProductAccess = createServerFn({ method: "POST" })
 
     const p = product as unknown as Record<string, unknown>;
 
+    // A retired product is closed for everyone, administrators included.
+    if (p["status"] === "archived") return { userId, productId: null, hasAccess: false };
+
     // Only products the administrator explicitly published as fully public
     // skip the entitlement check. Everything else stays gated.
     if (p["access_mode"] === "free_public" && p["status"] === "active") {

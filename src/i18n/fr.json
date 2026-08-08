@@ -429,7 +429,8 @@
         "fAssetUrl": "URL externe",
         "addAsset": "Ajouter un contenu",
         "remove": "Retirer",
-        "bundleHint": "Les produits sélectionnés sont débloqués côté serveur lors de l'achat du pack."
+        "bundleHint": "Les produits sélectionnés sont débloqués côté serveur lors de l'achat du pack.",
+        "statusArchived": "Archivé"
       },
       "gifts": {
         "title": "Cadeaux",
@@ -813,6 +814,8 @@
         "done": "Réalisée",
         "archived": "Archivée"
       }
-    }
+    },
+    "appUnavailable": "App indisponible",
+    "appUnavailableText": "Cette mini app n'est plus disponible dans la boutique. Retrouvez ci-dessous votre bibliothèque et le catalogue à jour."
   }
 }

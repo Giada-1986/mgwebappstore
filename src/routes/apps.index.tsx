@@ -65,6 +65,8 @@ function CatalogPage() {
 
   const owned = new Set((entitlements ?? []).map((e) => e.product_id));
   const visible = (products ?? []).filter((p) => {
+    // Retired products stay in the database for history, never in the catalogue.
+    if (p.status === "archived") return false;
     if (category && p.category_id !== category) return false;
     if (typeFilter === "all") return true;
     if (typeFilter === "free") return isFreeProduct(p);

@@ -429,7 +429,8 @@
         "fAssetUrl": "External URL",
         "addAsset": "Add asset",
         "remove": "Remove",
-        "bundleHint": "Selected products are unlocked server-side when the bundle is purchased."
+        "bundleHint": "Selected products are unlocked server-side when the bundle is purchased.",
+        "statusArchived": "Archived"
       },
       "gifts": {
         "title": "Gifts",
@@ -813,6 +814,8 @@
         "done": "Released",
         "archived": "Archived"
       }
-    }
+    },
+    "appUnavailable": "App unavailable",
+    "appUnavailableText": "This mini app is no longer available in the store. Your library and the updated catalogue are below."
   }
 }

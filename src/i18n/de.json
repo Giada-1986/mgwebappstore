@@ -429,7 +429,8 @@
         "fAssetUrl": "Externe URL",
         "addAsset": "Asset hinzufügen",
         "remove": "Entfernen",
-        "bundleHint": "Ausgewählte Produkte werden beim Kauf des Pakets serverseitig freigeschaltet."
+        "bundleHint": "Ausgewählte Produkte werden beim Kauf des Pakets serverseitig freigeschaltet.",
+        "statusArchived": "Archiviert"
       },
       "gifts": {
         "title": "Geschenke",
@@ -813,6 +814,8 @@
         "done": "Veröffentlicht",
         "archived": "Archiviert"
       }
-    }
+    },
+    "appUnavailable": "App nicht verfügbar",
+    "appUnavailableText": "Diese Mini-App ist im Store nicht mehr verfügbar. Unten findest du deine Bibliothek und den aktuellen Katalog."
   }
 }
