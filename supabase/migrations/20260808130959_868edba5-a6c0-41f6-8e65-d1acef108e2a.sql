@@ -1,0 +1,1 @@
+UPDATE public.products SET image_url = '/__l5e/assets-v1/4c162696-6171-4a6f-8002-651210a712f6/fame-o-emozione-cover.jpg' WHERE slug = 'fame-o-emozione';
