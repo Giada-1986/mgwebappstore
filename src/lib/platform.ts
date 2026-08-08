@@ -282,9 +282,11 @@ export function useMyApps(userId?: string) {
   const products = useProducts();
   const admin = useIsAdmin(userId);
 
+  // A retired (archived) product never shows up in the library, not even for
+  // users who still hold a historical sandbox entitlement for it.
   const owned = (entitlements.data ?? [])
     .map((e) => products.data?.find((p) => p.id === e.product_id))
-    .filter((p): p is Product => !!p);
+    .filter((p): p is Product => !!p && p.status !== "archived");
 
   const isAdmin = admin.data === true;
   const apps = isAdmin
