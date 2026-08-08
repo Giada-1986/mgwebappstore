@@ -130,9 +130,9 @@
 /* ---------------------------------------------------------------
  * Store identity — "MINI WEB APPS".
  * Neutral, premium, gender-neutral: deep night-blue canvas, pearl
- * surfaces, champagne-gold accent. The root palette (rose/gold) belongs
- * to the "Fame o Fame?" mini app only; each mini app can override
- * --app-accent within its own scope without touching the store.
+ * surfaces, champagne-gold accent. The root palette (rose/gold) is the
+ * shared mini-app canvas; each mini app can override --app-accent within
+ * its own scope without touching the store.
  * --------------------------------------------------------------- */
 @utility store-scope {
   --background: oklch(0.19 0.028 260);

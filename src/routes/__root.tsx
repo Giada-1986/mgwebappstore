@@ -81,14 +81,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Fame o Fame? — Fame fisica o fame emotiva" },
+      { title: "MINI WEB APPS — Mini app pronte all'uso" },
       {
         name: "description",
         content:
-          "Riconosci la fame emotiva con check-in guidati, micro-esercizi e report personali. Non tutta la fame viene dallo stomaco.",
+          "Piccole web app e risorse digitali pronte all'uso: acquisti una volta, le usi per sempre.",
       },
-      { property: "og:title", content: "Fame o Fame?" },
-      { property: "og:description", content: "Non tutta la fame viene dallo stomaco." },
+      { property: "og:title", content: "MINI WEB APPS" },
+      { property: "og:description", content: "Mini app pronte all'uso. Acquisti una volta, le usi per sempre." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
