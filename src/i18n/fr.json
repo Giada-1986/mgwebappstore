@@ -1,0 +1,603 @@
+{
+  "brand": "Fame o Fame?",
+  "tagline": "Toutes les faims ne viennent pas de l'estomac.",
+  "nav": {
+    "checkin": "Check-in",
+    "exercises": "Exercices",
+    "report": "Rapport",
+    "monthly": "Mensuel",
+    "settings": "Réglages"
+  },
+  "common": {
+    "continue": "Continuer",
+    "back": "Retour",
+    "skip": "Passer",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "close": "Fermer",
+    "loading": "Un instant…",
+    "start": "Commencer",
+    "minutes": "minutes",
+    "seconds": "secondes"
+  },
+  "landing": {
+    "heroTitle": "Apprends à reconnaître ta faim",
+    "heroText": "Fame o Fame? t'aide à distinguer la faim physique de la faim émotionnelle, en douceur et sans jugement. Un petit geste de conscience, quand tu en as besoin.",
+    "cta": "Commencer",
+    "login": "Se connecter",
+    "f1Title": "Un check-in d'une minute",
+    "f1Text": "Quatre questions bienveillantes, avant de manger entre les repas.",
+    "f2Title": "Des exercices courts",
+    "f2Text": "Dix micro-exercices de 60 à 120 secondes pour traverser la vague.",
+    "f3Title": "Tes schémas",
+    "f3Text": "Des rapports personnels qui montrent quand et pourquoi la faim émotionnelle apparaît.",
+    "priceTitle": "Un seul paiement, accès à vie",
+    "priceText": "Pas d'abonnement, pas de renouvellement. Tu payes une fois et l'appli est à toi pour toujours.",
+    "noScales": "Pas de calories, pas de balance. Juste de l'écoute."
+  },
+  "auth": {
+    "title": "Connecte-toi à ton compte",
+    "subtitle": "Un seul compte pour toutes tes mini applis.",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "signIn": "Se connecter",
+    "signUp": "Créer un compte",
+    "toSignUp": "Pas encore de compte ? Inscris-toi",
+    "toSignIn": "Tu as déjà un compte ? Connecte-toi",
+    "checkEmail": "Nous t'avons envoyé un e-mail de confirmation. Vérifie ta boîte de réception pour activer ton accès.",
+    "error": "Une erreur est survenue. Réessaie.",
+    "titleSignUp": "Crée ton compte",
+    "subtitleSignUp": "Il te suffit d'un e-mail et d'un mot de passe.",
+    "marketingLabel": "Je souhaite recevoir des actualités, de nouvelles mini applis et des offres par e-mail.",
+    "marketingHint": "Facultatif. Aucun e-mail marketing sans ton consentement : tu peux le retirer à tout moment depuis ton compte."
+  },
+  "paywall": {
+    "title": "Ton espace est presque prêt",
+    "text": "Fame o Fame? est un achat unique : débloque l'accès à vie, sans abonnement.",
+    "cta": "Débloquer l'accès à vie",
+    "note": "Paiement sécurisé. Aucun renouvellement automatique.",
+    "signOut": "Se déconnecter"
+  },
+  "onboarding": {
+    "step": "Étape",
+    "s1Title": "Faim physique ou émotionnelle ?",
+    "s1Text": "La faim physique s'installe lentement : ton estomac gargouille, l'énergie baisse, n'importe quel aliment ferait l'affaire. La faim émotionnelle arrive soudainement, réclame quelque chose de précis et reste souvent même après avoir mangé. Aucune des deux n'est mauvaise : simplement savoir laquelle tu ressens, c'est déjà énorme.",
+    "s2Title": "Quand cela arrive-t-il le plus souvent ?",
+    "s2Text": "Choisis les moments où tu as tendance à manger entre les repas. Tu pourras les modifier à tout moment.",
+    "s2Other": "Autre chose (précise)",
+    "s2OtherPlaceholder": "ex. les dimanches après-midi",
+    "s3Title": "Comment fonctionne le check-in",
+    "s3Text": "Quand tu es sur le point de manger entre les repas, ouvre l'appli et appuie sur le grand bouton. Je te poserai quatre questions courtes, une à la fois. Ensuite, tu choisis : attendre dix minutes, essayer un exercice, ou manger quand même. Il n'y a pas de bonne réponse.",
+    "s3Cta": "Fais ton premier check-in",
+    "triggers": {
+      "evening": "Les soirées",
+      "work": "Le stress au travail",
+      "boredom": "L'ennui",
+      "argument": "Après une dispute",
+      "night": "Tard le soir",
+      "alone": "Quand je suis seul(e)"
+    }
+  },
+  "checkin": {
+    "greeting": "Comment te sens-tu en ce moment ?",
+    "big": "Je suis sur le point de manger entre les repas",
+    "count": "check-ins jusqu'à présent",
+    "q1": "Est-ce une faim physique (estomac qui gargouille, énergie basse) ou autre chose ?",
+    "q1a": {
+      "physical": "Faim physique",
+      "unsure": "Je ne suis pas sûr(e)",
+      "emotional": "Pas une faim physique"
+    },
+    "q2": "Que ressens-tu en ce moment ?",
+    "q3": "Que s'est-il passé juste avant ?",
+    "q3Placeholder": "ex. une dispute avec un(e) collègue",
+    "q3Optional": "Facultatif",
+    "q4": "Qu'aimerais-tu faire maintenant ?",
+    "q4wait": "J'attends 10 minutes, puis je déciderai",
+    "q4exercise": "J'essaie un exercice court",
+    "q4eat": "J'ai décidé de manger quand même, et c'est très bien",
+    "eatMessage": "C'est très bien. Ce qui compte, c'est d'en avoir conscience.",
+    "waitTitle": "Dix minutes rien que pour toi",
+    "waitBreath": "Inspire lentement… retiens ta respiration… expire. Il n'y a rien d'autre à faire.",
+    "waitDone": "Les dix minutes sont écoulées. Comment te sens-tu maintenant ?",
+    "saved": "Check-in enregistré.",
+    "emotions": {
+      "stress": "Stress",
+      "boredom": "Ennui",
+      "sadness": "Tristesse",
+      "anger": "Colère",
+      "anxiety": "Anxiété",
+      "loneliness": "Solitude",
+      "tiredness": "Fatigue",
+      "other": "Autre"
+    }
+  },
+  "exercises": {
+    "title": "Bibliothèque d'exercices",
+    "subtitle": "Micro-exercices de 60 à 120 secondes. Choisis celui qui te convient aujourd'hui.",
+    "startTimer": "Démarrer le chronomètre",
+    "stopTimer": "Arrêter",
+    "done": "Terminé. Bravo."
+  },
+  "report": {
+    "title": "Ton rapport personnel",
+    "lockedTitle": "Se débloque après 7 check-ins",
+    "locked": "Encore {n} check-ins. Chacun ajoute une pièce à ton tableau.",
+    "emotions": "Émotions les plus fréquentes",
+    "times": "Quand cela arrive le plus souvent",
+    "hours": "Moment de la journée",
+    "days": "Jours de la semaine",
+    "triggers": "Tes 3 situations les plus récurrentes",
+    "noTriggers": "Tu n'as pas encore écrit assez de notes pour repérer des situations récurrentes.",
+    "summary": "En bref",
+    "demoNote": "Tu consultes des données d'exemple.",
+    "demoToggle": "Afficher les données d'exemple"
+  },
+  "monthly": {
+    "title": "Rapport mensuel",
+    "lockedTitle": "Se débloque après 30 jours",
+    "locked": "Encore {n} jours depuis ton premier check-in.",
+    "first15": "15 premiers jours",
+    "last15": "15 derniers jours",
+    "total": "Total des check-ins",
+    "waitRate": "Nombre de fois où tu as choisi d'attendre",
+    "better": "Tu choisis d'attendre plus souvent qu'avant. C'est un vrai changement.",
+    "same": "Tes chiffres sont stables. Rester attentif(ve) à toi-même, c'est déjà beaucoup.",
+    "lower": "Tu as moins attendu qu'avant. Ça arrive : tous les mois ne se ressemblent pas."
+  },
+  "settings": {
+    "title": "Réglages du compte",
+    "email": "E-mail",
+    "access": "Accès",
+    "lifetime": "Accès à vie actif",
+    "notPaid": "Accès pas encore débloqué",
+    "language": "Langue",
+    "triggersTitle": "Tes moments délicats",
+    "signOut": "Se déconnecter",
+    "resetOnboarding": "Revoir l'introduction"
+  },
+  "summary": {
+    "top": "L'émotion qui revient le plus dans tes check-ins est {emotion}.",
+    "hour": "Le moment le plus délicat de ta journée se situe autour de {hour}.",
+    "day": "Le jour où cela arrive le plus souvent est {day}.",
+    "wait": "Dans {pct}% des cas, tu as choisi d'attendre ou de faire un exercice plutôt que de manger tout de suite.",
+    "kind": "Rappelle-toi : remarquer tout cela, c'est déjà prendre soin de toi."
+  },
+  "days": [
+    "Dimanche",
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi"
+  ],
+  "store": {
+    "tagline": "Des applis simples. Des solutions immédiates.",
+    "nav": {
+      "store": "Boutique",
+      "catalog": "Catalogue",
+      "myApps": "Ma bibliothèque"
+    },
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "account": "Compte",
+    "heroTitle": "Des applis simples. Des solutions immédiates.",
+    "heroText": "Une boutique sélective de petites solutions numériques prêtes à l'emploi : mini applis web, checklists, modèles et ebooks. Achète-les une fois, garde-les pour toujours, sans abonnement.",
+    "heroCta": "Parcourir le catalogue",
+    "featured": "En vedette",
+    "allApps": "Toutes les applis",
+    "categories": "Catégories",
+    "allCategories": "Tout",
+    "noProducts": "Aucune appli dans cette catégorie pour l'instant.",
+    "discover": "Découvrir",
+    "open": "Ouvrir",
+    "openLibrary": "Aller à Ma bibliothèque",
+    "buyFor": "Acheter pour {price}",
+    "oneTime": "Paiement unique",
+    "lifetime": "Accès à vie",
+    "owned": "Possédé",
+    "comingSoon": "Bientôt disponible",
+    "type": {
+      "mini": "Mini appli web",
+      "premium": "Appli premium",
+      "professional": "Appli professionnelle",
+      "checklist": "Checklist",
+      "template": "Modèle",
+      "ebook": "Ebook",
+      "guide": "Guide",
+      "bundle": "Pack"
+    },
+    "myAppsTitle": "Ma bibliothèque",
+    "myAppsText": "Tout ce que tu as débloqué, toujours disponible.",
+    "emptyLibrary": "Ta bibliothèque est encore vide.",
+    "discoverMiniApps": "Parcourir le catalogue",
+    "accountTitle": "Ton compte",
+    "purchases": "Achats",
+    "noPurchases": "Aucun achat pour l'instant.",
+    "language": {
+      "label": "Langue"
+    },
+    "email": "E-mail",
+    "checkoutTitle": "Finalise ton achat",
+    "checkoutBack": "Retour au produit",
+    "purchaseSuccess": "Merci ! Nous confirmons ton paiement — l'appli apparaîtra ici sous peu.",
+    "noAccessTitle": "Aucun accès actif",
+    "noAccessText": "Cette appli n'est pas encore dans ta bibliothèque.",
+    "seeProduct": "Voir le produit",
+    "whatYouGet": "Ce qui est inclus",
+    "notFound": "Produit introuvable.",
+    "footer": "Un seul compte pour chaque mini appli. Paiements sécurisés avec Stripe.",
+    "paymentsNotConfigured": "Le paiement en production n'est pas configuré. Termine la mise en service de Stripe pour accepter de vrais paiements.",
+    "testMode": "Tous les paiements en aperçu sont en mode test.",
+    "testModeDetails": "Détails",
+    "brand": "MINI WEB APPS",
+    "promise": "Achète une fois. Ton appli reste à toi. Aucun abonnement.",
+    "catalogIntro": "De petites solutions numériques prêtes à l'emploi : applis, checklists, modèles, ebooks et guides.",
+    "securePayment": "Paiement sécurisé avec Stripe",
+    "gift": {
+      "title": "Utilise ton cadeau",
+      "intro": "Ce code débloque une seule appli, liée à ton compte.",
+      "redeem": "Utiliser maintenant",
+      "success": "Cadeau utilisé ! L'appli est maintenant dans ta bibliothèque.",
+      "open": "Ouvrir l'appli",
+      "invalid_token": "Code cadeau invalide.",
+      "already_redeemed": "Ce cadeau a déjà été utilisé.",
+      "not_paid": "Le paiement de ce cadeau n'est pas encore confirmé.",
+      "expired": "Ce code cadeau a expiré.",
+      "refunded": "Ce cadeau a été remboursé.",
+      "cancelled": "Ce cadeau a été annulé.",
+      "error": "Nous n'avons pas pu utiliser ce cadeau.",
+      "buyTitle": "Offrir cette appli",
+      "buyIntro": "Le destinataire reçoit un code qui débloque uniquement cette appli, lié à son compte.",
+      "recipientEmail": "E-mail du destinataire",
+      "purchaserEmail": "Ton e-mail (facultatif)",
+      "message": "Ajouter un message personnel (facultatif)",
+      "continue": "Continuer vers le paiement",
+      "cta": "Offrir cette appli",
+      "messageHelp": "Nous le montrerons à la personne qui reçoit le cadeau.",
+      "messagePlaceholder": "Écris un message pour la personne qui recevra le cadeau…",
+      "recipientPlaceholder": "nom@exemple.com",
+      "purchaserPlaceholder": "tonemail@exemple.com",
+      "messageFrom": "Message de la personne qui a offert ce cadeau",
+      "inboxTitle": "🎁 Tu as reçu un cadeau",
+      "inboxIntro": "Ce cadeau est lié à ton e-mail. Utilise-le pour l'ajouter à ta bibliothèque.",
+      "receivedBadge": "🎁 Cadeau reçu",
+      "viewMessage": "Voir le message du cadeau",
+      "hideMessage": "Masquer le message",
+      "giftedTitle": "🎁 Cette appli t'a été offerte",
+      "not_authenticated": "Connecte-toi pour utiliser ce cadeau."
+    },
+    "marketing": {
+      "title": "Communications",
+      "consent": "Je souhaite recevoir des actualités, de nouvelles mini applis et des offres par e-mail.",
+      "hint": "Les e-mails de service (connexion, achats, reçus) sont toujours envoyés et ne dépendent pas de ce choix.",
+      "since": "Consentement donné le {date}",
+      "saving": "Enregistrement…",
+      "saved": "Préférence enregistrée",
+      "error": "Nous n'avons pas pu enregistrer ta préférence."
+    },
+    "admin": {
+      "nav": "Admin",
+      "title": "Tableau de bord admin",
+      "subtitle": "Données agrégées pour la boutique MINI WEB APPS.",
+      "denied": "Cette zone est réservée à l'administrateur.",
+      "tabs": {
+        "overview": "Vue d'ensemble",
+        "users": "Utilisateurs",
+        "sales": "Ventes",
+        "marketing": "Marketing",
+        "analytics": "Analytique",
+        "products": "Produits",
+        "gifts": "Cadeaux"
+      },
+      "kpi": {
+        "users": "Utilisateurs inscrits",
+        "new7": "Nouveaux (7 jours)",
+        "new30": "Nouveaux (30 jours)",
+        "consent": "Consentements marketing",
+        "sales": "Achats confirmés",
+        "revenue": "Revenu total",
+        "activeProducts": "Applis actives",
+        "conversion": "Conversion inscription → achat"
+      },
+      "salesByProduct": "Ventes par appli",
+      "latestPurchases": "Derniers achats",
+      "usersTitle": "Utilisateurs",
+      "colEmail": "E-mail",
+      "colLanguage": "Langue",
+      "colConsent": "Marketing",
+      "colApps": "Applis",
+      "colDate": "Inscrit(e)",
+      "colProduct": "Appli",
+      "colAmount": "Montant",
+      "colStatus": "Statut",
+      "yes": "Oui",
+      "no": "Non",
+      "campaignTitle": "Annoncer une nouvelle mini appli",
+      "campaignHint": "L'e-mail n'est envoyé que lorsque tu appuies sur envoyer, et uniquement aux utilisateurs qui ont donné leur consentement marketing.",
+      "audience": "Destinataires",
+      "audienceAll": "Tous les utilisateurs consentants",
+      "audienceIt": "Italophones uniquement",
+      "audienceEn": "Anglophones uniquement",
+      "audienceCategory": "Propriétaires d'applis d'une catégorie",
+      "category": "Catégorie",
+      "subject": "Objet",
+      "content": "Contenu (HTML)",
+      "senderName": "Nom de l'expéditeur",
+      "senderEmail": "E-mail de l'expéditeur (domaine vérifié dans Brevo)",
+      "preview": "Compter les destinataires",
+      "send": "Envoyer la campagne",
+      "sending": "Envoi en cours…",
+      "recipients": "Destinataires estimés : {count}",
+      "sent": "Campagne envoyée à {count} destinataires.",
+      "failed": "Échec de l'envoi : {error}",
+      "history": "Campagnes envoyées",
+      "noCampaigns": "Aucune campagne envoyée pour l'instant.",
+      "analyticsTitle": "Analytique produit",
+      "analyticsText": "Les visites, tunnels et événements sont collectés dans PostHog. Événements suivis :",
+      "analyticsEvents": "visite boutique, vue produit, inscription, connexion, paiement démarré, achat effectué, appli ouverte.",
+      "analyticsPrivacy": "Aucune donnée de paiement, mot de passe ou donnée sensible n'est envoyée.",
+      "products": {
+        "tab": "Produits",
+        "productsTitle": "Mini applis de la boutique",
+        "newProduct": "Nouvelle mini appli",
+        "edit": "Modifier",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "saved": "Produit enregistré.",
+        "saveFailed": "Impossible d'enregistrer : {error}",
+        "noProducts": "Aucun produit dans le catalogue pour l'instant.",
+        "fSlug": "Slug (identifiant URL)",
+        "fNameIt": "Nom (IT)",
+        "fNameEn": "Nom (EN)",
+        "fShortIt": "Description courte (IT)",
+        "fShortEn": "Description courte (EN)",
+        "fDescIt": "Description complète (IT)",
+        "fDescEn": "Description complète (EN)",
+        "fCategory": "Catégorie",
+        "fImage": "Image de couverture (URL https)",
+        "fAccent": "Couleur d'accent",
+        "fPrice": "Prix",
+        "fCurrency": "Devise",
+        "fType": "Type de produit",
+        "fStripe": "ID de prix Stripe",
+        "fPath": "Route interne (ex. /app/nom-appli)",
+        "fUrl": "URL externe de l'appli (https)",
+        "fStatus": "Statut",
+        "fSort": "Ordre",
+        "statusDraft": "Brouillon",
+        "statusActive": "Actif",
+        "statusHidden": "Masqué",
+        "statusComingSoon": "Bientôt disponible",
+        "typeMini": "Mini appli",
+        "typePremium": "Appli premium",
+        "typePro": "Appli professionnelle",
+        "securityNote": "Une route ou une URL n'est qu'un lien : l'ouverture d'une mini appli reste autorisée côté serveur (utilisateur + produit + environnement + accès actif).",
+        "visibilityNote": "Les produits actifs apparaissent immédiatement dans le catalogue. Brouillon et Masqué ne sont jamais publics.",
+        "fAccessMode": "Mode d'accès",
+        "accessPaid": "Payant",
+        "accessFreeAccount": "Gratuit avec compte",
+        "accessFreePublic": "Gratuit et public",
+        "fBadge": "Badge (facultatif)",
+        "typeChecklist": "Checklist",
+        "typeTemplate": "Modèle",
+        "typeEbook": "Ebook",
+        "typeGuide": "Guide",
+        "typeBundle": "Pack",
+        "assetsTitle": "Contenus du produit",
+        "assetTitle": "Titre",
+        "assetType": "Type",
+        "assetFile": "Fichier privé",
+        "assetUrl": "Adresse",
+        "assetUpload": "Téléverser le fichier",
+        "assetAdd": "Ajouter un contenu",
+        "assetRemove": "Retirer",
+        "assetsNote": "Les fichiers sont stockés en privé : les téléchargements utilisent un lien temporaire délivré seulement après vérification de la propriété.",
+        "bundleTitle": "Produits inclus dans le pack",
+        "bundleNote": "Seuls les produits sélectionnés sont débloqués lors de l'achat du pack.",
+        "stripeNote": "Les champs Stripe ne s'appliquent qu'aux produits payants.",
+        "assetsHint": "Chemin de stockage privé ou adresse https externe.",
+        "fAssetType": "Type de contenu",
+        "fAssetTitle": "Titre du contenu",
+        "fAssetPath": "Chemin du fichier (stockage privé)",
+        "fAssetUrl": "URL externe",
+        "addAsset": "Ajouter un contenu",
+        "remove": "Retirer",
+        "bundleHint": "Les produits sélectionnés sont débloqués côté serveur lors de l'achat du pack."
+      },
+      "gifts": {
+        "title": "Cadeaux",
+        "hint": "Seuls les cadeaux de l'environnement actuel avec un paiement confirmé. Le renvoi ne crée jamais de cadeaux, de codes ou d'accès.",
+        "resend": "Renvoyer l'e-mail",
+        "sending": "Envoi en cours…",
+        "confirm": "Renvoyer cet e-mail de cadeau au destinataire ?",
+        "accepted": "E-mail accepté par Brevo",
+        "alreadyRedeemed": "Cadeau déjà utilisé : aucun lien de récupération n'a été envoyé.",
+        "cooldown": "Merci d'attendre une minute avant de renvoyer.",
+        "notPaid": "Paiement non confirmé.",
+        "empty": "Aucun cadeau dans cet environnement.",
+        "sentAt": "envoyé le"
+      }
+    },
+    "free": "GRATUIT",
+    "freeAccess": "Gratuit",
+    "getFree": "Obtenir gratuitement",
+    "downloadFree": "Télécharger gratuitement",
+    "claiming": "Un instant…",
+    "claimed": "Ajouté à ta bibliothèque.",
+    "claimFailed": "Nous n'avons pas pu ajouter ce produit.",
+    "read": "Lire",
+    "download": "Télécharger",
+    "openTemplate": "Ouvrir le modèle",
+    "included": "Ce qui est inclus",
+    "contents": "Contenus",
+    "noContents": "Aucun contenu disponible.",
+    "downloadFailed": "Téléchargement indisponible.",
+    "filters": {
+      "all": "Tout",
+      "miniApps": "Mini applis web",
+      "checklist": "Checklists",
+      "template": "Modèles",
+      "ebooks": "Ebooks & guides",
+      "bundle": "Packs",
+      "free": "Gratuit"
+    },
+    "themes": "Catégories",
+    "marketingOptIn": "Je souhaite recevoir des actualités, de nouvelles ressources et des offres de MINI WEB APPS.",
+    "bundleIncludes": "Ce pack inclut",
+    "faq": {
+      "title": "Questions fréquentes",
+      "intro": "Réponses rapides sur les comptes, les achats, les produits gratuits, les cadeaux et l'assistance.",
+      "nav": "FAQ",
+      "groups": [
+        {
+          "title": "Compte",
+          "items": [
+            {
+              "q": "Ai-je besoin d'un compte ?",
+              "a": "Oui. Ton compte associe les produits que tu obtiens à ton profil, afin qu'ils restent dans ta bibliothèque sur tout appareil."
+            },
+            {
+              "q": "Puis-je utiliser le même compte pour chaque produit ?",
+              "a": "Oui. Un seul compte MINI WEB APPS regroupe toutes les mini applis, checklists, modèles, ebooks et guides que tu obtiens."
+            },
+            {
+              "q": "J'ai oublié mon mot de passe, que dois-je faire ?",
+              "a": "Sur la page de connexion, tu peux demander une réinitialisation de mot de passe : tu recevras un e-mail avec un lien pour en définir un nouveau."
+            },
+            {
+              "q": "Puis-je changer mon e-mail ?",
+              "a": "Ton e-mail identifie ton compte et ne peut pas être modifié depuis l'espace compte. Si tu dois le changer, écris au support depuis l'adresse avec laquelle tu t'es inscrit(e)."
+            }
+          ]
+        },
+        {
+          "title": "Achats",
+          "items": [
+            {
+              "q": "Est-ce un paiement unique ou un abonnement ?",
+              "a": "C'est un paiement unique. Aucun abonnement, aucun renouvellement automatique."
+            },
+            {
+              "q": "Combien de temps dure mon accès ?",
+              "a": "L'accès aux produits achetés est à vie : ils restent dans ta bibliothèque et tu peux les rouvrir à tout moment."
+            },
+            {
+              "q": "Où trouver les produits que j'ai achetés ?",
+              "a": "Dans Ma bibliothèque, depuis le menu du haut une fois connecté(e)."
+            },
+            {
+              "q": "Si j'achète une appli web, ai-je aussi accès aux autres ?",
+              "a": "Non. Chaque produit est indépendant : un achat débloque uniquement ce produit (ou, pour un pack, les produits qu'il contient)."
+            },
+            {
+              "q": "Puis-je acheter plusieurs produits avec le même compte ?",
+              "a": "Oui. Tu peux acheter autant de produits que tu veux : ils arrivent tous dans la même bibliothèque."
+            }
+          ]
+        },
+        {
+          "title": "Produits gratuits",
+          "items": [
+            {
+              "q": "Comment fonctionnent les produits gratuits ?",
+              "a": "Les produits gratuits s'ajoutent à ta bibliothèque en un clic depuis la page produit, comme les autres."
+            },
+            {
+              "q": "Dois-je aussi m'inscrire pour un produit gratuit ?",
+              "a": "Certains produits gratuits nécessitent un compte pour rester enregistrés dans ta bibliothèque ; d'autres sont accessibles sans inscription. La page produit t'indique lequel."
+            }
+          ]
+        },
+        {
+          "title": "Cadeaux",
+          "items": [
+            {
+              "q": "Puis-je offrir une appli web ou un autre produit ?",
+              "a": "Oui. La page produit propose une option cadeau où tu saisis l'e-mail du destinataire."
+            },
+            {
+              "q": "Comment le destinataire reçoit-il le cadeau ?",
+              "a": "Il reçoit un code d'utilisation lié au produit offert : en ouvrant le lien, il l'ajoute à sa bibliothèque."
+            },
+            {
+              "q": "Le destinataire a-t-il besoin d'un compte ?",
+              "a": "Oui. Le cadeau est lié à son compte afin de rester disponible dans le temps."
+            },
+            {
+              "q": "Un cadeau ne débloque-t-il que le produit acheté ?",
+              "a": "Exactement. Chaque cadeau ne débloque que le produit pour lequel il a été payé, rien d'autre."
+            }
+          ]
+        },
+        {
+          "title": "Paiements",
+          "items": [
+            {
+              "q": "Les paiements sont-ils sécurisés ?",
+              "a": "Oui. Les paiements sont entièrement gérés par Stripe, un prestataire de paiement en ligne certifié."
+            },
+            {
+              "q": "Quels moyens de paiement sont acceptés ?",
+              "a": "Les moyens proposés par Stripe au moment du paiement, notamment les principales cartes de crédit et de débit."
+            },
+            {
+              "q": "MINI WEB APPS stocke-t-il mes coordonnées bancaires ?",
+              "a": "Non. Les coordonnées bancaires complètes ne transitent jamais par la boutique et n'y sont jamais stockées : elles sont gérées directement par Stripe."
+            }
+          ]
+        },
+        {
+          "title": "Problèmes techniques",
+          "items": [
+            {
+              "q": "J'ai payé mais le produit n'est pas dans ma bibliothèque.",
+              "a": "La confirmation de paiement se fait côté serveur et peut prendre un instant. Rafraîchis ta bibliothèque après une minute ; si le produit manque toujours, écris au support."
+            },
+            {
+              "q": "Le produit ne s'ouvre pas.",
+              "a": "Vérifie que tu es connecté(e) avec le compte utilisé pour l'achat et rafraîchis la page. Si le problème persiste, contacte-nous."
+            },
+            {
+              "q": "Que faire si une appli web a un problème technique ?",
+              "a": "Signale-le en précisant le nom du produit, ton appareil et ce que tu faisais : cela nous aide à trouver la cause plus vite."
+            },
+            {
+              "q": "Puis-je utiliser les produits sur téléphone, tablette et ordinateur ?",
+              "a": "Oui. La boutique et les mini applis sont conçues pour fonctionner dans le navigateur, sur téléphone, tablette et ordinateur."
+            }
+          ]
+        },
+        {
+          "title": "Langue",
+          "items": [
+            {
+              "q": "Puis-je utiliser la boutique en italien et en anglais ?",
+              "a": "Oui. Change de langue à tout moment avec le sélecteur IT/EN en haut de page : le contenu est traduit dans l'appli, sans traduction automatique du navigateur."
+            }
+          ]
+        },
+        {
+          "title": "Confidentialité et marketing",
+          "items": [
+            {
+              "q": "Vais-je recevoir des e-mails marketing automatiquement ?",
+              "a": "Non. Les e-mails commerciaux ne sont envoyés que si tu as donné ton consentement. Les e-mails de service (connexion, achats, reçus) sont toujours envoyés."
+            },
+            {
+              "q": "Comment retirer mon consentement marketing ?",
+              "a": "Depuis la section Communications de ton compte, tu peux retirer ton consentement à tout moment."
+            }
+          ]
+        }
+      ],
+      "contactTitle": "Tu n'as pas trouvé ta réponse ?",
+      "contactText": "Écris-nous en répondant à ton e-mail de confirmation d'achat ou à ton e-mail d'inscription : nous répondons depuis la même adresse. Mentionne le produit et ce que tu as déjà essayé.",
+      "contactAccount": "Aller à ton compte",
+      "contactCatalog": "Retour au catalogue",
+      "legalNote": "Les conditions contractuelles, droits et remboursements sont régis par les Conditions Générales du service."
+    }
+  }
+}

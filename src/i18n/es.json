@@ -1,0 +1,603 @@
+{
+  "brand": "Fame o Fame?",
+  "tagline": "No toda el hambre viene del estómago.",
+  "nav": {
+    "checkin": "Registro",
+    "exercises": "Ejercicios",
+    "report": "Informe",
+    "monthly": "Mensual",
+    "settings": "Ajustes"
+  },
+  "common": {
+    "continue": "Continuar",
+    "back": "Atrás",
+    "skip": "Saltar",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "close": "Cerrar",
+    "loading": "Un momento…",
+    "start": "Empezar",
+    "minutes": "minutos",
+    "seconds": "segundos"
+  },
+  "landing": {
+    "heroTitle": "Aprende a reconocer tu hambre",
+    "heroText": "Fame o Fame? te ayuda a distinguir el hambre física del hambre emocional, con delicadeza y sin juzgarte. Un pequeño gesto de conciencia, siempre que lo necesites.",
+    "cta": "Empezar",
+    "login": "Iniciar sesión",
+    "f1Title": "Un registro de un minuto",
+    "f1Text": "Cuatro preguntas amables, antes de comer entre horas.",
+    "f2Title": "Ejercicios breves",
+    "f2Text": "Diez microejercicios de 60 a 120 segundos para superar el impulso.",
+    "f3Title": "Tus patrones",
+    "f3Text": "Informes personales que muestran cuándo y por qué aparece el hambre emocional.",
+    "priceTitle": "Un solo pago, acceso de por vida",
+    "priceText": "Sin suscripción, sin renovaciones. Paga una vez y la app es tuya para siempre.",
+    "noScales": "Sin calorías, sin básculas. Solo escucharte."
+  },
+  "auth": {
+    "title": "Inicia sesión en tu cuenta",
+    "subtitle": "Una sola cuenta para todas tus mini apps.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "signIn": "Iniciar sesión",
+    "signUp": "Crear cuenta",
+    "toSignUp": "¿Aún no tienes cuenta? Regístrate",
+    "toSignIn": "¿Ya tienes cuenta? Inicia sesión",
+    "checkEmail": "Te hemos enviado un correo de confirmación. Revisa tu bandeja de entrada para activar tu acceso.",
+    "error": "Algo ha ido mal. Inténtalo de nuevo.",
+    "titleSignUp": "Crea tu cuenta",
+    "subtitleSignUp": "Solo necesitas un correo y una contraseña.",
+    "marketingLabel": "Quiero recibir novedades, nuevas mini apps y ofertas por correo electrónico.",
+    "marketingHint": "Opcional. No enviamos correos de marketing sin tu consentimiento: puedes retirarlo cuando quieras desde tu cuenta."
+  },
+  "paywall": {
+    "title": "Tu espacio está casi listo",
+    "text": "Fame o Fame? es una compra única: desbloquea el acceso de por vida, sin suscripciones.",
+    "cta": "Desbloquear acceso de por vida",
+    "note": "Pago seguro. Sin renovación automática.",
+    "signOut": "Cerrar sesión"
+  },
+  "onboarding": {
+    "step": "Paso",
+    "s1Title": "¿Hambre física o emocional?",
+    "s1Text": "El hambre física aparece poco a poco: el estómago suena, la energía baja, cualquier alimento sirve. El hambre emocional llega de golpe, pide algo concreto y a menudo persiste incluso después de comer. Ninguna es incorrecta: simplemente saber cuál sientes ya lo es todo.",
+    "s2Title": "¿Cuándo suele pasarte más?",
+    "s2Text": "Elige los momentos en los que sueles comer entre horas. Puedes cambiarlos cuando quieras.",
+    "s2Other": "Algo más (escríbelo)",
+    "s2OtherPlaceholder": "p. ej. domingos por la tarde",
+    "s3Title": "Cómo funciona el registro",
+    "s3Text": "Cada vez que estés a punto de comer entre horas, abre la app y pulsa el botón grande. Te haré cuatro preguntas breves, una a una. Después eliges: esperar diez minutos, probar un ejercicio o comer de todos modos. No hay una respuesta correcta.",
+    "s3Cta": "Haz tu primer registro",
+    "triggers": {
+      "evening": "Tardes",
+      "work": "Estrés laboral",
+      "boredom": "Aburrimiento",
+      "argument": "Después de una discusión",
+      "night": "Por la noche",
+      "alone": "Cuando estoy a solas"
+    }
+  },
+  "checkin": {
+    "greeting": "¿Cómo te encuentras ahora mismo?",
+    "big": "Estoy a punto de comer entre horas",
+    "count": "registros hasta ahora",
+    "q1": "¿Es hambre física (estómago que suena, poca energía) o es otra cosa?",
+    "q1a": {
+      "physical": "Hambre física",
+      "unsure": "No estoy seguro",
+      "emotional": "No es hambre física"
+    },
+    "q2": "¿Qué estás sintiendo ahora mismo?",
+    "q3": "¿Qué pasó justo antes?",
+    "q3Placeholder": "p. ej. una discusión con un compañero",
+    "q3Optional": "Opcional",
+    "q4": "¿Qué te gustaría hacer ahora?",
+    "q4wait": "Voy a esperar 10 minutos y luego decido",
+    "q4exercise": "Voy a probar un ejercicio breve",
+    "q4eat": "He decidido comer de todos modos, y está bien",
+    "eatMessage": "No pasa nada. Lo importante es que eres consciente de ello.",
+    "waitTitle": "Diez minutos solo para ti",
+    "waitBreath": "Inspira despacio… aguanta… espira. No hay nada más que hacer.",
+    "waitDone": "Se han cumplido los diez minutos. ¿Cómo te sientes ahora?",
+    "saved": "Registro guardado.",
+    "emotions": {
+      "stress": "Estrés",
+      "boredom": "Aburrimiento",
+      "sadness": "Tristeza",
+      "anger": "Enfado",
+      "anxiety": "Ansiedad",
+      "loneliness": "Soledad",
+      "tiredness": "Cansancio",
+      "other": "Otra"
+    }
+  },
+  "exercises": {
+    "title": "Biblioteca de ejercicios",
+    "subtitle": "Microejercicios de 60 a 120 segundos. Elige el que mejor te venga hoy.",
+    "startTimer": "Iniciar temporizador",
+    "stopTimer": "Detener",
+    "done": "Hecho. Muy bien."
+  },
+  "report": {
+    "title": "Tu informe personal",
+    "lockedTitle": "Se desbloquea tras 7 registros",
+    "locked": "Te faltan {n} registros. Cada uno añade una pieza a tu panorama.",
+    "emotions": "Emociones más frecuentes",
+    "times": "Cuándo suele ocurrir",
+    "hours": "Hora del día",
+    "days": "Días de la semana",
+    "triggers": "Tus 3 situaciones más recurrentes",
+    "noTriggers": "Todavía no has escrito suficientes notas para detectar situaciones recurrentes.",
+    "summary": "En resumen",
+    "demoNote": "Estás viendo datos de ejemplo.",
+    "demoToggle": "Mostrar datos de ejemplo"
+  },
+  "monthly": {
+    "title": "Informe mensual",
+    "lockedTitle": "Se desbloquea a los 30 días",
+    "locked": "Faltan {n} días desde tu primer registro.",
+    "first15": "Primeros 15 días",
+    "last15": "Últimos 15 días",
+    "total": "Total de registros",
+    "waitRate": "Veces que elegiste esperar",
+    "better": "Estás eligiendo esperar más a menudo que antes. Es un cambio real.",
+    "same": "Tus cifras se mantienen estables. Prestarte atención ya es mucho.",
+    "lower": "Has esperado menos que antes. Pasa: no todos los meses son iguales."
+  },
+  "settings": {
+    "title": "Ajustes de la cuenta",
+    "email": "Correo electrónico",
+    "access": "Acceso",
+    "lifetime": "Acceso de por vida activo",
+    "notPaid": "Acceso aún no desbloqueado",
+    "language": "Idioma",
+    "triggersTitle": "Tus momentos delicados",
+    "signOut": "Cerrar sesión",
+    "resetOnboarding": "Repetir la introducción"
+  },
+  "summary": {
+    "top": "La emoción que aparece más a menudo en tus registros es {emotion}.",
+    "hour": "El momento más delicado de tu día suele ser alrededor de las {hour}.",
+    "day": "El día en que ocurre con más frecuencia es {day}.",
+    "wait": "En el {pct}% de los casos elegiste esperar o hacer un ejercicio en lugar de comer enseguida.",
+    "kind": "Recuerda: darte cuenta de todo esto ya es cuidarte."
+  },
+  "days": [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado"
+  ],
+  "store": {
+    "tagline": "Apps sencillas. Soluciones inmediatas.",
+    "nav": {
+      "store": "Tienda",
+      "catalog": "Catálogo",
+      "myApps": "Mi Biblioteca"
+    },
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "account": "Cuenta",
+    "heroTitle": "Apps sencillas. Soluciones inmediatas.",
+    "heroText": "Una tienda seleccionada de pequeñas soluciones digitales listas para usar: mini apps, listas de comprobación, plantillas y ebooks. Consíguelas una vez, quédatelas para siempre, sin suscripción.",
+    "heroCta": "Explorar el catálogo",
+    "featured": "Destacados",
+    "allApps": "Todas las apps",
+    "categories": "Categorías",
+    "allCategories": "Todas",
+    "noProducts": "Todavía no hay apps en esta categoría.",
+    "discover": "Descubrir",
+    "open": "Abrir",
+    "openLibrary": "Ir a Mi Biblioteca",
+    "buyFor": "Comprar por {price}",
+    "oneTime": "Pago único",
+    "lifetime": "Acceso de por vida",
+    "owned": "Adquirido",
+    "comingSoon": "Próximamente",
+    "type": {
+      "mini": "Mini Web App",
+      "premium": "App premium",
+      "professional": "App profesional",
+      "checklist": "Lista de comprobación",
+      "template": "Plantilla",
+      "ebook": "Ebook",
+      "guide": "Guía",
+      "bundle": "Paquete"
+    },
+    "myAppsTitle": "Mi Biblioteca",
+    "myAppsText": "Todo lo que has desbloqueado, siempre disponible.",
+    "emptyLibrary": "Tu biblioteca todavía está vacía.",
+    "discoverMiniApps": "Explorar el catálogo",
+    "accountTitle": "Tu cuenta",
+    "purchases": "Compras",
+    "noPurchases": "Todavía no hay compras.",
+    "language": {
+      "label": "Idioma"
+    },
+    "email": "Correo electrónico",
+    "checkoutTitle": "Completa tu compra",
+    "checkoutBack": "Volver al producto",
+    "purchaseSuccess": "¡Gracias! Estamos confirmando tu pago; la app aparecerá aquí en breve.",
+    "noAccessTitle": "Sin acceso activo",
+    "noAccessText": "Esta app todavía no está en tu biblioteca.",
+    "seeProduct": "Ver el producto",
+    "whatYouGet": "Qué incluye",
+    "notFound": "Producto no encontrado.",
+    "footer": "Una sola cuenta para cada mini app. Pagos seguros con Stripe.",
+    "paymentsNotConfigured": "El pago en producción no está configurado. Completa el go-live de Stripe para aceptar pagos reales.",
+    "testMode": "Todos los pagos en la vista previa están en modo de prueba.",
+    "testModeDetails": "Detalles",
+    "brand": "MINI WEB APPS",
+    "promise": "Compra una vez. Tu app sigue siendo tuya. Sin suscripción.",
+    "catalogIntro": "Pequeñas soluciones digitales listas para usar: apps, listas de comprobación, plantillas, ebooks y guías.",
+    "securePayment": "Pago seguro con Stripe",
+    "gift": {
+      "title": "Canjea tu regalo",
+      "intro": "Este código desbloquea una sola app, vinculada a tu cuenta.",
+      "redeem": "Canjear ahora",
+      "success": "¡Regalo canjeado! La app ya está en tu biblioteca.",
+      "open": "Abrir la app",
+      "invalid_token": "Código de regalo no válido.",
+      "already_redeemed": "Este regalo ya se ha canjeado.",
+      "not_paid": "El pago de este regalo aún no se ha confirmado.",
+      "expired": "Este código de regalo ha caducado.",
+      "refunded": "Este regalo se ha reembolsado.",
+      "cancelled": "Este regalo se ha cancelado.",
+      "error": "No hemos podido canjear este regalo.",
+      "buyTitle": "Regala esta app",
+      "buyIntro": "La persona destinataria recibe un código que desbloquea solo esta app, vinculado a su cuenta.",
+      "recipientEmail": "Correo del destinatario",
+      "purchaserEmail": "Tu correo (opcional)",
+      "message": "Añade un mensaje personal (opcional)",
+      "continue": "Continuar al pago",
+      "cta": "Regalar esta app",
+      "messageHelp": "Se lo mostraremos a la persona que reciba el regalo.",
+      "messagePlaceholder": "Escribe un mensaje para quien reciba el regalo…",
+      "recipientPlaceholder": "nombre@ejemplo.com",
+      "purchaserPlaceholder": "tucorreo@ejemplo.com",
+      "messageFrom": "Mensaje de quien ha hecho este regalo",
+      "inboxTitle": "🎁 Has recibido un regalo",
+      "inboxIntro": "Este regalo está vinculado a tu correo. Canjéalo para añadirlo a tu biblioteca.",
+      "receivedBadge": "🎁 Regalo recibido",
+      "viewMessage": "Ver el mensaje del regalo",
+      "hideMessage": "Ocultar mensaje",
+      "giftedTitle": "🎁 Esta app te la han regalado",
+      "not_authenticated": "Inicia sesión para canjear este regalo."
+    },
+    "marketing": {
+      "title": "Comunicaciones",
+      "consent": "Quiero recibir novedades, nuevas mini apps y ofertas por correo electrónico.",
+      "hint": "Los correos de servicio (inicio de sesión, compras, recibos) siempre se envían y no dependen de esta elección.",
+      "since": "Consentimiento dado el {date}",
+      "saving": "Guardando…",
+      "saved": "Preferencia guardada",
+      "error": "No hemos podido guardar tu preferencia."
+    },
+    "admin": {
+      "nav": "Administración",
+      "title": "Panel de administración",
+      "subtitle": "Datos agregados de la tienda MINI WEB APPS.",
+      "denied": "Esta área está reservada al administrador.",
+      "tabs": {
+        "overview": "Resumen",
+        "users": "Usuarios",
+        "sales": "Ventas",
+        "marketing": "Marketing",
+        "analytics": "Analítica",
+        "products": "Productos",
+        "gifts": "Regalos"
+      },
+      "kpi": {
+        "users": "Usuarios registrados",
+        "new7": "Nuevos (7 días)",
+        "new30": "Nuevos (30 días)",
+        "consent": "Consentimientos de marketing",
+        "sales": "Compras confirmadas",
+        "revenue": "Ingresos totales",
+        "activeProducts": "Apps activas",
+        "conversion": "Conversión registro → compra"
+      },
+      "salesByProduct": "Ventas por app",
+      "latestPurchases": "Últimas compras",
+      "usersTitle": "Usuarios",
+      "colEmail": "Correo electrónico",
+      "colLanguage": "Idioma",
+      "colConsent": "Marketing",
+      "colApps": "Apps",
+      "colDate": "Registrado",
+      "colProduct": "App",
+      "colAmount": "Importe",
+      "colStatus": "Estado",
+      "yes": "Sí",
+      "no": "No",
+      "campaignTitle": "Anunciar una nueva mini app",
+      "campaignHint": "El correo solo se envía cuando pulsas enviar, y solo a usuarios que hayan dado su consentimiento de marketing.",
+      "audience": "Destinatarios",
+      "audienceAll": "Todos los usuarios que han dado su consentimiento",
+      "audienceIt": "Solo hablantes de italiano",
+      "audienceEn": "Solo hablantes de inglés",
+      "audienceCategory": "Propietarios de apps de una categoría",
+      "category": "Categoría",
+      "subject": "Asunto",
+      "content": "Contenido (HTML)",
+      "senderName": "Nombre del remitente",
+      "senderEmail": "Correo del remitente (dominio verificado en Brevo)",
+      "preview": "Contar destinatarios",
+      "send": "Enviar campaña",
+      "sending": "Enviando…",
+      "recipients": "Destinatarios estimados: {count}",
+      "sent": "Campaña enviada a {count} destinatarios.",
+      "failed": "Error al enviar: {error}",
+      "history": "Campañas enviadas",
+      "noCampaigns": "Todavía no se ha enviado ninguna campaña.",
+      "analyticsTitle": "Analítica del producto",
+      "analyticsText": "Las visitas, embudos y eventos se recogen en PostHog. Eventos registrados:",
+      "analyticsEvents": "visita a la tienda, vista de producto, registro, inicio de sesión, checkout iniciado, compra completada, app abierta.",
+      "analyticsPrivacy": "No se envían datos de pago, contraseñas ni datos sensibles.",
+      "products": {
+        "tab": "Productos",
+        "productsTitle": "Mini apps de la tienda",
+        "newProduct": "Nueva Mini App",
+        "edit": "Editar",
+        "cancel": "Cancelar",
+        "save": "Guardar",
+        "saving": "Guardando…",
+        "saved": "Producto guardado.",
+        "saveFailed": "No se ha podido guardar: {error}",
+        "noProducts": "Todavía no hay productos en el catálogo.",
+        "fSlug": "Slug (identificador de URL)",
+        "fNameIt": "Nombre (IT)",
+        "fNameEn": "Nombre (EN)",
+        "fShortIt": "Descripción breve (IT)",
+        "fShortEn": "Descripción breve (EN)",
+        "fDescIt": "Descripción completa (IT)",
+        "fDescEn": "Descripción completa (EN)",
+        "fCategory": "Categoría",
+        "fImage": "Imagen de portada (URL https)",
+        "fAccent": "Color de acento",
+        "fPrice": "Precio",
+        "fCurrency": "Moneda",
+        "fType": "Tipo de producto",
+        "fStripe": "ID de precio de Stripe",
+        "fPath": "Ruta interna (p. ej. /app/nombre-app)",
+        "fUrl": "URL externa de la app (https)",
+        "fStatus": "Estado",
+        "fSort": "Orden",
+        "statusDraft": "Borrador",
+        "statusActive": "Activo",
+        "statusHidden": "Oculto",
+        "statusComingSoon": "Próximamente",
+        "typeMini": "Mini app",
+        "typePremium": "App premium",
+        "typePro": "App profesional",
+        "securityNote": "Una ruta o URL es solo un enlace: abrir una mini app sigue estando autorizado del lado del servidor (usuario + producto + entorno + acceso activo).",
+        "visibilityNote": "Los productos activos aparecen en el catálogo de inmediato. Los borradores y ocultos nunca son públicos.",
+        "fAccessMode": "Modo de acceso",
+        "accessPaid": "De pago",
+        "accessFreeAccount": "Gratis con cuenta",
+        "accessFreePublic": "Gratis y público",
+        "fBadge": "Distintivo (opcional)",
+        "typeChecklist": "Lista de comprobación",
+        "typeTemplate": "Plantilla",
+        "typeEbook": "Ebook",
+        "typeGuide": "Guía",
+        "typeBundle": "Paquete",
+        "assetsTitle": "Contenidos del producto",
+        "assetTitle": "Título",
+        "assetType": "Tipo",
+        "assetFile": "Archivo privado",
+        "assetUrl": "Dirección",
+        "assetUpload": "Subir archivo",
+        "assetAdd": "Añadir contenido",
+        "assetRemove": "Eliminar",
+        "assetsNote": "Los archivos se guardan en almacenamiento privado: las descargas usan un enlace temporal emitido solo tras verificar la propiedad.",
+        "bundleTitle": "Productos incluidos en el paquete",
+        "bundleNote": "Solo se desbloquean los productos seleccionados al comprar el paquete.",
+        "stripeNote": "Los campos de Stripe solo se aplican a productos de pago.",
+        "assetsHint": "Ruta de almacenamiento privado o dirección https externa.",
+        "fAssetType": "Tipo de contenido",
+        "fAssetTitle": "Título del contenido",
+        "fAssetPath": "Ruta del archivo (almacenamiento privado)",
+        "fAssetUrl": "URL externa",
+        "addAsset": "Añadir contenido",
+        "remove": "Eliminar",
+        "bundleHint": "Los productos seleccionados se desbloquean en el servidor al comprar el paquete."
+      },
+      "gifts": {
+        "title": "Regalos",
+        "hint": "Solo regalos del entorno actual con pago confirmado. Reenviar nunca crea regalos, tokens ni accesos.",
+        "resend": "Reenviar correo",
+        "sending": "Enviando…",
+        "confirm": "¿Reenviar este correo de regalo al destinatario?",
+        "accepted": "Correo aceptado por Brevo",
+        "alreadyRedeemed": "Regalo ya canjeado: no se ha enviado ningún enlace de canje.",
+        "cooldown": "Espera un minuto antes de volver a enviar.",
+        "notPaid": "Pago no confirmado.",
+        "empty": "No hay regalos en este entorno.",
+        "sentAt": "enviado el"
+      }
+    },
+    "free": "GRATIS",
+    "freeAccess": "Gratis",
+    "getFree": "Consíguela gratis",
+    "downloadFree": "Descargar gratis",
+    "claiming": "Un momento…",
+    "claimed": "Añadido a tu Biblioteca.",
+    "claimFailed": "No hemos podido añadir este producto.",
+    "read": "Leer",
+    "download": "Descargar",
+    "openTemplate": "Abrir plantilla",
+    "included": "Qué incluye",
+    "contents": "Contenidos",
+    "noContents": "No hay contenido disponible.",
+    "downloadFailed": "Descarga no disponible.",
+    "filters": {
+      "all": "Todas",
+      "miniApps": "Mini Web Apps",
+      "checklist": "Listas de comprobación",
+      "template": "Plantillas",
+      "ebooks": "Ebooks y guías",
+      "bundle": "Paquetes",
+      "free": "Gratis"
+    },
+    "themes": "Categorías",
+    "marketingOptIn": "Quiero recibir novedades, nuevos recursos y ofertas de MINI WEB APPS.",
+    "bundleIncludes": "Este paquete incluye",
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "intro": "Respuestas rápidas sobre cuentas, compras, productos gratuitos, regalos y soporte.",
+      "nav": "Preguntas frecuentes",
+      "groups": [
+        {
+          "title": "Cuenta",
+          "items": [
+            {
+              "q": "¿Necesito una cuenta?",
+              "a": "Sí. Tu cuenta vincula los productos que consigues a tu perfil, así permanecen en tu Biblioteca en cualquier dispositivo."
+            },
+            {
+              "q": "¿Puedo usar la misma cuenta para cada producto?",
+              "a": "Sí. Una sola cuenta de MINI WEB APPS reúne todas las mini apps, listas de comprobación, plantillas, ebooks y guías que consigas."
+            },
+            {
+              "q": "He olvidado mi contraseña, ¿qué hago?",
+              "a": "En la página de inicio de sesión puedes solicitar restablecer la contraseña: recibirás un correo con un enlace para crear una nueva."
+            },
+            {
+              "q": "¿Puedo cambiar mi correo electrónico?",
+              "a": "Tu correo identifica tu cuenta y no se puede cambiar desde el área de cuenta. Si necesitas cambiarlo, escribe a soporte desde la dirección con la que te registraste."
+            }
+          ]
+        },
+        {
+          "title": "Compras",
+          "items": [
+            {
+              "q": "¿Es un pago único o una suscripción?",
+              "a": "Es un pago único. Sin suscripciones ni renovaciones automáticas."
+            },
+            {
+              "q": "¿Cuánto dura mi acceso?",
+              "a": "El acceso a los productos comprados es de por vida: permanecen en tu Biblioteca y puedes volver a abrirlos cuando quieras."
+            },
+            {
+              "q": "¿Dónde encuentro los productos que he comprado?",
+              "a": "En Mi Biblioteca, desde el menú superior una vez que hayas iniciado sesión."
+            },
+            {
+              "q": "Si compro una web app, ¿obtengo también las demás?",
+              "a": "No. Cada producto es independiente: una compra desbloquea solo ese producto (o, en el caso de un paquete, los productos incluidos en él)."
+            },
+            {
+              "q": "¿Puedo comprar varios productos con la misma cuenta?",
+              "a": "Sí. Puedes comprar tantos productos como quieras: todos llegan a la misma Biblioteca."
+            }
+          ]
+        },
+        {
+          "title": "Productos gratuitos",
+          "items": [
+            {
+              "q": "¿Cómo funcionan los productos gratuitos?",
+              "a": "Los productos gratuitos se añaden a tu Biblioteca con un clic desde la página del producto, igual que los demás."
+            },
+            {
+              "q": "¿También necesito registrarme para un producto gratuito?",
+              "a": "Algunos productos gratuitos necesitan una cuenta para quedar guardados en tu Biblioteca; otros están disponibles sin registro. La página del producto te indica cuál es el caso."
+            }
+          ]
+        },
+        {
+          "title": "Regalos",
+          "items": [
+            {
+              "q": "¿Puedo regalar una web app u otro producto?",
+              "a": "Sí. La página del producto tiene una opción de regalo donde introduces el correo del destinatario."
+            },
+            {
+              "q": "¿Cómo recibe el regalo el destinatario?",
+              "a": "Recibe un código de canje vinculado al producto regalado: al abrir el enlace se añade a su Biblioteca."
+            },
+            {
+              "q": "¿El destinatario necesita una cuenta?",
+              "a": "Sí. El regalo queda vinculado a su cuenta para que siga disponible con el tiempo."
+            },
+            {
+              "q": "¿Un regalo desbloquea solo el producto comprado?",
+              "a": "Exactamente. Cada regalo desbloquea únicamente el producto por el que se pagó, nada más."
+            }
+          ]
+        },
+        {
+          "title": "Pagos",
+          "items": [
+            {
+              "q": "¿Son seguros los pagos?",
+              "a": "Sí. Los pagos se gestionan íntegramente a través de Stripe, un proveedor de pagos en línea certificado."
+            },
+            {
+              "q": "¿Qué métodos de pago se aceptan?",
+              "a": "Los métodos que Stripe ofrece en el checkout, como las principales tarjetas de crédito y débito."
+            },
+            {
+              "q": "¿MINI WEB APPS guarda los datos de mi tarjeta?",
+              "a": "No. Los datos completos de la tarjeta nunca pasan por la tienda ni quedan almacenados en ella: los gestiona directamente Stripe."
+            }
+          ]
+        },
+        {
+          "title": "Problemas técnicos",
+          "items": [
+            {
+              "q": "He pagado pero el producto no está en mi Biblioteca.",
+              "a": "La confirmación del pago se procesa en el servidor y puede tardar un momento. Actualiza tu Biblioteca pasado un minuto; si sigue sin aparecer, escribe a soporte."
+            },
+            {
+              "q": "El producto no se abre.",
+              "a": "Comprueba que has iniciado sesión con la cuenta usada en la compra y actualiza la página. Si persiste, contáctanos."
+            },
+            {
+              "q": "¿Qué hago si una web app tiene un problema técnico?",
+              "a": "Repórtalo indicando el nombre del producto, tu dispositivo y qué estabas haciendo: nos ayuda a encontrar la causa más rápido."
+            },
+            {
+              "q": "¿Puedo usar los productos en móvil, tablet y ordenador?",
+              "a": "Sí. La tienda y las mini apps están diseñadas para funcionar en el navegador en móviles, tablets y ordenadores."
+            }
+          ]
+        },
+        {
+          "title": "Idioma",
+          "items": [
+            {
+              "q": "¿Puedo usar la tienda en italiano y en inglés?",
+              "a": "Sí. Cambia de idioma cuando quieras con el selector IT/EN de la parte superior: el contenido está traducido dentro de la app, sin traducción automática del navegador."
+            }
+          ]
+        },
+        {
+          "title": "Privacidad y marketing",
+          "items": [
+            {
+              "q": "¿Recibiré correos de marketing automáticamente?",
+              "a": "No. Los correos comerciales se envían solo si has dado tu consentimiento. Los correos de servicio (inicio de sesión, compras, recibos) siempre se envían."
+            },
+            {
+              "q": "¿Cómo retiro el consentimiento de marketing?",
+              "a": "Desde la sección Comunicaciones de tu cuenta puedes retirar el consentimiento cuando quieras."
+            }
+          ]
+        }
+      ],
+      "contactTitle": "¿No has encontrado tu respuesta?",
+      "contactText": "Escríbenos respondiendo al correo de confirmación de tu compra o al correo de registro: te respondemos desde la misma dirección. Menciona el producto y lo que ya has probado.",
+      "contactAccount": "Ir a tu cuenta",
+      "contactCatalog": "Volver al catálogo",
+      "legalNote": "Los términos contractuales, derechos y reembolsos se rigen por los Términos y Condiciones del servicio."
+    }
+  }
+}

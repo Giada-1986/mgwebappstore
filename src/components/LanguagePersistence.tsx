@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useI18n, type Lang } from "@/lib/i18n";
+import { useI18n, isLang, type Lang } from "@/lib/i18n";
 import { useProfile, useSession, useUpdateProfile } from "@/lib/platform";
 
 /**
@@ -16,11 +16,11 @@ export function LanguagePersistence() {
 
   useEffect(() => {
     if (!profile) return;
-    if (!hasExplicitChoice && (remote === "it" || remote === "en") && remote !== lang) {
+    if (!hasExplicitChoice && isLang(remote) && remote !== lang) {
       applyRemoteLang(remote);
       return;
     }
-    if (remote && remote !== lang) updateProfile({ preferred_language: lang });
+    if (remote !== lang) updateProfile({ preferred_language: lang });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile?.id, remote, lang, hasExplicitChoice]);
 
