@@ -47,7 +47,14 @@ function CheckoutPage() {
         {product ? productName(product, lang) : t("store.checkoutTitle")}
       </h1>
       <div className="panel-pearl mt-6 overflow-hidden p-3">
-        {isAdmin === true ? (
+        {unavailable ? (
+          <div className="p-6 text-center">
+            <p className="text-sm text-muted-foreground">{t("store.appUnavailableText")}</p>
+            <Link to="/apps" className="btn-store mt-4 inline-flex">
+              {t("store.nav.catalog")}
+            </Link>
+          </div>
+        ) : isAdmin === true ? (
           <div className="p-6 text-center">
             <p className="text-sm text-muted-foreground">{t("store.adminAccessHint")}</p>
             <Link to="/my-apps" className="btn-store mt-4 inline-flex">
