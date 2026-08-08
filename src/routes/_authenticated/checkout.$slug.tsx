@@ -31,6 +31,9 @@ function CheckoutPage() {
   const returnUrl =
     typeof window !== "undefined" ? `${window.location.origin}/my-apps?purchase=${slug}` : "";
 
+  // Retired products cannot start a payment (the server rejects them too).
+  const unavailable = !!product && product.status === "archived";
+
   return (
     <StoreShell>
       <Link
