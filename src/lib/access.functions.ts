@@ -5,6 +5,8 @@ export type AccessResult = {
   userId: string;
   productId: string | null;
   hasAccess: boolean;
+  /** True when access comes from the admin role, not from an entitlement. */
+  viaAdmin?: boolean;
 };
 
 /**
