@@ -1,0 +1,601 @@
+{
+  "brand": "Hungry, or Hungry?",
+  "tagline": "Not all hunger comes from your stomach.",
+  "nav": {
+    "checkin": "Check-in",
+    "exercises": "Exercises",
+    "report": "Report",
+    "monthly": "Monthly",
+    "settings": "Settings"
+  },
+  "common": {
+    "continue": "Continue",
+    "back": "Back",
+    "skip": "Skip",
+    "save": "Save",
+    "saved": "Saved",
+    "close": "Close",
+    "loading": "One moment…",
+    "start": "Start",
+    "minutes": "minutes",
+    "seconds": "seconds"
+  },
+  "landing": {
+    "heroTitle": "Learn to recognise your hunger",
+    "heroText": "Hungry, or Hungry? helps you tell physical hunger from emotional hunger, gently and without judgement. A small act of awareness, whenever you need it.",
+    "cta": "Get started",
+    "login": "Sign in",
+    "f1Title": "A one-minute check-in",
+    "f1Text": "Four kind questions, before you eat between meals.",
+    "f2Title": "Short exercises",
+    "f2Text": "Ten micro-exercises of 60-120 seconds to ride the wave.",
+    "f3Title": "Your patterns",
+    "f3Text": "Personal reports showing when and why emotional hunger shows up.",
+    "priceTitle": "One payment, lifetime access",
+    "priceText": "No subscription, no renewals. Pay once and the app is yours forever.",
+    "noScales": "No calories, no scales. Just listening."
+  },
+  "auth": {
+    "title": "Sign in to your account",
+    "subtitle": "One account for all your mini apps.",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signUp": "Create account",
+    "toSignUp": "No account yet? Sign up",
+    "toSignIn": "Already have an account? Sign in",
+    "checkEmail": "We sent you a confirmation email. Check your inbox to activate your access.",
+    "error": "Something went wrong. Please try again.",
+    "titleSignUp": "Create your account",
+    "subtitleSignUp": "All you need is an email and a password.",
+    "marketingLabel": "I want to receive news, new mini apps and offers by email.",
+    "marketingHint": "Optional. No marketing emails without your consent: you can withdraw it any time from your account."
+  },
+  "paywall": {
+    "title": "Your space is almost ready",
+    "text": "Hungry, or Hungry? is a one-time purchase: unlock lifetime access, no subscriptions.",
+    "cta": "Unlock lifetime access",
+    "note": "Secure payment. No automatic renewal.",
+    "signOut": "Sign out"
+  },
+  "onboarding": {
+    "step": "Step",
+    "s1Title": "Physical or emotional hunger?",
+    "s1Text": "Physical hunger builds slowly: your stomach rumbles, energy dips, any food will do. Emotional hunger arrives suddenly, asks for something specific and often stays even after eating. Neither is wrong: simply knowing which one you're feeling is already everything.",
+    "s2Title": "When does it happen most?",
+    "s2Text": "Pick the moments when you tend to eat between meals. You can change them anytime.",
+    "s2Other": "Something else (write it)",
+    "s2OtherPlaceholder": "e.g. Sunday afternoons",
+    "s3Title": "How the check-in works",
+    "s3Text": "Whenever you're about to eat between meals, open the app and press the big button. I'll ask four short questions, one at a time. Then you choose: wait ten minutes, try an exercise, or eat anyway. There is no right answer.",
+    "s3Cta": "Do your first check-in",
+    "triggers": {
+      "evening": "Evenings",
+      "work": "Work stress",
+      "boredom": "Boredom",
+      "argument": "After an argument",
+      "night": "Late at night",
+      "alone": "When I'm alone"
+    }
+  },
+  "checkin": {
+    "greeting": "How are you right now?",
+    "big": "I'm about to eat between meals",
+    "count": "check-ins so far",
+    "q1": "Is this physical hunger (rumbling stomach, low energy) or something else?",
+    "q1a": {
+      "physical": "Physical hunger",
+      "unsure": "I'm not sure",
+      "emotional": "Not physical hunger"
+    },
+    "q2": "What are you feeling right now?",
+    "q3": "What happened just before?",
+    "q3Placeholder": "e.g. an argument with a colleague",
+    "q3Optional": "Optional",
+    "q4": "What would you like to do now?",
+    "q4wait": "I'll wait 10 minutes, then decide",
+    "q4exercise": "I'll try a short exercise",
+    "q4eat": "I've decided to eat anyway, and that's fine",
+    "eatMessage": "That's okay. What matters is that you're aware of it.",
+    "waitTitle": "Ten minutes just for you",
+    "waitBreath": "Breathe in slowly… hold… breathe out. There's nothing else to do.",
+    "waitDone": "The ten minutes are up. How do you feel now?",
+    "saved": "Check-in saved.",
+    "emotions": {
+      "stress": "Stress",
+      "boredom": "Boredom",
+      "sadness": "Sadness",
+      "anger": "Anger",
+      "anxiety": "Anxiety",
+      "loneliness": "Loneliness",
+      "tiredness": "Tiredness",
+      "other": "Other"
+    }
+  },
+  "exercises": {
+    "title": "Exercise library",
+    "subtitle": "Micro-exercises of 60 to 120 seconds. Pick the one that fits you today.",
+    "startTimer": "Start timer",
+    "stopTimer": "Stop",
+    "done": "Done. Well done."
+  },
+  "report": {
+    "title": "Your personal report",
+    "lockedTitle": "Unlocks after 7 check-ins",
+    "locked": "{n} check-ins to go. Each one adds a piece to your picture.",
+    "emotions": "Most frequent emotions",
+    "times": "When it happens most",
+    "hours": "Time of day",
+    "days": "Days of the week",
+    "triggers": "Your 3 most recurring situations",
+    "noTriggers": "You haven't written enough notes yet to spot recurring situations.",
+    "summary": "In short",
+    "demoNote": "You're viewing sample data.",
+    "demoToggle": "Show sample data"
+  },
+  "monthly": {
+    "title": "Monthly report",
+    "lockedTitle": "Unlocks after 30 days",
+    "locked": "{n} days to go since your first check-in.",
+    "first15": "First 15 days",
+    "last15": "Last 15 days",
+    "total": "Total check-ins",
+    "waitRate": "Times you chose to wait",
+    "better": "You're choosing to wait more often than before. That's a real change.",
+    "same": "Your numbers are steady. Keeping an eye on yourself is already a lot.",
+    "lower": "You waited less than before. It happens: not all months are the same."
+  },
+  "settings": {
+    "title": "Account settings",
+    "email": "Email",
+    "access": "Access",
+    "lifetime": "Lifetime access active",
+    "notPaid": "Access not unlocked yet",
+    "language": "Language",
+    "triggersTitle": "Your tricky moments",
+    "signOut": "Sign out",
+    "resetOnboarding": "Replay the intro"
+  },
+  "summary": {
+    "top": "The emotion that comes up most in your check-ins is {emotion}.",
+    "hour": "The most delicate moment of your day is around {hour}.",
+    "day": "The day it happens most often is {day}.",
+    "wait": "In {pct}% of cases you chose to wait or do an exercise instead of eating right away.",
+    "kind": "Remember: noticing all of this is already self-care."
+  },
+  "days": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ],
+  "store": {
+    "tagline": "Simple apps. Instant solutions.",
+    "nav": {
+      "store": "Store",
+      "catalog": "Catalog",
+      "myApps": "My Library"
+    },
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "account": "Account",
+    "heroTitle": "Simple apps. Instant solutions.",
+    "heroText": "A curated store of small digital solutions ready to use: mini web apps, checklists, templates and ebooks. Get them once, keep them forever, no subscription.",
+    "heroCta": "Browse the catalog",
+    "featured": "Featured",
+    "allApps": "All apps",
+    "categories": "Categories",
+    "allCategories": "All",
+    "noProducts": "No apps in this category yet.",
+    "discover": "Discover",
+    "open": "Open",
+    "openLibrary": "Go to My Library",
+    "buyFor": "Buy for {price}",
+    "oneTime": "One-time payment",
+    "lifetime": "Lifetime access",
+    "owned": "Owned",
+    "comingSoon": "Coming soon",
+    "type": {
+      "mini": "Mini Web App",
+      "premium": "Premium app",
+      "professional": "Professional app",
+      "checklist": "Checklist",
+      "template": "Template",
+      "ebook": "Ebook",
+      "guide": "Guide",
+      "bundle": "Bundle"
+    },
+    "myAppsTitle": "My Library",
+    "myAppsText": "Everything you unlocked, always available.",
+    "emptyLibrary": "Your library is still empty.",
+    "discoverMiniApps": "Browse the catalogue",
+    "accountTitle": "Your account",
+    "purchases": "Purchases",
+    "noPurchases": "No purchases yet.",
+    "language": "Language",
+    "email": "Email",
+    "checkoutTitle": "Complete your purchase",
+    "checkoutBack": "Back to product",
+    "purchaseSuccess": "Thank you! We're confirming your payment — the app will appear here shortly.",
+    "noAccessTitle": "No active access",
+    "noAccessText": "This app is not in your library yet.",
+    "seeProduct": "See the product",
+    "whatYouGet": "What's included",
+    "notFound": "Product not found.",
+    "footer": "One account for every mini app. Secure payments with Stripe.",
+    "paymentsNotConfigured": "Production checkout is not configured. Complete Stripe go-live to accept real payments.",
+    "testMode": "All payments in preview are in test mode.",
+    "testModeDetails": "Details",
+    "brand": "MINI WEB APPS",
+    "promise": "Buy once. Your app stays yours. No subscription.",
+    "catalogIntro": "Small digital solutions ready to use: apps, checklists, templates, ebooks and guides.",
+    "securePayment": "Secure payment with Stripe",
+    "gift": {
+      "title": "Redeem your gift",
+      "intro": "This code unlocks a single app, linked to your account.",
+      "redeem": "Redeem now",
+      "success": "Gift redeemed! The app is now in your library.",
+      "open": "Open the app",
+      "invalid_token": "Invalid gift code.",
+      "already_redeemed": "This gift has already been redeemed.",
+      "not_paid": "This gift payment is not confirmed yet.",
+      "expired": "This gift code has expired.",
+      "refunded": "This gift was refunded.",
+      "cancelled": "This gift was cancelled.",
+      "error": "We could not redeem this gift.",
+      "buyTitle": "Gift this app",
+      "buyIntro": "The recipient gets a code that unlocks this app only, linked to their account.",
+      "recipientEmail": "Recipient email",
+      "purchaserEmail": "Your email (optional)",
+      "message": "Add a personal message (optional)",
+      "continue": "Continue to payment",
+      "cta": "Gift this app",
+      "messageHelp": "We'll show it to the person receiving the gift.",
+      "messagePlaceholder": "Write a message for whoever receives the gift…",
+      "recipientPlaceholder": "name@example.com",
+      "purchaserPlaceholder": "youremail@example.com",
+      "messageFrom": "Message from the person who gifted this",
+      "inboxTitle": "🎁 You received a gift",
+      "inboxIntro": "This gift is linked to your email. Redeem it to add it to your library.",
+      "receivedBadge": "🎁 Gift received",
+      "viewMessage": "View gift message",
+      "hideMessage": "Hide message",
+      "giftedTitle": "🎁 This app was gifted to you",
+      "not_authenticated": "Sign in to redeem this gift."
+    },
+    "marketing": {
+      "title": "Communications",
+      "consent": "I want to receive news, new mini apps and offers by email.",
+      "hint": "Service emails (sign-in, purchases, receipts) are always sent and do not depend on this choice.",
+      "since": "Consent given on {date}",
+      "saving": "Saving…",
+      "saved": "Preference saved",
+      "error": "We couldn't save your preference."
+    },
+    "admin": {
+      "nav": "Admin",
+      "title": "Admin dashboard",
+      "subtitle": "Aggregated data for the MINI WEB APPS store.",
+      "denied": "This area is reserved to the administrator.",
+      "tabs": {
+        "overview": "Overview",
+        "users": "Users",
+        "sales": "Sales",
+        "marketing": "Marketing",
+        "analytics": "Analytics",
+        "products": "Products",
+        "gifts": "Gifts"
+      },
+      "kpi": {
+        "users": "Registered users",
+        "new7": "New (7 days)",
+        "new30": "New (30 days)",
+        "consent": "Marketing consents",
+        "sales": "Confirmed purchases",
+        "revenue": "Total revenue",
+        "activeProducts": "Active apps",
+        "conversion": "Signup → purchase conversion"
+      },
+      "salesByProduct": "Sales by app",
+      "latestPurchases": "Latest purchases",
+      "usersTitle": "Users",
+      "colEmail": "Email",
+      "colLanguage": "Language",
+      "colConsent": "Marketing",
+      "colApps": "Apps",
+      "colDate": "Registered",
+      "colProduct": "App",
+      "colAmount": "Amount",
+      "colStatus": "Status",
+      "yes": "Yes",
+      "no": "No",
+      "campaignTitle": "Announce a new mini app",
+      "campaignHint": "The email is sent only when you press send, and only to users who gave marketing consent.",
+      "audience": "Recipients",
+      "audienceAll": "All consenting users",
+      "audienceIt": "Italian speakers only",
+      "audienceEn": "English speakers only",
+      "audienceCategory": "Owners of apps in a category",
+      "category": "Category",
+      "subject": "Subject",
+      "content": "Content (HTML)",
+      "senderName": "Sender name",
+      "senderEmail": "Sender email (domain verified in Brevo)",
+      "preview": "Count recipients",
+      "send": "Send campaign",
+      "sending": "Sending…",
+      "recipients": "Estimated recipients: {count}",
+      "sent": "Campaign sent to {count} recipients.",
+      "failed": "Sending failed: {error}",
+      "history": "Sent campaigns",
+      "noCampaigns": "No campaign sent yet.",
+      "analyticsTitle": "Product analytics",
+      "analyticsText": "Visits, funnels and events are collected in PostHog. Tracked events:",
+      "analyticsEvents": "store visit, product view, signup, login, checkout started, purchase completed, app opened.",
+      "analyticsPrivacy": "No payment data, passwords or sensitive data are sent.",
+      "products": {
+        "tab": "Products",
+        "productsTitle": "Store mini apps",
+        "newProduct": "New Mini App",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "saved": "Product saved.",
+        "saveFailed": "Could not save: {error}",
+        "noProducts": "No products in the catalog yet.",
+        "fSlug": "Slug (URL identifier)",
+        "fNameIt": "Name (IT)",
+        "fNameEn": "Name (EN)",
+        "fShortIt": "Short description (IT)",
+        "fShortEn": "Short description (EN)",
+        "fDescIt": "Full description (IT)",
+        "fDescEn": "Full description (EN)",
+        "fCategory": "Category",
+        "fImage": "Cover image (https URL)",
+        "fAccent": "Accent colour",
+        "fPrice": "Price",
+        "fCurrency": "Currency",
+        "fType": "Product type",
+        "fStripe": "Stripe Price ID",
+        "fPath": "Internal route (e.g. /app/app-name)",
+        "fUrl": "External app URL (https)",
+        "fStatus": "Status",
+        "fSort": "Order",
+        "statusDraft": "Draft",
+        "statusActive": "Active",
+        "statusHidden": "Hidden",
+        "statusComingSoon": "Coming soon",
+        "typeMini": "Mini app",
+        "typePremium": "Premium app",
+        "typePro": "Professional app",
+        "securityNote": "A route or URL is only a link: opening a mini app is still authorised server-side (user + product + environment + active access).",
+        "visibilityNote": "Active products appear in the catalog immediately. Draft and Hidden are never public.",
+        "fAccessMode": "Access mode",
+        "accessPaid": "Paid",
+        "accessFreeAccount": "Free with account",
+        "accessFreePublic": "Free & public",
+        "fBadge": "Badge (optional)",
+        "typeChecklist": "Checklist",
+        "typeTemplate": "Template",
+        "typeEbook": "Ebook",
+        "typeGuide": "Guide",
+        "typeBundle": "Bundle",
+        "assetsTitle": "Product contents",
+        "assetTitle": "Title",
+        "assetType": "Type",
+        "assetFile": "Private file",
+        "assetUrl": "Address",
+        "assetUpload": "Upload file",
+        "assetAdd": "Add content",
+        "assetRemove": "Remove",
+        "assetsNote": "Files live in private storage: downloads use a temporary link issued only after ownership is verified.",
+        "bundleTitle": "Products included in the bundle",
+        "bundleNote": "Only the selected products are unlocked when the bundle is purchased.",
+        "stripeNote": "Stripe fields only apply to paid products.",
+        "assetsHint": "Private storage path or external https address.",
+        "fAssetType": "Asset type",
+        "fAssetTitle": "Asset title",
+        "fAssetPath": "File path (private storage)",
+        "fAssetUrl": "External URL",
+        "addAsset": "Add asset",
+        "remove": "Remove",
+        "bundleHint": "Selected products are unlocked server-side when the bundle is purchased."
+      },
+      "gifts": {
+        "title": "Gifts",
+        "hint": "Only gifts in the current environment with a confirmed payment. Resending never creates gifts, tokens or access.",
+        "resend": "Resend email",
+        "sending": "Sending…",
+        "confirm": "Resend this gift email to the recipient?",
+        "accepted": "Email accepted by Brevo",
+        "alreadyRedeemed": "Gift already redeemed: no redemption link was sent.",
+        "cooldown": "Please wait a minute before sending again.",
+        "notPaid": "Payment not confirmed.",
+        "empty": "No gifts in this environment.",
+        "sentAt": "sent on"
+      }
+    },
+    "free": "FREE",
+    "freeAccess": "Free",
+    "getFree": "Get it free",
+    "downloadFree": "Download free",
+    "claiming": "One moment…",
+    "claimed": "Added to your Library.",
+    "claimFailed": "We could not add this product.",
+    "read": "Read",
+    "download": "Download",
+    "openTemplate": "Open template",
+    "included": "What's included",
+    "contents": "Contents",
+    "noContents": "No content available.",
+    "downloadFailed": "Download unavailable.",
+    "filters": {
+      "all": "All",
+      "miniApps": "Mini Web Apps",
+      "checklist": "Checklists",
+      "template": "Templates",
+      "ebooks": "Ebooks & Guides",
+      "bundle": "Bundles",
+      "free": "Free"
+    },
+    "themes": "Categories",
+    "marketingOptIn": "I want to receive news, new resources and offers from MINI WEB APPS.",
+    "bundleIncludes": "This bundle includes",
+    "faq": {
+      "title": "Frequently asked questions",
+      "intro": "Quick answers about accounts, purchases, free products, gifts and support.",
+      "nav": "FAQ",
+      "groups": [
+        {
+          "title": "Account",
+          "items": [
+            {
+              "q": "Do I need an account?",
+              "a": "Yes. Your account links the products you get to your profile, so they stay in your Library on any device."
+            },
+            {
+              "q": "Can I use the same account for every product?",
+              "a": "Yes. One MINI WEB APPS account holds all the mini apps, checklists, templates, ebooks and guides you get."
+            },
+            {
+              "q": "I forgot my password, what should I do?",
+              "a": "On the sign-in page you can request a password reset: you'll get an email with a link to set a new one."
+            },
+            {
+              "q": "Can I change my email?",
+              "a": "Your email identifies your account and can't be changed from the account area. If you need to change it, write to support from the address you signed up with."
+            }
+          ]
+        },
+        {
+          "title": "Purchases",
+          "items": [
+            {
+              "q": "Is it a one-time payment or a subscription?",
+              "a": "It's a one-time payment. No subscriptions, no automatic renewals."
+            },
+            {
+              "q": "How long does my access last?",
+              "a": "Access to purchased products is lifetime: they stay in your Library and you can reopen them any time."
+            },
+            {
+              "q": "Where do I find the products I bought?",
+              "a": "In My Library, from the top menu once you're signed in."
+            },
+            {
+              "q": "If I buy one web app, do I get the others too?",
+              "a": "No. Each product is separate: a purchase unlocks only that product (or, for a bundle, the products listed in the bundle)."
+            },
+            {
+              "q": "Can I buy several products with the same account?",
+              "a": "Yes. You can buy as many products as you like: they all land in the same Library."
+            }
+          ]
+        },
+        {
+          "title": "Free products",
+          "items": [
+            {
+              "q": "How do free products work?",
+              "a": "Free products are added to your Library in one click from the product page, just like the others."
+            },
+            {
+              "q": "Do I need to sign up for a free product too?",
+              "a": "Some free products need an account so they stay saved in your Library; others are open without signing up. The product page tells you which."
+            }
+          ]
+        },
+        {
+          "title": "Gifts",
+          "items": [
+            {
+              "q": "Can I gift a web app or another product?",
+              "a": "Yes. The product page has a gift option where you enter the recipient's email."
+            },
+            {
+              "q": "How does the recipient get the gift?",
+              "a": "They receive a redemption code tied to the gifted product: opening the link adds it to their Library."
+            },
+            {
+              "q": "Does the recipient need an account?",
+              "a": "Yes. The gift is linked to their account so it stays available over time."
+            },
+            {
+              "q": "Does a gift unlock only the purchased product?",
+              "a": "Exactly. Each gift unlocks only the product it was paid for, nothing else."
+            }
+          ]
+        },
+        {
+          "title": "Payments",
+          "items": [
+            {
+              "q": "Are payments secure?",
+              "a": "Yes. Payments are handled entirely by Stripe, a certified online payment provider."
+            },
+            {
+              "q": "Which payment methods are accepted?",
+              "a": "The methods Stripe offers at checkout, such as major credit and debit cards."
+            },
+            {
+              "q": "Does MINI WEB APPS store my card details?",
+              "a": "No. Full card details never pass through or get stored by the store: they are handled directly by Stripe."
+            }
+          ]
+        },
+        {
+          "title": "Technical issues",
+          "items": [
+            {
+              "q": "I paid but the product isn't in my Library.",
+              "a": "Payment confirmation happens server-side and can take a moment. Refresh your Library after a minute; if it's still missing, write to support."
+            },
+            {
+              "q": "The product won't open.",
+              "a": "Check that you're signed in with the account used for the purchase and refresh the page. If it persists, contact us."
+            },
+            {
+              "q": "What if a web app has a technical problem?",
+              "a": "Report it with the product name, your device and what you were doing: it helps us find the cause faster."
+            },
+            {
+              "q": "Can I use products on phone, tablet and computer?",
+              "a": "Yes. The store and the mini apps are built to work in the browser on phones, tablets and computers."
+            }
+          ]
+        },
+        {
+          "title": "Language",
+          "items": [
+            {
+              "q": "Can I use the store in Italian and English?",
+              "a": "Yes. Switch language any time with the IT/EN selector at the top: content is translated in-app, without browser auto-translation."
+            }
+          ]
+        },
+        {
+          "title": "Privacy and marketing",
+          "items": [
+            {
+              "q": "Will I get marketing emails automatically?",
+              "a": "No. Commercial emails are sent only if you gave your consent. Service emails (sign-in, purchases, receipts) are always sent."
+            },
+            {
+              "q": "How do I withdraw marketing consent?",
+              "a": "From the Communications section of your account you can withdraw consent at any time."
+            }
+          ]
+        }
+      ],
+      "contactTitle": "Didn't find your answer?",
+      "contactText": "Write to us by replying to your purchase confirmation email or to your sign-up email: we answer from the same address. Mention the product and what you already tried.",
+      "contactAccount": "Go to your account",
+      "contactCatalog": "Back to the catalog",
+      "legalNote": "Contractual terms, rights and refunds are governed by the service Terms and Conditions."
+    }
+  }
+}
