@@ -604,6 +604,84 @@ export type Database = {
           },
         ]
       }
+      suggestions: {
+        Row: {
+          admin_note: string | null
+          audience: string[]
+          audience_other: string | null
+          created_at: string
+          formats: string[]
+          frequency: string | null
+          goal: string
+          id: string
+          importance: number
+          language: string
+          notify: boolean
+          notify_email: string | null
+          price_range: string | null
+          problem: string | null
+          purchase_interest: string | null
+          solution_type: string
+          solution_type_other: string | null
+          status: string
+          submitter_hash: string | null
+          tried: string | null
+          tried_detail: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          admin_note?: string | null
+          audience?: string[]
+          audience_other?: string | null
+          created_at?: string
+          formats?: string[]
+          frequency?: string | null
+          goal: string
+          id?: string
+          importance?: number
+          language?: string
+          notify?: boolean
+          notify_email?: string | null
+          price_range?: string | null
+          problem?: string | null
+          purchase_interest?: string | null
+          solution_type: string
+          solution_type_other?: string | null
+          status?: string
+          submitter_hash?: string | null
+          tried?: string | null
+          tried_detail?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          admin_note?: string | null
+          audience?: string[]
+          audience_other?: string | null
+          created_at?: string
+          formats?: string[]
+          frequency?: string | null
+          goal?: string
+          id?: string
+          importance?: number
+          language?: string
+          notify?: boolean
+          notify_email?: string | null
+          price_range?: string | null
+          problem?: string | null
+          purchase_interest?: string | null
+          solution_type?: string
+          solution_type_other?: string | null
+          status?: string
+          submitter_hash?: string | null
+          tried?: string | null
+          tried_detail?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_product_state: {
         Row: {
           created_at: string
