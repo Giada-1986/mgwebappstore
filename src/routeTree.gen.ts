@@ -22,6 +22,7 @@ import { Route as AppsIndexRouteImport } from './routes/apps.index'
 import { Route as AppsSlugRouteImport } from './routes/apps.$slug'
 import { Route as GiftSlugRouteImport } from './routes/gift.$slug'
 import { Route as AuthenticatedAppSplatRouteImport } from './routes/_authenticated/app.$'
+import { Route as AuthenticatedAppFameOEmozioneRouteImport } from './routes/_authenticated/app.fame-o-emozione'
 import { Route as AuthenticatedCheckoutSlugRouteImport } from './routes/_authenticated/checkout.$slug'
 import { Route as AuthenticatedRedeemTokenRouteImport } from './routes/_authenticated/redeem.$token'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
@@ -90,6 +91,12 @@ const AuthenticatedAppSplatRoute = AuthenticatedAppSplatRouteImport.update({
   path: '/app/$',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAppFameOEmozioneRoute =
+  AuthenticatedAppFameOEmozioneRouteImport.update({
+    id: '/app/fame-o-emozione',
+    path: '/app/fame-o-emozione',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedCheckoutSlugRoute =
   AuthenticatedCheckoutSlugRouteImport.update({
     id: '/checkout/$slug',
@@ -122,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/gift/$slug': typeof GiftSlugRoute
   '/apps/': typeof AppsIndexRoute
   '/app/$': typeof AuthenticatedAppSplatRoute
+  '/app/fame-o-emozione': typeof AuthenticatedAppFameOEmozioneRoute
   '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -139,6 +147,7 @@ export interface FileRoutesByTo {
   '/gift/$slug': typeof GiftSlugRoute
   '/apps': typeof AppsIndexRoute
   '/app/$': typeof AuthenticatedAppSplatRoute
+  '/app/fame-o-emozione': typeof AuthenticatedAppFameOEmozioneRoute
   '/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -158,6 +167,7 @@ export interface FileRoutesById {
   '/gift/$slug': typeof GiftSlugRoute
   '/apps/': typeof AppsIndexRoute
   '/_authenticated/app/$': typeof AuthenticatedAppSplatRoute
+  '/_authenticated/app/fame-o-emozione': typeof AuthenticatedAppFameOEmozioneRoute
   '/_authenticated/checkout/$slug': typeof AuthenticatedCheckoutSlugRoute
   '/_authenticated/redeem/$token': typeof AuthenticatedRedeemTokenRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/gift/$slug'
     | '/apps/'
     | '/app/$'
+    | '/app/fame-o-emozione'
     | '/checkout/$slug'
     | '/redeem/$token'
     | '/api/public/payments/webhook'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/gift/$slug'
     | '/apps'
     | '/app/$'
+    | '/app/fame-o-emozione'
     | '/checkout/$slug'
     | '/redeem/$token'
     | '/api/public/payments/webhook'
@@ -212,6 +224,7 @@ export interface FileRouteTypes {
     | '/gift/$slug'
     | '/apps/'
     | '/_authenticated/app/$'
+    | '/_authenticated/app/fame-o-emozione'
     | '/_authenticated/checkout/$slug'
     | '/_authenticated/redeem/$token'
     | '/api/public/payments/webhook'
@@ -323,6 +336,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppSplatRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/app/fame-o-emozione': {
+      id: '/_authenticated/app/fame-o-emozione'
+      path: '/app/fame-o-emozione'
+      fullPath: '/app/fame-o-emozione'
+      preLoaderRoute: typeof AuthenticatedAppFameOEmozioneRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/checkout/$slug': {
       id: '/_authenticated/checkout/$slug'
       path: '/checkout/$slug'
@@ -352,6 +372,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
   AuthenticatedMyAppsRoute: typeof AuthenticatedMyAppsRoute
   AuthenticatedAppSplatRoute: typeof AuthenticatedAppSplatRoute
+  AuthenticatedAppFameOEmozioneRoute: typeof AuthenticatedAppFameOEmozioneRoute
   AuthenticatedCheckoutSlugRoute: typeof AuthenticatedCheckoutSlugRoute
   AuthenticatedRedeemTokenRoute: typeof AuthenticatedRedeemTokenRoute
 }
@@ -361,6 +382,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
   AuthenticatedMyAppsRoute: AuthenticatedMyAppsRoute,
   AuthenticatedAppSplatRoute: AuthenticatedAppSplatRoute,
+  AuthenticatedAppFameOEmozioneRoute: AuthenticatedAppFameOEmozioneRoute,
   AuthenticatedCheckoutSlugRoute: AuthenticatedCheckoutSlugRoute,
   AuthenticatedRedeemTokenRoute: AuthenticatedRedeemTokenRoute,
 }
