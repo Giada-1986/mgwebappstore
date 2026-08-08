@@ -175,7 +175,7 @@ async function fulfil(sessionFromEvent: any, env: StripeEnv) {
  * (product identity, payment_status, price id, livemode, amount, currency)
  * but grants NO entitlement: the gift only becomes redeemable.
  */
-async function fulfilGift(sessionFromEvent: any, env: StripeEnv) {
+async function fulfilGift(sessionFromEvent: any, env: StripeEnv, origin: string) {
   let session: any;
   try {
     session = await createStripeClient(env).checkout.sessions.retrieve(sessionFromEvent.id, {
@@ -466,19 +466,20 @@ function isFullyRefunded(charge: any): boolean {
 
 async function handleWebhook(req: Request, env: StripeEnv) {
   const event = await verifyWebhook(req, env);
+  const origin = process.env["PUBLIC_SITE_URL"] ?? new URL(req.url).origin;
 
   const isGift = (s: any) => s?.metadata?.kind === "gift";
 
   switch (event.type) {
     case "checkout.session.completed": {
       const s = event.data.object;
-      if (isGift(s)) await fulfilGift(s, env);
+      if (isGift(s)) await fulfilGift(s, env, origin);
       else await fulfil(s, env);
       break;
     }
     case "checkout.session.async_payment_succeeded": {
       const s = event.data.object;
-      if (isGift(s)) await fulfilGift(s, env);
+      if (isGift(s)) await fulfilGift(s, env, origin);
       else await fulfil(s, env);
       break;
     }
