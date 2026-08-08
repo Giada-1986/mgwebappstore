@@ -429,7 +429,8 @@
         "fAssetUrl": "URL esterno",
         "addAsset": "Aggiungi asset",
         "remove": "Rimuovi",
-        "bundleHint": "I prodotti selezionati vengono sbloccati lato server all'acquisto del bundle."
+        "bundleHint": "I prodotti selezionati vengono sbloccati lato server all'acquisto del bundle.",
+        "statusArchived": "Archiviato"
       },
       "gifts": {
         "title": "Regali",

@@ -429,7 +429,8 @@
         "fAssetUrl": "External URL",
         "addAsset": "Add asset",
         "remove": "Remove",
-        "bundleHint": "Selected products are unlocked server-side when the bundle is purchased."
+        "bundleHint": "Selected products are unlocked server-side when the bundle is purchased.",
+        "statusArchived": "Archived"
       },
       "gifts": {
         "title": "Gifts",

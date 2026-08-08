@@ -304,6 +304,7 @@ export function ProductsPanel() {
                 <option value="active">{t("store.admin.products.statusActive")}</option>
                 <option value="hidden">{t("store.admin.products.statusHidden")}</option>
                 <option value="coming_soon">{t("store.admin.products.statusComingSoon")}</option>
+                <option value="archived">{t("store.admin.products.statusArchived")}</option>
               </select>
             </Field>
             <Field label={t("store.admin.products.fStripe")}>
@@ -550,6 +551,7 @@ function statusKey(status: string) {
   if (status === "active") return "Active";
   if (status === "hidden") return "Hidden";
   if (status === "coming_soon") return "ComingSoon";
+  if (status === "archived") return "Archived";
   return "Draft";
 }
 

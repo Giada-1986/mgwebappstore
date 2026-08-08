@@ -429,7 +429,8 @@
         "fAssetUrl": "Externe URL",
         "addAsset": "Asset hinzufügen",
         "remove": "Entfernen",
-        "bundleHint": "Ausgewählte Produkte werden beim Kauf des Pakets serverseitig freigeschaltet."
+        "bundleHint": "Ausgewählte Produkte werden beim Kauf des Pakets serverseitig freigeschaltet.",
+        "statusArchived": "Archiviert"
       },
       "gifts": {
         "title": "Geschenke",

@@ -429,7 +429,8 @@
         "fAssetUrl": "URL externa",
         "addAsset": "Añadir contenido",
         "remove": "Eliminar",
-        "bundleHint": "Los productos seleccionados se desbloquean en el servidor al comprar el paquete."
+        "bundleHint": "Los productos seleccionados se desbloquean en el servidor al comprar el paquete.",
+        "statusArchived": "Archivado"
       },
       "gifts": {
         "title": "Regalos",

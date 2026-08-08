@@ -39,7 +39,7 @@ export type AdminProduct = {
 export type ProductInput = Omit<AdminProduct, "id"> & { id?: string | null };
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const STATUSES = ["draft", "active", "hidden", "coming_soon"];
+const STATUSES = ["draft", "active", "hidden", "coming_soon", "archived"];
 const TYPES = [
   "mini_app",
   "premium_app",
