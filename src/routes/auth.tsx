@@ -36,7 +36,7 @@ function AuthPage() {
   const navigate = useNavigate();
   const { redirect: redirectTo } = Route.useSearch();
   const { session } = useSession();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // Never pre-selected: marketing consent must be an explicit action.
@@ -55,7 +55,14 @@ function AuthPage() {
     setError(null);
     setMessage(null);
     try {
-      if (mode === "signup") {
+      if (mode === "forgot") {
+        // Official Supabase recovery flow; the response is intentionally ignored
+        // so the UI can never reveal whether the address is registered.
+        await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        setMessage(t("auth.forgotNeutral"));
+      } else if (mode === "signup") {
         track("signup_started");
         const { data, error: err } = await supabase.auth.signUp({
           email,
@@ -94,10 +101,18 @@ function AuthPage() {
           {t("store.brand")}
         </p>
         <h1 className="mt-3 text-2xl font-semibold tracking-tight">
-          {mode === "signin" ? t("auth.title") : t("auth.titleSignUp")}
+          {mode === "forgot"
+            ? t("auth.forgotTitle")
+            : mode === "signin"
+              ? t("auth.title")
+              : t("auth.titleSignUp")}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          {mode === "signin" ? t("auth.subtitle") : t("auth.subtitleSignUp")}
+          {mode === "forgot"
+            ? t("auth.forgotSubtitle")
+            : mode === "signin"
+              ? t("auth.subtitle")
+              : t("auth.subtitleSignUp")}
         </p>
 
         <div className="store-hairline mx-auto mt-7 w-24" />
@@ -114,18 +129,35 @@ function AuthPage() {
               className="input-store mt-1.5"
             />
           </label>
-          <label className="block text-sm">
-            <span className="text-muted-foreground">{t("auth.password")}</span>
-            <input
-              type="password"
-              required
-              minLength={6}
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="input-store mt-1.5"
-            />
-          </label>
+          {mode !== "forgot" && (
+            <div>
+              <label className="block text-sm">
+                <span className="text-muted-foreground">{t("auth.password")}</span>
+                <input
+                  type="password"
+                  required
+                  minLength={6}
+                  autoComplete={mode === "signin" ? "current-password" : "new-password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="input-store mt-1.5"
+                />
+              </label>
+              {mode === "signin" && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode("forgot");
+                    setError(null);
+                    setMessage(null);
+                  }}
+                  className="mt-2 text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                >
+                  {t("auth.forgotLink")}
+                </button>
+              )}
+            </div>
+          )}
 
           {mode === "signup" && (
             <div className="rounded-2xl border border-border/70 bg-background/40 p-4">
@@ -146,16 +178,28 @@ function AuthPage() {
           {message && <p className="text-sm text-foreground">{message}</p>}
 
           <button type="submit" disabled={busy} className="btn-store w-full disabled:opacity-60">
-            {mode === "signin" ? t("auth.signIn") : t("auth.signUp")}
+            {mode === "forgot"
+              ? t("auth.forgotSubmit")
+              : mode === "signin"
+                ? t("auth.signIn")
+                : t("auth.signUp")}
           </button>
         </form>
 
         <button
           type="button"
-          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+          onClick={() => {
+            setMode(mode === "signin" ? "signup" : "signin");
+            setError(null);
+            setMessage(null);
+          }}
           className="mt-5 text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
         >
-          {mode === "signin" ? t("auth.toSignUp") : t("auth.toSignIn")}
+          {mode === "forgot"
+            ? t("auth.backToSignIn")
+            : mode === "signin"
+              ? t("auth.toSignUp")
+              : t("auth.toSignIn")}
         </button>
       </div>
 
