@@ -349,7 +349,7 @@ function SuggestPage() {
               value={importance}
               aria-label={t("store.suggest.q7")}
               onChange={(e) => setImportance(Number(e.target.value))}
-              className="w-full accent-[hsl(var(--primary))]"
+              className="w-full accent-[var(--primary)]"
             />
             <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
               <span>1 · {t("store.suggest.q7Min")}</span>
