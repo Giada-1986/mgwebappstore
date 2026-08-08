@@ -1,21 +1,24 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Logo } from "@/components/Logo";
+import { StoreLogo } from "@/components/store/StoreLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
-import { SakuraCorners } from "@/components/Sakura";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 
-const navItems = [
-  { to: "/app/fame-o-fame", key: "nav.checkin" },
-  { to: "/app/fame-o-fame/exercises", key: "nav.exercises" },
-  { to: "/app/fame-o-fame/report", key: "nav.report" },
-  { to: "/app/fame-o-fame/monthly", key: "nav.monthly" },
-  { to: "/app/fame-o-fame/settings", key: "nav.settings" },
-] as const;
+export type AppShellNavItem = { to: string; label: string; exact?: boolean };
 
-export function AppShell({ children, nav = true }: { children: ReactNode; nav?: boolean }) {
+/**
+ * Shared shell for every mini web app (present and future).
+ * It is product-agnostic: navigation items are passed in by the app itself.
+ */
+export function AppShell({
+  children,
+  navItems = [],
+}: {
+  children: ReactNode;
+  navItems?: AppShellNavItem[];
+}) {
   const { t } = useI18n();
   const navigate = useNavigate();
   const qc = useQueryClient();
@@ -29,7 +32,6 @@ export function AppShell({ children, nav = true }: { children: ReactNode; nav?: 
 
   return (
     <div className="relative min-h-screen">
-      <SakuraCorners />
       <header className="relative z-10 border-b border-gold/25 bg-pearl/60 backdrop-blur">
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 pt-2">
           <Link
@@ -41,14 +43,10 @@ export function AppShell({ children, nav = true }: { children: ReactNode; nav?: 
           </Link>
         </div>
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3">
-          <Link to="/app/fame-o-fame" className="flex items-center gap-3">
-            <Logo className="h-11 w-11 shadow-[var(--shadow-gold)]" />
-            <span translate="no" className="notranslate font-display text-lg tracking-wide">
-              {t("brand")}
-            </span>
+          <Link to="/my-apps" className="flex items-center gap-3">
+            <StoreLogo className="h-11 w-11" />
           </Link>
           <div className="flex items-center gap-2">
-
             <LanguageSwitcher />
             <button
               onClick={signOut}
@@ -58,16 +56,16 @@ export function AppShell({ children, nav = true }: { children: ReactNode; nav?: 
             </button>
           </div>
         </div>
-        {nav && (
+        {navItems.length > 0 && (
           <nav className="mx-auto flex max-w-4xl gap-1 overflow-x-auto px-3 pb-2 text-sm">
             {navItems.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
-                activeOptions={{ exact: item.to === "/app/fame-o-fame" }}
+                activeOptions={{ exact: item.exact ?? false }}
                 className="whitespace-nowrap rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground data-[status=active]:bg-gold/15 data-[status=active]:text-foreground"
               >
-                {t(item.key)}
+                {item.label}
               </Link>
             ))}
           </nav>
