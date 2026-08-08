@@ -558,10 +558,14 @@ export type Database = {
           environment: string
           error: string | null
           id: string
+          locked_at: string | null
+          message_id: string | null
           product_id: string
           purchase_id: string
           recipient_email: string
           sent_at: string | null
+          status: string
+          updated_at: string
           user_id: string
         }
         Insert: {
@@ -570,10 +574,14 @@ export type Database = {
           environment: string
           error?: string | null
           id?: string
+          locked_at?: string | null
+          message_id?: string | null
           product_id: string
           purchase_id: string
           recipient_email: string
           sent_at?: string | null
+          status?: string
+          updated_at?: string
           user_id: string
         }
         Update: {
@@ -582,10 +590,14 @@ export type Database = {
           environment?: string
           error?: string | null
           id?: string
+          locked_at?: string | null
+          message_id?: string | null
           product_id?: string
           purchase_id?: string
           recipient_email?: string
           sent_at?: string | null
+          status?: string
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
