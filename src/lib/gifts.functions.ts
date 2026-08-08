@@ -192,3 +192,99 @@ export const getGiftByToken = createServerFn({ method: "POST" })
       giftMessage: typeof gift.gift_message === "string" ? gift.gift_message : null,
     };
   });
+
+/* ------------------------------------------------------------------ *
+ * In-account delivery: a paid gift is visible to whoever owns the
+ * account with the recipient email, even if the email never arrived.
+ * ------------------------------------------------------------------ */
+
+/** Authoritative email of the caller, read server-side (never from input). */
+async function callerEmail(admin: any, userId: string): Promise<string | null> {
+  const { data } = await admin.auth.admin.getUserById(userId);
+  const email = data?.user?.email;
+  return typeof email === "string" ? email.toLowerCase() : null;
+}
+
+export type ReceivedGift = {
+  id: string;
+  productSlug: string | null;
+  nameIt: string | null;
+  nameEn: string | null;
+  giftMessage: string | null;
+  purchasedAt: string | null;
+};
+
+export const listReceivedGifts = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }): Promise<ReceivedGift[]> => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { resolveServerStripeEnv } = await import("@/lib/payments-env.server");
+    const admin = supabaseAdmin as any;
+
+    const email = await callerEmail(admin, context.userId);
+    if (!email) return [];
+
+    const { data } = await admin
+      .from("gifts")
+      .select("id, gift_message, purchased_at, products(slug, name_it, name_en)")
+      .eq("recipient_email", email)
+      .eq("status", "pending")
+      .eq("environment", resolveServerStripeEnv())
+      .not("purchased_at", "is", null)
+      .order("purchased_at", { ascending: false });
+
+    return (data ?? []).map((g: any) => ({
+      id: g.id,
+      productSlug: g.products?.slug ?? null,
+      nameIt: g.products?.name_it ?? null,
+      nameEn: g.products?.name_en ?? null,
+      giftMessage: typeof g.gift_message === "string" ? g.gift_message : null,
+      purchasedAt: g.purchased_at ?? null,
+    }));
+  });
+
+/**
+ * Redeems a gift addressed to the caller's own email, without the link.
+ * The token never leaves the server: only its stored hash is used, and the
+ * same atomic single-use RPC guarantees one redemption per gift.
+ */
+export const redeemReceivedGift = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { giftId: string }) => {
+    if (!/^[0-9a-f-]{36}$/i.test(data.giftId)) throw new Error("Invalid gift id");
+    return data;
+  })
+  .handler(async ({ data, context }): Promise<RedeemResult> => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { resolveServerStripeEnv } = await import("@/lib/payments-env.server");
+    const admin = supabaseAdmin as any;
+    const environment = resolveServerStripeEnv();
+
+    const email = await callerEmail(admin, context.userId);
+    if (!email) return { ok: false, reason: "not_authenticated" };
+
+    const { data: gift } = await admin
+      .from("gifts")
+      .select("id, recipient_email, status, purchased_at, environment, redemption_token_hash")
+      .eq("id", data.giftId)
+      .maybeSingle();
+
+    // The gift must be paid, unredeemed, in this environment, and addressed
+    // exactly to the authenticated account's email.
+    if (!gift) return { ok: false, reason: "invalid_token" };
+    if (gift.environment !== environment) return { ok: false, reason: "invalid_token" };
+    if (String(gift.recipient_email).toLowerCase() !== email)
+      return { ok: false, reason: "invalid_token" };
+    if (!gift.purchased_at) return { ok: false, reason: "not_paid" };
+    if (gift.status !== "pending") return { ok: false, reason: "already_redeemed" };
+
+    const { data: result, error } = await admin.rpc("redeem_gift", {
+      _token_hash: gift.redemption_token_hash,
+      _user_id: context.userId,
+      _environment: environment,
+    });
+
+    if (error) return { ok: false, reason: "error" };
+    if (!result?.ok) return { ok: false, reason: String(result?.reason ?? "error") };
+    return { ok: true, productSlug: result.product_slug ?? null };
+  });
