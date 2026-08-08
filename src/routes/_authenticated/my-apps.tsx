@@ -43,7 +43,7 @@ function MyAppsPage() {
         {isLoading ? (
           <p className="text-muted-foreground">{t("common.loading")}</p>
         ) : (
-          <MyAppsGrid apps={apps} />
+          <MyAppsGrid apps={apps} isAdminOnly={isAdminOnly} />
         )}
       </div>
     </StoreShell>
