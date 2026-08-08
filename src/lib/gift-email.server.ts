@@ -19,6 +19,13 @@ export type GiftEmailInput = {
   giftMessage?: string | null;
   redeemUrl: string;
   lang: "it" | "en";
+  /**
+   * "link"    → the email carries the single-use redemption link;
+   * "account" → no usable token exists server-side, so the recipient is sent to
+   *             their own account, where the same gift is already waiting.
+   *             No new token is ever generated for this mode.
+   */
+  mode?: "link" | "account";
 };
 
 const COPY = {
@@ -29,6 +36,9 @@ const COPY = {
     messageLabel: "Il messaggio per te",
     cta: "Riscatta il tuo regalo",
     note: "Il link è personale e utilizzabile una sola volta. Per riscattare il regalo ti verrà chiesto di accedere o creare un account.",
+    ctaAccount: "Vai alla tua Libreria",
+    noteAccount:
+      "Accedi (o crea un account) con questo stesso indirizzo email: troverai il regalo in attesa nella tua Libreria, pronto da riscattare.",
   },
   en: {
     subject: (p: string) => `You received ${p} as a gift`,
@@ -37,8 +47,12 @@ const COPY = {
     messageLabel: "Their message for you",
     cta: "Redeem your gift",
     note: "This link is personal and can be used only once. You will be asked to sign in or create an account to redeem it.",
+    ctaAccount: "Go to your Library",
+    noteAccount:
+      "Sign in (or create an account) with this same email address: the gift is waiting in your Library, ready to redeem.",
   },
 } as const;
+
 
 function escapeHtml(value: string): string {
   return value
