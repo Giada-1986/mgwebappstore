@@ -31,6 +31,15 @@ export function AppShell({ children, nav = true }: { children: ReactNode; nav?: 
     <div className="relative min-h-screen">
       <SakuraCorners />
       <header className="relative z-10 border-b border-gold/25 bg-pearl/60 backdrop-blur">
+        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 pt-2">
+          <Link
+            to="/my-apps"
+            className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-background/50 px-3 py-1 text-xs text-muted-foreground transition-colors hover:border-gold hover:text-foreground"
+          >
+            <span aria-hidden="true">←</span>
+            <span className="whitespace-nowrap">{t("common.backToApps")}</span>
+          </Link>
+        </div>
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3">
           <Link to="/app/fame-o-fame" className="flex items-center gap-3">
             <Logo className="h-11 w-11 shadow-[var(--shadow-gold)]" />
@@ -39,6 +48,7 @@ export function AppShell({ children, nav = true }: { children: ReactNode; nav?: 
             </span>
           </Link>
           <div className="flex items-center gap-2">
+
             <LanguageSwitcher />
             <button
               onClick={signOut}
