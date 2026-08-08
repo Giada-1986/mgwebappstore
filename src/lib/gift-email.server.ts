@@ -104,7 +104,7 @@ export async function sendGiftEmail(
       subject: c.subject(input.productName),
       htmlContent: renderHtml(input),
     })) as { messageId?: string } | null;
-    return { sent: true, messageId: response?.messageId };
+    return response?.messageId ? { sent: true, messageId: response.messageId } : { sent: true };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     return { sent: false, error: message.slice(0, 500) };
