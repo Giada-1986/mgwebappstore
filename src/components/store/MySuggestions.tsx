@@ -37,9 +37,16 @@ export function MySuggestions() {
             <li key={r.id} className="rounded-2xl border border-border/70 bg-card/60 p-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-sm font-medium">
-                  {t(`store.suggest.types.${r.solutionType}`)}
-                  {r.solutionTypeOther ? ` — ${r.solutionTypeOther}` : ""}
+                  {[
+                    ...r.domains.map((d) => t(`store.suggest.domains.${d}`)),
+                    r.domainOther ?? "",
+                    r.solutionType ? t(`store.suggest.types.${r.solutionType}`) : "",
+                    r.solutionTypeOther ?? "",
+                  ]
+                    .filter(Boolean)
+                    .join(", ") || "—"}
                 </p>
+
                 <span className="rounded-full bg-accent px-3 py-1 text-xs text-accent-foreground">
                   {t(`store.mySuggestions.statuses.${r.status}`)}
                 </span>
