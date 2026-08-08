@@ -108,21 +108,30 @@ export const getAssetDownloadUrl = createServerFn({ method: "POST" })
     if (p["status"] !== "active") return { ok: false, error: "not_available" };
 
     if (p["access_mode"] !== "free_public") {
-      const { resolveServerStripeEnv } = await import("@/lib/payments-env.server");
-      const environment = resolveServerStripeEnv();
+      // Admin role (verified in the database) opens every product's files.
+      const { data: isAdmin } = await (supabase as any).rpc("has_role", {
+        _user_id: userId,
+        _role: "admin",
+      });
 
-      const { data: entitlement } = await supabase
-        .from("entitlements")
-        .select("id")
-        .eq("user_id", userId)
-        .eq("product_id", a["product_id"] as string)
-        .eq("is_active", true)
-        .is("revoked_at", null)
-        .eq("environment", environment)
-        .maybeSingle();
+      if (isAdmin !== true) {
+        const { resolveServerStripeEnv } = await import("@/lib/payments-env.server");
+        const environment = resolveServerStripeEnv();
 
-      if (!entitlement) return { ok: false, error: "forbidden" };
+        const { data: entitlement } = await supabase
+          .from("entitlements")
+          .select("id")
+          .eq("user_id", userId)
+          .eq("product_id", a["product_id"] as string)
+          .eq("is_active", true)
+          .is("revoked_at", null)
+          .eq("environment", environment)
+          .maybeSingle();
+
+        if (!entitlement) return { ok: false, error: "forbidden" };
+      }
     }
+
 
     return signPath(a["storage_path"] as string);
   });

@@ -5,6 +5,8 @@ export type AccessResult = {
   userId: string;
   productId: string | null;
   hasAccess: boolean;
+  /** True when access comes from the admin role, not from an entitlement. */
+  viaAdmin?: boolean;
 };
 
 /**
@@ -40,8 +42,18 @@ export const checkProductAccess = createServerFn({ method: "POST" })
       return { userId, productId: p["id"] as string, hasAccess: true };
     }
 
+    // Store administrators (role checked in the database, never client-side)
+    // may open every product without any purchase or entitlement being created.
+    const { data: isAdmin } = await (supabase as any).rpc("has_role", {
+      _user_id: userId,
+      _role: "admin",
+    });
+    if (isAdmin === true) {
+      return { userId, productId: p["id"] as string, hasAccess: true, viaAdmin: true };
+    }
 
     const { resolveServerStripeEnv } = await import("@/lib/payments-env.server");
+
     const environment = resolveServerStripeEnv();
 
     const { data: entitlement, error } = await supabase

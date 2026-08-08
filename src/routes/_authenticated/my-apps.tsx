@@ -24,7 +24,7 @@ export const Route = createFileRoute("/_authenticated/my-apps")({
 function MyAppsPage() {
   const { t } = useI18n();
   const { session } = useSession();
-  const { apps, isLoading } = useMyApps(session?.user.id);
+  const { apps, isLoading, isAdminOnly } = useMyApps(session?.user.id);
 
   // The purchase is confirmed server-side by the webhook; this only reports it.
   useEffect(() => {
@@ -43,7 +43,7 @@ function MyAppsPage() {
         {isLoading ? (
           <p className="text-muted-foreground">{t("common.loading")}</p>
         ) : (
-          <MyAppsGrid apps={apps} />
+          <MyAppsGrid apps={apps} isAdminOnly={isAdminOnly} />
         )}
       </div>
     </StoreShell>

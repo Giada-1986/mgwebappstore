@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { useI18n } from "@/lib/i18n";
 import { type Product, productName, productShort } from "@/lib/platform";
-import { LifetimeAccessBadge, ProductTypeBadge } from "@/components/store/Badges";
+import { AdminAccessBadge, LifetimeAccessBadge, ProductTypeBadge } from "@/components/store/Badges";
 import { ProductContents } from "@/components/store/ProductContents";
 import { BundleContents } from "@/components/store/BundleContents";
 import { listRedeemedGifts } from "@/lib/gifts.functions";
@@ -50,7 +50,13 @@ function GiftMessage({ message }: { message: string }) {
  * Personal library — every kind of owned product, not just mini apps.
  * The grid only renders what the entitlement query already returned.
  */
-export function MyAppsGrid({ apps }: { apps: Product[] }) {
+export function MyAppsGrid({
+  apps,
+  isAdminOnly,
+}: {
+  apps: Product[];
+  isAdminOnly?: (productId: string) => boolean;
+}) {
   const { t, lang } = useI18n();
   const fetchRedeemed = useServerFn(listRedeemedGifts);
   const { data: gifted } = useQuery({
@@ -81,12 +87,13 @@ export function MyAppsGrid({ apps }: { apps: Product[] }) {
         const isApp = APP_TYPES.includes(app.product_type);
         const isBundle = app.product_type === "bundle";
         const gift = gifted?.find((g) => g.productId === app.id);
+        const adminOnly = isAdminOnly?.(app.id) === true;
 
         return (
           <article key={app.id} className="card-store flex flex-col gap-3 p-7">
             <div className="flex flex-wrap items-center gap-2">
               <ProductTypeBadge type={app.product_type} />
-              <LifetimeAccessBadge />
+              {adminOnly ? <AdminAccessBadge /> : <LifetimeAccessBadge />}
               {gift ? <GiftReceivedBadge /> : null}
             </div>
             <h3 translate="no" className="notranslate text-lg font-semibold tracking-tight">
