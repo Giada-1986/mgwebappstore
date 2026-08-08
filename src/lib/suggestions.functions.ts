@@ -80,10 +80,10 @@ export const FORMATS = [
   "none",
 ] as const;
 
+/** Legacy Q8 values, kept only to render older proposals. */
 export const PURCHASE_INTENTS = ["yes", "maybe", "cheap", "free", "no"] as const;
 
 export const PRICE_RANGES = [
-  "free",
   "upto5",
   "5to10",
   "10to25",
@@ -92,6 +92,9 @@ export const PRICE_RANGES = [
   "over100",
   "unsure",
 ] as const;
+
+/** "free" is no longer offered, but old rows may still carry it. */
+const PRICE_RANGES_STORED = [...PRICE_RANGES, "free"] as const;
 
 export const TRIED_OPTIONS = [
   "yes_unsatisfied",
@@ -112,8 +115,8 @@ export const SUGGESTION_STATUSES = [
 ] as const;
 
 export type SuggestionInput = {
-  solutionType: string;
-  solutionTypeOther?: string;
+  domains: string[];
+  domainOther?: string;
   goal: string;
   problem?: string;
   audience: string[];
@@ -121,7 +124,9 @@ export type SuggestionInput = {
   frequency?: string;
   formats: string[];
   importance: number;
-  purchaseInterest?: string;
+  currentApproach: string[];
+  currentApproachTool?: string;
+  currentApproachOther?: string;
   priceRange?: string;
   tried?: string;
   triedDetail?: string;
@@ -129,6 +134,7 @@ export type SuggestionInput = {
   notifyEmail?: string;
   language: string;
 };
+
 
 /** Strips tags/control chars: free text is stored as plain text, never HTML. */
 function clean(value: unknown, max: number): string {
