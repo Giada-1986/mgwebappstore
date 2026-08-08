@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
 import { BuyButton } from "@/components/store/BuyButton";
 import {
+  AdminAccessBadge,
   CustomBadge,
   FreeBadge,
   LifetimeAccessBadge,
@@ -17,6 +18,7 @@ import {
   productName,
   productShort,
   useEntitlements,
+  useIsAdmin,
   useProduct,
   useSession,
 } from "@/lib/platform";
@@ -43,7 +45,11 @@ function ProductPage() {
   const { session } = useSession();
   const { data: product, isLoading } = useProduct(slug);
   const { data: entitlements } = useEntitlements(session?.user.id);
+  const { data: isAdmin } = useIsAdmin(session?.user.id);
   const owned = !!product && (entitlements ?? []).some((e) => e.product_id === product.id);
+  // Role-based access: administrators open every active product without any
+  // purchase, entitlement or gift being created for them.
+  const adminAccess = isAdmin === true && !!product && product.status === "active" && !owned;
 
   useEffect(() => {
     if (product) track("product_viewed", { product: product.slug });
@@ -80,6 +86,7 @@ function ProductPage() {
             <ProductTypeBadge type={product.product_type} />
             {isFreeProduct(product) ? <FreeBadge /> : <LifetimeAccessBadge />}
             {product.badge && <CustomBadge label={product.badge} />}
+            {adminAccess && <AdminAccessBadge />}
           </div>
           <h1 translate="no" className="notranslate mt-5 text-3xl sm:text-4xl font-semibold tracking-tight">
             {productName(product, lang)}
@@ -97,7 +104,7 @@ function ProductPage() {
             </div>
           )}
 
-          {(owned || product.access_mode === "free_public") && (
+          {(owned || adminAccess || product.access_mode === "free_public") && (
             <div className="mt-8">
               <ProductContents product={product} />
             </div>
@@ -107,7 +114,7 @@ function ProductPage() {
 
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <p className="text-2xl font-semibold">
-              {priceLabel(product, lang, t("store.free"))}
+              {adminAccess ? t("store.adminAccess") : priceLabel(product, lang, t("store.free"))}
             </p>
             <BuyButton product={product} owned={owned} />
             {product.status === "active" && !isFreeProduct(product) && (
@@ -120,8 +127,9 @@ function ProductPage() {
               </Link>
             )}
             <span className="text-xs text-muted-foreground">
-              {isFreeProduct(product) ? t("store.freeAccess") : t("store.oneTime")} ·{" "}
-              {t("store.securePayment")}
+              {adminAccess
+                ? t("store.adminAccessHint")
+                : `${isFreeProduct(product) ? t("store.freeAccess") : t("store.oneTime")} · ${t("store.securePayment")}`}
             </span>
           </div>
         </div>

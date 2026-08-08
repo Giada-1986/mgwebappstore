@@ -215,6 +215,8 @@
     "buyFor": "Comprar por {price}",
     "oneTime": "Pago único",
     "lifetime": "Acceso de por vida",
+    "view": "Ver",
+    "adminAccessHint": "Incluido por tu rol de administrador",
     "adminAccess": "Acceso de administrador",
     "owned": "Adquirido",
     "comingSoon": "Próximamente",

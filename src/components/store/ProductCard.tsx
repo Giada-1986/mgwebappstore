@@ -1,7 +1,16 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
-import { type Product, isFreeProduct, priceLabel, productName, productShort } from "@/lib/platform";
 import {
+  type Product,
+  isFreeProduct,
+  priceLabel,
+  productName,
+  productShort,
+  useIsAdmin,
+  useSession,
+} from "@/lib/platform";
+import {
+  AdminAccessBadge,
   CustomBadge,
   FreeBadge,
   ProductTypeBadge,
@@ -11,7 +20,13 @@ import {
 /** Generic catalogue card — works for any kind of digital product. */
 export function ProductCard({ product, owned }: { product: Product; owned?: boolean }) {
   const { t, lang } = useI18n();
+  const { session } = useSession();
+  const { data: isAdmin } = useIsAdmin(session?.user.id);
   const free = isFreeProduct(product);
+  // Administrators already have access to every active product (role-based),
+  // so the card shows a discreet marker instead of a purchase invitation.
+  const adminAccess = isAdmin === true && product.status === "active" && !owned;
+
 
   return (
     <article className="card-store group flex flex-col overflow-hidden transition-transform duration-200 hover:-translate-y-1">
@@ -36,6 +51,7 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
           {free && <FreeBadge />}
           {product.badge && <CustomBadge label={product.badge} />}
           {owned && <PurchasedBadge />}
+          {adminAccess && <AdminAccessBadge />}
           {product.status === "coming_soon" && (
             <span className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
               {t("store.comingSoon")}
@@ -51,10 +67,14 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
         <div className="mt-2 flex items-center justify-between gap-3 border-t border-border/70 pt-4">
           <div>
             <p className="text-base font-semibold">
-              {priceLabel(product, lang, t("store.free"))}
+              {adminAccess ? t("store.adminAccess") : priceLabel(product, lang, t("store.free"))}
             </p>
             <p className="text-xs text-muted-foreground">
-              {free ? t("store.freeAccess") : t("store.oneTime")}
+              {adminAccess
+                ? t("store.adminAccessHint")
+                : free
+                  ? t("store.freeAccess")
+                  : t("store.oneTime")}
             </p>
           </div>
           <Link
@@ -62,9 +82,10 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
             params={{ slug: product.slug }}
             className="btn-store-ghost text-sm"
           >
-            {t("store.discover")}
+            {adminAccess ? t("store.open") : t("store.discover")}
           </Link>
         </div>
+
       </div>
     </article>
   );

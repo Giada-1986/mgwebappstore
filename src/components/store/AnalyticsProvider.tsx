@@ -1,9 +1,16 @@
 import { useEffect, useRef } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import { identifyUser, initAnalytics, resetAnalytics, track, trackPageView } from "@/lib/analytics";
+import {
+  identifyUser,
+  initAnalytics,
+  resetAnalytics,
+  setAnalyticsBlocked,
+  track,
+  trackPageView,
+} from "@/lib/analytics";
 import { setMarketingConsent } from "@/lib/marketing.functions";
 import { useI18n } from "@/lib/i18n";
-import { useSession } from "@/lib/platform";
+import { useIsAdmin, useSession } from "@/lib/platform";
 
 export const PENDING_CONSENT_KEY = "mwa.pendingMarketingConsent";
 
@@ -11,35 +18,51 @@ export const PENDING_CONSENT_KEY = "mwa.pendingMarketingConsent";
  * Boots product analytics, binds events to the internal user id and applies a
  * marketing consent captured at signup once the session finally exists
  * (double opt-in flows create the session only after email confirmation).
+ *
+ * Nothing is captured before the Supabase session AND the `admin` role are
+ * resolved: administrator visits must never inflate store analytics. The role
+ * comes from the database (`has_role`), never from an email address.
  */
 export function AnalyticsProvider() {
-  const { session } = useSession();
+  const { session, loading } = useSession();
   const { lang } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const lastPath = useRef<string | null>(null);
   const identified = useRef<string | null>(null);
 
-  useEffect(() => {
-    initAnalytics();
-  }, []);
+  const userId = session?.user.id;
+  const adminQuery = useIsAdmin(userId);
+  // Anonymous visitors resolve instantly; signed-in users wait for the role.
+  const roleResolved = !loading && (!userId || !adminQuery.isLoading);
+  const isAdmin = adminQuery.data === true;
+  const excluded = !!userId && isAdmin;
 
   useEffect(() => {
+    if (!roleResolved) return;
+    setAnalyticsBlocked(excluded);
+    if (!excluded) initAnalytics();
+  }, [roleResolved, excluded]);
+
+  useEffect(() => {
+    if (!roleResolved || excluded) return;
     if (lastPath.current === pathname) return;
     lastPath.current = pathname;
     trackPageView(pathname);
     if (pathname === "/" || pathname.startsWith("/apps")) track("store_viewed", { path: pathname });
-  }, [pathname]);
+  }, [pathname, roleResolved, excluded]);
 
   useEffect(() => {
-    const userId = session?.user.id;
+    if (!roleResolved) return;
     if (!userId) {
       if (identified.current) {
         resetAnalytics();
         identified.current = null;
       }
+      // Signing out of an admin session must restore tracking for the browser.
+      lastPath.current = null;
       return;
     }
-    if (identified.current === userId) return;
+    if (excluded || identified.current === userId) return;
     identified.current = userId;
     identifyUser(userId, { language: lang });
 
@@ -53,7 +76,7 @@ export function AnalyticsProvider() {
     } else if (pending === "false") {
       window.localStorage.removeItem(PENDING_CONSENT_KEY);
     }
-  }, [session, lang]);
+  }, [userId, excluded, roleResolved, lang]);
 
   return null;
 }
