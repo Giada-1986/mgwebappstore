@@ -373,19 +373,44 @@ function SuggestPage() {
             </div>
           </Question>
 
-          <Question n={8} title={t("store.suggest.q8")}>
+          <Question n={8} title={t("store.suggest.q8")} hint={t("store.suggest.q8Hint")}>
             <div className="grid gap-2 sm:grid-cols-2">
-              {PURCHASE_INTENTS.map((key) => (
+              {CURRENT_APPROACHES.map((key) => (
                 <Chip
                   key={key}
-                  active={purchaseInterest === key}
-                  onClick={() => setPurchaseInterest(key)}
+                  active={currentApproach.includes(key)}
+                  onClick={() => toggle(currentApproach, setCurrentApproach, key)}
                 >
-                  {t(`store.suggest.intents.${key}`)}
+                  {t(`store.suggest.approaches.${key}`)}
                 </Chip>
               ))}
             </div>
+            {currentApproach.includes("app") && (
+              <div className="mt-3">
+                <label className="mb-1.5 block text-xs text-muted-foreground">
+                  {t("store.suggest.q8Tool")} · {t("store.suggest.optional")}
+                </label>
+                <input
+                  className="field-pearl w-full rounded-xl px-3.5 py-2.5 text-sm"
+                  maxLength={160}
+                  aria-label={t("store.suggest.q8Tool")}
+                  value={currentApproachTool}
+                  onChange={(e) => setCurrentApproachTool(e.target.value)}
+                />
+              </div>
+            )}
+            {currentApproach.includes("other") && (
+              <input
+                className="field-pearl mt-3 w-full rounded-xl px-3.5 py-2.5 text-sm"
+                maxLength={160}
+                placeholder={t("store.suggest.q8Other")}
+                aria-label={t("store.suggest.q8Other")}
+                value={currentApproachOther}
+                onChange={(e) => setCurrentApproachOther(e.target.value)}
+              />
+            )}
           </Question>
+
 
           <Question
             n={9}
