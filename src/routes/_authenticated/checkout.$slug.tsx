@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { StoreShell } from "@/components/store/StoreShell";
 import { StripeEmbeddedCheckout } from "@/components/store/StripeEmbeddedCheckout";
 import { useI18n } from "@/lib/i18n";
-import { productName, useProduct } from "@/lib/platform";
+import { productName, useIsAdmin, useProduct, useSession } from "@/lib/platform";
 
 export const Route = createFileRoute("/_authenticated/checkout/$slug")({
   head: () => ({
@@ -23,6 +23,10 @@ function CheckoutPage() {
   const { slug } = Route.useParams();
   const { t, lang } = useI18n();
   const { data: product } = useProduct(slug);
+  const { session } = useSession();
+  // Safety net: an administrator already has role-based access, so no Stripe
+  // checkout is ever started for them (not even by opening this URL directly).
+  const { data: isAdmin } = useIsAdmin(session?.user.id);
 
   const returnUrl =
     typeof window !== "undefined" ? `${window.location.origin}/my-apps?purchase=${slug}` : "";
@@ -40,7 +44,16 @@ function CheckoutPage() {
         {product ? productName(product, lang) : t("store.checkoutTitle")}
       </h1>
       <div className="panel-pearl mt-6 overflow-hidden p-3">
-        {returnUrl && <StripeEmbeddedCheckout productSlug={slug} returnUrl={returnUrl} />}
+        {isAdmin === true ? (
+          <div className="p-6 text-center">
+            <p className="text-sm text-muted-foreground">{t("store.adminAccessHint")}</p>
+            <Link to="/my-apps" className="btn-store mt-4 inline-flex">
+              {t("store.openLibrary")}
+            </Link>
+          </div>
+        ) : (
+          returnUrl && <StripeEmbeddedCheckout productSlug={slug} returnUrl={returnUrl} />
+        )}
       </div>
     </StoreShell>
   );
