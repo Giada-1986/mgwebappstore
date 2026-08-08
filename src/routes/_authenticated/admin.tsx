@@ -225,6 +225,17 @@ function AdminPage() {
         </div>
       )}
 
+      {tab === "suggestions" && (
+        <div className="mt-7">
+          <h2 className="text-lg font-medium">{t("store.admin.suggestions.title")}</h2>
+          <div className="mt-4">
+            <SuggestionsPanel />
+          </div>
+        </div>
+      )}
+
+
+
 
       {tab === "marketing" && (
         <CampaignPanel campaigns={campaigns.data ?? []} loading={campaigns.isLoading} />
