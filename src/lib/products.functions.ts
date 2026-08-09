@@ -182,6 +182,30 @@ export const saveAdminProduct = createServerFn({ method: "POST" })
     return { ok: true, id: created?.id };
   });
 
+/**
+ * Status-only switch used by the Admin quick controls (pause / resume /
+ * archive). It touches the `status` column and nothing else: entitlements,
+ * purchases, gifts and Stripe stay exactly as they are.
+ */
+export const setProductStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: { id: string; status: string }) => {
+    if (!/^[0-9a-f-]{36}$/i.test(data.id)) throw new Error("Invalid product id");
+    if (!STATUSES.includes(data.status)) throw new Error("Invalid status");
+    return data;
+  })
+  .handler(async ({ data, context }): Promise<SaveProductResult> => {
+    await assertAdmin(context as any);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await (supabaseAdmin as any)
+      .from("products")
+      .update({ status: data.status })
+      .eq("id", data.id);
+    if (error) return { ok: false, error: error.message };
+    return { ok: true, id: data.id };
+  });
+
+
 /* ---------------- product assets & bundle composition ---------------- */
 
 export type ProductAsset = {
