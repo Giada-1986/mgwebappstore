@@ -1,0 +1,2 @@
+ALTER TABLE public.products DROP CONSTRAINT IF EXISTS products_status_check;
+ALTER TABLE public.products ADD CONSTRAINT products_status_check CHECK (status = ANY (ARRAY['draft'::text, 'active'::text, 'paused'::text, 'coming_soon'::text, 'archived'::text]));
