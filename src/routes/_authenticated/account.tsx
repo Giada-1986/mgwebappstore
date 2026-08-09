@@ -4,18 +4,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { StoreShell } from "@/components/store/StoreShell";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { MySuggestions } from "@/components/store/MySuggestions";
+import { MyPurchases } from "@/components/store/MyPurchases";
 
 import { useI18n } from "@/lib/i18n";
 import { setMarketingConsent } from "@/lib/marketing.functions";
 import { track } from "@/lib/analytics";
-import {
-  formatPrice,
-  productName,
-  useProducts,
-  useProfile,
-  usePurchases,
-  useSession,
-} from "@/lib/platform";
+import { useProfile, useSession } from "@/lib/platform";
 
 export const Route = createFileRoute("/_authenticated/account")({
   head: () => ({
