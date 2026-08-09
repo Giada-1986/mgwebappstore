@@ -284,7 +284,9 @@ export function useMyApps(userId?: string) {
   const products = useProducts();
   const admin = useIsAdmin(userId);
 
-  const isPublished = (p: Product) => p.status === "active";
+  // A paused product stays in the library of who already owns it (and of the
+  // admin): only archived / unpublished products disappear.
+  const isPublished = (p: Product) => p.status === "active" || p.status === "paused";
 
   const owned = (entitlements.data ?? [])
     .map((e) => products.data?.find((p) => p.id === e.product_id))

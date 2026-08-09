@@ -49,7 +49,8 @@ function ProductPage() {
   const owned = !!product && (entitlements ?? []).some((e) => e.product_id === product.id);
   // Role-based access: administrators open every active product without any
   // purchase, entitlement or gift being created for them.
-  const adminAccess = isAdmin === true && !!product && product.status === "active" && !owned;
+  const adminAccess =
+    isAdmin === true && !!product && (product.status === "active" || product.status === "paused") && !owned;
 
   useEffect(() => {
     if (product) track("product_viewed", { product: product.slug });
@@ -65,7 +66,9 @@ function ProductPage() {
 
   // Archived products are invisible in the store: the direct URL behaves as if
   // the product did not exist (history stays untouched in the database).
-  if (!product || product.status === "archived") {
+  // Paused products leave the commercial surface too: only who already owns
+  // them (and the admin) can still open this page.
+  if (!product || product.status === "archived" || (product.status === "paused" && !owned && isAdmin !== true)) {
     return (
       <StoreShell>
         <p className="text-muted-foreground">{t("store.notFound")}</p>

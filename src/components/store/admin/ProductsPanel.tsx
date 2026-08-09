@@ -12,6 +12,7 @@ import {
   saveAdminProduct,
   saveProductAsset,
   setBundleItem,
+  setProductStatus,
 } from "@/lib/products.functions";
 
 /**
@@ -64,6 +65,34 @@ export function ProductsPanel() {
     setFeedback(null);
     setDraft({ ...p });
   }
+
+  /**
+   * Quick lifecycle switch. Only the status column changes: purchases,
+   * entitlements, gifts and Stripe are untouched.
+   */
+  async function changeStatus(p: AdminProduct, status: string) {
+    setBusy(true);
+    setFeedback(null);
+    try {
+      const res = await setProductStatus({ data: { id: p.id, status } });
+      if (res.ok) {
+        setFeedback(t("store.admin.products.saved"));
+        await qc.invalidateQueries({ queryKey: ["admin", "products"] });
+        await qc.invalidateQueries({ queryKey: ["products"] });
+      } else {
+        setFeedback(t("store.admin.products.saveFailed", { error: res.error ?? "" }));
+      }
+    } catch (err) {
+      setFeedback(
+        t("store.admin.products.saveFailed", {
+          error: err instanceof Error ? err.message : "",
+        }),
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+
 
   function set<K extends keyof ProductInput>(key: K, value: ProductInput[K]) {
     setDraft((d) => (d ? { ...d, [key]: value } : d));
@@ -128,11 +157,41 @@ export function ProductsPanel() {
                   {lang === "en" ? p.name_en : p.name_it}
                   <span className="ml-2 text-xs text-muted-foreground">/{p.slug}</span>
                 </span>
-                <span className="flex items-center gap-3 text-muted-foreground">
+                <span className="flex flex-wrap items-center gap-2 text-muted-foreground">
                   <span>{formatPrice(Number(p.price), p.currency, lang)}</span>
-                  <span className="rounded-full border border-border px-2.5 py-0.5 text-xs">
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs ${statusTone(p.status)}`}>
                     {t(`store.admin.products.status${statusKey(p.status)}`)}
                   </span>
+                  {p.status !== "paused" && p.status !== "archived" && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => changeStatus(p, "paused")}
+                      className="btn-store-ghost px-3 py-1 text-xs disabled:opacity-60"
+                    >
+                      {t("store.admin.products.pause")}
+                    </button>
+                  )}
+                  {p.status !== "active" && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => changeStatus(p, "active")}
+                      className="btn-store-ghost px-3 py-1 text-xs disabled:opacity-60"
+                    >
+                      {t("store.admin.products.resume")}
+                    </button>
+                  )}
+                  {p.status !== "archived" && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => changeStatus(p, "archived")}
+                      className="btn-store-ghost px-3 py-1 text-xs disabled:opacity-60"
+                    >
+                      {t("store.admin.products.archive")}
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => edit(p)}
@@ -143,6 +202,7 @@ export function ProductsPanel() {
                 </span>
               </li>
             ))}
+
           </ul>
         )}
         {feedback && <p className="mt-4 text-sm text-muted-foreground">{feedback}</p>}
@@ -302,7 +362,7 @@ export function ProductsPanel() {
               >
                 <option value="draft">{t("store.admin.products.statusDraft")}</option>
                 <option value="active">{t("store.admin.products.statusActive")}</option>
-                <option value="hidden">{t("store.admin.products.statusHidden")}</option>
+                <option value="paused">{t("store.admin.products.statusPaused")}</option>
                 <option value="coming_soon">{t("store.admin.products.statusComingSoon")}</option>
                 <option value="archived">{t("store.admin.products.statusArchived")}</option>
               </select>
@@ -547,9 +607,16 @@ function BundleEditor({ bundleId, products }: { bundleId: string; products: Admi
   );
 }
 
+function statusTone(status: string) {
+  if (status === "active") return "border border-primary/40 bg-primary/10 text-primary";
+  if (status === "paused") return "border border-amber-500/40 bg-amber-500/10 text-amber-600";
+  if (status === "archived") return "border border-border bg-muted text-muted-foreground";
+  return "border border-border text-muted-foreground";
+}
+
 function statusKey(status: string) {
   if (status === "active") return "Active";
-  if (status === "hidden") return "Hidden";
+  if (status === "paused") return "Paused";
   if (status === "coming_soon") return "ComingSoon";
   if (status === "archived") return "Archived";
   return "Draft";
