@@ -36,7 +36,8 @@ export function BuyButton({
   const [busy, setBusy] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
 
-  const adminAccess = isAdmin === true && product.status === "active" && !owned;
+  const adminAccess =
+    isAdmin === true && (product.status === "active" || product.status === "paused") && !owned;
 
   if (adminAccess) {
     const target = product.app_path ?? product.app_url;

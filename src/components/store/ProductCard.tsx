@@ -25,7 +25,8 @@ export function ProductCard({ product, owned }: { product: Product; owned?: bool
   const free = isFreeProduct(product);
   // Administrators already have access to every active product (role-based),
   // so the card shows a discreet marker instead of a purchase invitation.
-  const adminAccess = isAdmin === true && product.status === "active" && !owned;
+  const adminAccess =
+    isAdmin === true && (product.status === "active" || product.status === "paused") && !owned;
 
 
   return (

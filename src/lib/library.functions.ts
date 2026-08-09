@@ -105,7 +105,9 @@ export const getAssetDownloadUrl = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!product) return { ok: false, error: "not_found" };
     const p = product as unknown as Record<string, unknown>;
-    if (p["status"] !== "active") return { ok: false, error: "not_available" };
+    // Paused products remain downloadable for who already owns them.
+    if (p["status"] !== "active" && p["status"] !== "paused")
+      return { ok: false, error: "not_available" };
 
     if (p["access_mode"] !== "free_public") {
       // Admin role (verified in the database) opens every product's files.
