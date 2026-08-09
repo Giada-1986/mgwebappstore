@@ -823,6 +823,18 @@
     "soon": {
       "title": "Nuove soluzioni stanno arrivando.",
       "text": "Stiamo preparando i primi strumenti di MINI WEB APPS. Nel frattempo puoi suggerirci qualcosa che vorresti trovare qui."
+    },
+    "myPurchases": {
+      "title": "I miei acquisti",
+      "date": "Data acquisto",
+      "amount": "Importo",
+      "paid": "Pagamento riuscito",
+      "lifetime": "Accesso a vita",
+      "openApp": "Apri app",
+      "receipt": "Visualizza ricevuta",
+      "receiptUnavailable": "Ricevuta non disponibile.",
+      "refunded": "Rimborsato",
+      "accessRevoked": "Accesso revocato"
     }
   }
 }
