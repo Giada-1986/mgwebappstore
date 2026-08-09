@@ -128,11 +128,41 @@ export function ProductsPanel() {
                   {lang === "en" ? p.name_en : p.name_it}
                   <span className="ml-2 text-xs text-muted-foreground">/{p.slug}</span>
                 </span>
-                <span className="flex items-center gap-3 text-muted-foreground">
+                <span className="flex flex-wrap items-center gap-2 text-muted-foreground">
                   <span>{formatPrice(Number(p.price), p.currency, lang)}</span>
-                  <span className="rounded-full border border-border px-2.5 py-0.5 text-xs">
+                  <span className={`rounded-full px-2.5 py-0.5 text-xs ${statusTone(p.status)}`}>
                     {t(`store.admin.products.status${statusKey(p.status)}`)}
                   </span>
+                  {p.status !== "paused" && p.status !== "archived" && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => changeStatus(p, "paused")}
+                      className="btn-store-ghost px-3 py-1 text-xs disabled:opacity-60"
+                    >
+                      {t("store.admin.products.pause")}
+                    </button>
+                  )}
+                  {p.status !== "active" && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => changeStatus(p, "active")}
+                      className="btn-store-ghost px-3 py-1 text-xs disabled:opacity-60"
+                    >
+                      {t("store.admin.products.resume")}
+                    </button>
+                  )}
+                  {p.status !== "archived" && (
+                    <button
+                      type="button"
+                      disabled={busy}
+                      onClick={() => changeStatus(p, "archived")}
+                      className="btn-store-ghost px-3 py-1 text-xs disabled:opacity-60"
+                    >
+                      {t("store.admin.products.archive")}
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => edit(p)}
@@ -143,6 +173,7 @@ export function ProductsPanel() {
                 </span>
               </li>
             ))}
+
           </ul>
         )}
         {feedback && <p className="mt-4 text-sm text-muted-foreground">{feedback}</p>}
