@@ -65,6 +65,34 @@ export function ProductsPanel() {
     setDraft({ ...p });
   }
 
+  /**
+   * Quick lifecycle switch. Only the status column changes: purchases,
+   * entitlements, gifts and Stripe are untouched.
+   */
+  async function changeStatus(p: AdminProduct, status: string) {
+    setBusy(true);
+    setFeedback(null);
+    try {
+      const res = await setProductStatus({ data: { id: p.id, status } });
+      if (res.ok) {
+        setFeedback(t("store.admin.products.saved"));
+        await qc.invalidateQueries({ queryKey: ["admin", "products"] });
+        await qc.invalidateQueries({ queryKey: ["products"] });
+      } else {
+        setFeedback(t("store.admin.products.saveFailed", { error: res.error ?? "" }));
+      }
+    } catch (err) {
+      setFeedback(
+        t("store.admin.products.saveFailed", {
+          error: err instanceof Error ? err.message : "",
+        }),
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+
+
   function set<K extends keyof ProductInput>(key: K, value: ProductInput[K]) {
     setDraft((d) => (d ? { ...d, [key]: value } : d));
   }
