@@ -30,7 +30,6 @@ function AccountPage() {
   const { session } = useSession();
   const { data: profile } = useProfile(session?.user.id);
   const qc = useQueryClient();
-  const qc = useQueryClient();
 
   const [consent, setConsent] = useState(false);
   const [state, setState] = useState<"idle" | "saving" | "saved" | "error">("idle");
