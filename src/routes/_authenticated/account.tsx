@@ -117,29 +117,8 @@ function AccountPage() {
 
 
 
-      <section className="card-store mt-5 p-7">
-        <h2 className="text-lg font-semibold">{t("store.purchases")}</h2>
-        {(purchases ?? []).length === 0 ? (
-          <p className="mt-3 text-sm text-muted-foreground">{t("store.noPurchases")}</p>
-        ) : (
-          <ul className="mt-4 divide-y divide-border text-sm">
-            {(purchases ?? []).map((p) => {
-              const product = products?.find((x) => x.id === p.product_id);
-              return (
-                <li key={p.id} className="flex items-center justify-between gap-4 py-3">
-                  <span>{product ? productName(product, lang) : p.product_id}</span>
-                  <span className="text-muted-foreground">
-                    {p.amount_paid != null
-                      ? formatPrice(Number(p.amount_paid), p.currency, lang)
-                      : "—"}{" "}
-                    · {p.status}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </section>
+      <MyPurchases />
+
     </StoreShell>
   );
 }
