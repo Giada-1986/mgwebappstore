@@ -12,6 +12,7 @@ import {
   saveAdminProduct,
   saveProductAsset,
   setBundleItem,
+  setProductStatus,
 } from "@/lib/products.functions";
 
 /**
@@ -361,7 +362,7 @@ export function ProductsPanel() {
               >
                 <option value="draft">{t("store.admin.products.statusDraft")}</option>
                 <option value="active">{t("store.admin.products.statusActive")}</option>
-                <option value="hidden">{t("store.admin.products.statusHidden")}</option>
+                <option value="paused">{t("store.admin.products.statusPaused")}</option>
                 <option value="coming_soon">{t("store.admin.products.statusComingSoon")}</option>
                 <option value="archived">{t("store.admin.products.statusArchived")}</option>
               </select>
@@ -606,9 +607,16 @@ function BundleEditor({ bundleId, products }: { bundleId: string; products: Admi
   );
 }
 
+function statusTone(status: string) {
+  if (status === "active") return "border border-primary/40 bg-primary/10 text-primary";
+  if (status === "paused") return "border border-amber-500/40 bg-amber-500/10 text-amber-600";
+  if (status === "archived") return "border border-border bg-muted text-muted-foreground";
+  return "border border-border text-muted-foreground";
+}
+
 function statusKey(status: string) {
   if (status === "active") return "Active";
-  if (status === "hidden") return "Hidden";
+  if (status === "paused") return "Paused";
   if (status === "coming_soon") return "ComingSoon";
   if (status === "archived") return "Archived";
   return "Draft";
