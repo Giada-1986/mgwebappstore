@@ -4,18 +4,12 @@ import { useQueryClient } from "@tanstack/react-query";
 import { StoreShell } from "@/components/store/StoreShell";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { MySuggestions } from "@/components/store/MySuggestions";
+import { MyPurchases } from "@/components/store/MyPurchases";
 
 import { useI18n } from "@/lib/i18n";
 import { setMarketingConsent } from "@/lib/marketing.functions";
 import { track } from "@/lib/analytics";
-import {
-  formatPrice,
-  productName,
-  useProducts,
-  useProfile,
-  usePurchases,
-  useSession,
-} from "@/lib/platform";
+import { useProfile, useSession } from "@/lib/platform";
 
 export const Route = createFileRoute("/_authenticated/account")({
   head: () => ({
@@ -35,8 +29,6 @@ function AccountPage() {
   const { t, lang } = useI18n();
   const { session } = useSession();
   const { data: profile } = useProfile(session?.user.id);
-  const { data: purchases } = usePurchases(session?.user.id);
-  const { data: products } = useProducts();
   const qc = useQueryClient();
 
   const [consent, setConsent] = useState(false);
@@ -117,29 +109,8 @@ function AccountPage() {
 
 
 
-      <section className="card-store mt-5 p-7">
-        <h2 className="text-lg font-semibold">{t("store.purchases")}</h2>
-        {(purchases ?? []).length === 0 ? (
-          <p className="mt-3 text-sm text-muted-foreground">{t("store.noPurchases")}</p>
-        ) : (
-          <ul className="mt-4 divide-y divide-border text-sm">
-            {(purchases ?? []).map((p) => {
-              const product = products?.find((x) => x.id === p.product_id);
-              return (
-                <li key={p.id} className="flex items-center justify-between gap-4 py-3">
-                  <span>{product ? productName(product, lang) : p.product_id}</span>
-                  <span className="text-muted-foreground">
-                    {p.amount_paid != null
-                      ? formatPrice(Number(p.amount_paid), p.currency, lang)
-                      : "—"}{" "}
-                    · {p.status}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </section>
+      <MyPurchases />
+
     </StoreShell>
   );
 }
