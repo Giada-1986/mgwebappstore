@@ -39,7 +39,13 @@ export type AdminProduct = {
 export type ProductInput = Omit<AdminProduct, "id"> & { id?: string | null };
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const STATUSES = ["draft", "active", "hidden", "coming_soon", "archived"];
+/**
+ * Lifecycle of a catalogue entry.
+ * - active: on sale and visible everywhere
+ * - paused: hidden from the shop and from new checkouts, still open to owners
+ * - archived: retired from every commercial surface, history is kept
+ */
+const STATUSES = ["draft", "active", "paused", "coming_soon", "archived"];
 const TYPES = [
   "mini_app",
   "premium_app",
