@@ -40,8 +40,8 @@ function GiftPage() {
   const returnUrl =
     typeof window !== "undefined" ? `${window.location.origin}/gift/${slug}?done=1` : "";
 
-  // A retired product can never be gifted (the server refuses it as well).
-  if (product && product.status === "archived") {
+  // A retired or paused product can never be gifted (the server refuses it too).
+  if (product && (product.status === "archived" || product.status === "paused")) {
     return (
       <StoreShell>
         <p className="text-muted-foreground">{t("store.notFound")}</p>
