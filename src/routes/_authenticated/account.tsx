@@ -29,8 +29,7 @@ function AccountPage() {
   const { t, lang } = useI18n();
   const { session } = useSession();
   const { data: profile } = useProfile(session?.user.id);
-  const { data: purchases } = usePurchases(session?.user.id);
-  const { data: products } = useProducts();
+  const qc = useQueryClient();
   const qc = useQueryClient();
 
   const [consent, setConsent] = useState(false);
